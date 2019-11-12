@@ -1,14 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-const MainNavigator = createStackNavigator({
-  Home: {screen: HomeScreen},
-  Start: {screen: StartScreen},
-});
+import Start from './Screens/Start';
+import Login from './Screens/Login';
+import Profile from './Screens/Profile';
 
-const App = createAppContainer(MainNavigator);
+const App = createStackNavigator({
+  Start: { screen: Start }, 
+  Login: { screen: Login },
+  Profile: { screen: Profile },
+  Dashboard: { screen: Dashboard }
+},
+{
+  initialRouteName: 'Start',
+}
 
-export default App;
+);
 
+export default createAppContainer(App);
