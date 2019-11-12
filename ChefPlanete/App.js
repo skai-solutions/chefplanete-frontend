@@ -12,7 +12,7 @@ import Dashboard from './Screens/Dashboard';
 const MainNavigator = createStackNavigator({
   Start: { screen: Start }, 
   Login: { screen: Login },
-  // Profile: { screen: Profile },
+  Profile: { screen: Profile },
   Dashboard: { screen: Dashboard }
 },
 {
