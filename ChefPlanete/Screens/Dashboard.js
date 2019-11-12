@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import Svg, { Ellipse } from "react-native-svg";
-import MaterialButtonWithVioletText from "../components/MaterialButtonWithVioletText";
-import MaterialButtonWithVioletText1 from "../components/MaterialButtonWithVioletText1";
-import CupertinoFooter1 from "../components/CupertinoFooter1";
+// import Svg, { Ellipse } from "react-native-svg";
+// import MaterialButtonWithVioletText from "../components/MaterialButtonWithVioletText";
+// import MaterialButtonWithVioletText1 from "../components/MaterialButtonWithVioletText1";
+// import CupertinoFooter1 from "../components/CupertinoFooter1";
 
 const Dashboard = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Good Morning, User!</Text>
       <Text style={styles.text2}>Today</Text>
-      <View style={styles.ellipseRow}>
+      {/* <View style={styles.ellipseRow}>
         <Svg viewBox="0 0 69.84 71.84" style={styles.ellipse}>
           <Ellipse
             strokeWidth={1}
@@ -118,7 +118,7 @@ const Dashboard = () => {
       <MaterialButtonWithVioletText1
         style={styles.materialButtonWithVioletText1}
       />
-      <CupertinoFooter1 style={styles.cupertinoFooter1} />
+      <CupertinoFooter1 style={styles.cupertinoFooter1} /> */}
     </View>
   );
 }
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     height: 50,
     color: "rgba(94,167,11,1)",
     fontSize: 32,
-    fontFamily: "amiko-regular",
+    // fontFamily: "amiko-regular",
     textAlign: "center",
     marginTop: 62,
     alignSelf: "center"
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   text2: {
     color: "rgba(255,255,255,1)",
     fontSize: 24,
-    fontFamily: "amiko-regular",
+    // fontFamily: "amiko-regular",
     marginTop: 14,
     marginLeft: 26
   },
