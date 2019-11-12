@@ -7,25 +7,28 @@ import {
   TouchableOpacity
 } from "react-native";
 
-function Untitled1() {
+function Login() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>ChefPlanete</Text>
+      <Text style={styles.heading}>ChefPlanète</Text>
+
       <TextInput placeholder="Email*" style={styles.textInput} />
       <TextInput placeholder="Password*" style={styles.textInput2} />
+
       <View style={styles.rect}>
-        <Text style={styles.text7}>Forgot Password ?</Text>
+        <Text style={styles.link}>Forgot Password ?</Text>
       </View>
-      <View style={styles.buttonStack}>
-        <TouchableOpacity style={styles.button} />
-        <Text style={styles.text3}>Sign In</Text>
-      </View>
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
+
       <View style={styles.text8Stack}>
-        <Text style={styles.text8}>Don&#39;t have an account ?</Text>
-        <TouchableOpacity style={styles.button3}>
-          <Text style={styles.text9}>Sign Up</Text>
-        </TouchableOpacity>
+        <Text style={styles.link1}>Don't have an account ?</Text>
+        <TouchableOpacity style={styles.button3} />
+        <Text style={styles.link2}>Sign Up</Text>
       </View>
+
       <TouchableOpacity style={styles.button2} />
     </View>
   );
@@ -36,16 +39,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(20,19,19,1)"
   },
-  text: {
-    width: 353,
+  heading: {
+    width: '80%',
     height: 80,
     color: "rgba(238,243,233,1)",
     fontSize: 48,
     lineHeight: 0,
     textAlign: "center",
-    marginTop: 108,
-    marginLeft: 22
+    marginTop: 122,
+    alignSelf: "center"
   },
+
   textInput: {
     width: 293,
     height: 41,
@@ -56,10 +60,9 @@ const styles = StyleSheet.create({
     borderColor: "rgba(248,240,240,1)",
     borderWidth: 1,
     borderStyle: "solid",
-    fontSize: 16,
     lineHeight: 0,
-    marginTop: 64,
-    marginLeft: 41
+    marginLeft: 41,
+
   },
   textInput2: {
     width: 293,
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 187
   },
-  text7: {
+  link: {
     width: 154,
     height: 20,
     color: "rgba(94,167,11,1)",
@@ -90,30 +93,24 @@ const styles = StyleSheet.create({
     lineHeight: 0
   },
   button: {
-    top: 0,
-    left: 0,
     width: 293,
-    height: 54,
+    height: 46,
     backgroundColor: "rgba(94,167,11,1)",
-    position: "absolute"
-  },
-  text3: {
-    width: 108,
-    height: 34,
-    color: "rgba(238,243,233,1)",
-    fontSize: 20,
-    lineHeight: 0,
-    marginTop: 10,
-    marginLeft: 120
-  },
-  buttonStack: {
-    width: 293,
-    height: 61,
     marginTop: 28,
     marginLeft: 41
   },
-  text8: {
-    top: 17,
+  buttonText: {
+    width: 101,
+    height: 23,
+    color: "rgba(233,234,231,1)",
+    fontSize: 16,
+    lineHeight: 0,
+    textAlign: "center",
+    marginTop: 15,
+    marginLeft: 96
+  },
+  link1: {
+    top: 25,
     left: 0,
     width: 223,
     height: 34,
@@ -126,23 +123,25 @@ const styles = StyleSheet.create({
   },
   button3: {
     top: 0,
-    left: 223,
-    width: 79,
-    height: 34,
+    left: 219,
+    width: 91,
+    height: 42,
     position: "absolute"
   },
-  text9: {
-
-    width: 91,
-    height: 22,
+  link2: {
+    top: 21,
+    left: 230,
+    width: 71,
+    height: 24,
     color: "rgba(94,167,11,1)",
+    position: "absolute",
     fontSize: 16,
     lineHeight: 0
   },
   text8Stack: {
-    width: 302,
-    height: 51,
-    marginTop: 1,
+    width: 310,
+    height: 59,
+    marginTop: 8,
     marginLeft: 32
   },
   button2: {
@@ -152,5 +151,4 @@ const styles = StyleSheet.create({
     marginLeft: 263
   }
 });
-
-export default Untitled1;
+export default Login;
