@@ -18,7 +18,7 @@ const MainNavigator = createStackNavigator({
 },
 
 {
-  initialRouteName: 'Start',
+  initialRouteName: 'Dashboard',
   headerMode: 'none'
 }
 
