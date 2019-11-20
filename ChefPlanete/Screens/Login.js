@@ -37,8 +37,8 @@ function Login() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "rgba(20,19,19,1)"
+   flex: 3,
+  backgroundColor: "rgba(20,19,19,1)"
   },
   heading: {
     width: '80%',

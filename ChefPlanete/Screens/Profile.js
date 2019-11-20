@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Badge, Icon } from "react-native";
 
 function Profile() {
   return (
@@ -7,7 +7,8 @@ function Profile() {
 
       <Text style={styles.heading}>Profile</Text>
       <Text style={styles.text}>About</Text>
-      <Text style={styles.text1}>Preferences</Text>
+      <Text style={styles.text1}>Skill Level</Text>
+      <Text style={styles.text3}>Dietary Restrictions</Text>
       <Text style={styles.text2}>Goals</Text>
     
     </View>
@@ -40,6 +41,12 @@ const styles = StyleSheet.create({
     marginTop: "65%",
   },
   text2: {
+    color: "rgba(243,235,235,1)",
+    position: "absolute",
+    fontSize: 19,
+    marginTop: "100%",
+  },
+  text3: {
     color: "rgba(243,235,235,1)",
     position: "absolute",
     fontSize: 19,

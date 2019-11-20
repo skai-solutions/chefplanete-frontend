@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from "react-navigation";
 
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -15,8 +16,10 @@ const MainNavigator = createStackNavigator({
   Profile: { screen: Profile },
   Dashboard: { screen: Dashboard }
 },
+
 {
   initialRouteName: 'Start',
+  headerMode: 'none'
 }
 
 );
