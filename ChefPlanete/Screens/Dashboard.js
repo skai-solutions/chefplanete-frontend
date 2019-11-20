@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 
-function Dashboard(){
-  
+class Dashboard extends React.Component {
+  static navigationOptions = {
+    title: 'Dashboard',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
     return (
-     
-
-      
+      // <Button
+      //   title="Go to Jane's profile"
+      //   onPress={() => navigate('Profile', {name: 'Jane'})}
+      // />
       <Container style={styles.container}>
          
         <Header />
@@ -26,18 +31,49 @@ function Dashboard(){
             <Button active>
               <Icon name="camera" />
             </Button>
-            <Button>
-              <Icon active name="navigate" />
+            <Button active onPress={()=> navigate('Search')}>
+              <Icon name="search" />
             </Button>
-            <Button active>
-              <Icon name="person" />
+            <Button active onPress={()=> navigate('Profile')}>
+              <Icon name="person"  />
             </Button>
           </FooterTab>
         </Footer>
         
       </Container>
-     
     );
+  }
+    // return (
+    //   <Container style={styles.container}>
+         
+    //     <Header />
+    //     <View>
+    //       <Text style={styles.text}>Good Morning, User!</Text>
+    //        <Text style={styles.text2}>Today</Text>
+    //        <Text style={styles.text2}>The Fridge</Text>
+    //        <Text style={styles.text2}>Goals</Text>
+    //     </View>
+    //     <Content />
+    //     <Footer>
+    //       <FooterTab>
+    //         <Button>
+    //           <Icon name="apps" />
+    //         </Button>
+    //         <Button active>
+    //           <Icon name="camera" />
+    //         </Button>
+    //         <Button>
+    //           <Icon active name="navigate" />
+    //         </Button>
+    //         <Button active>
+    //           <Icon name="person" />
+    //         </Button>
+    //       </FooterTab>
+    //     </Footer>
+        
+    //   </Container>
+     
+    // );
   
 }
 

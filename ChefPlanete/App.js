@@ -9,12 +9,14 @@ import Start from './Screens/Start';
 import Login from './Screens/Login';
 import Profile from './Screens/Profile';
 import Dashboard from './Screens/Dashboard';
+import Search from './Screens/Search';
 
 const MainNavigator = createStackNavigator({
   Start: { screen: Start }, 
   Login: { screen: Login },
   Profile: { screen: Profile },
-  Dashboard: { screen: Dashboard }
+  Dashboard: { screen: Dashboard },
+  Search: {screen: Search},
 },
 
 {
