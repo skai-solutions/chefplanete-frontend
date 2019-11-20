@@ -5,10 +5,6 @@ import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'nat
 class Dashboard extends React.Component {
   static navigationOptions = {
     title: 'Dashboard',
-    navBarHidden: true,
-    headerStyle: {
-      backgroundColor: 'rgba(20,19,19,1)', 
-    }
   };
   render() {
     const {navigate} = this.props.navigation;
