@@ -1,15 +1,42 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component }  from 'react';
+import { StyleSheet, View, Text, Badge } from "react-native";
+import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 
-export default function Search() {
-    return (
-        <View style={styles.container}>
-    
-          <Text style={styles.heading}>Search</Text>
-        
-        </View>
+
+class Search extends React.Component {
+    static navigationOptions = {
+      title: 'Search',
+    };
+    render() {
+      const {navigate} = this.props.navigation;
+      return (
+        <Container style={styles.container}>
+      <View style={styles.container}>
+      <Text style={styles.heading}>Search</Text>
+      </View>
+          <Content />
+          <Footer>
+            <FooterTab>
+              <Button>
+                <Icon name="apps" />
+              </Button>
+              <Button active>
+                <Icon name="camera" />
+              </Button>
+              <Button active onPress={()=> navigate('Search')}>
+                <Icon name="search" />
+              </Button>
+              <Button active onPress={()=> navigate('Profile')}>
+                <Icon name="person"  />
+              </Button>
+            </FooterTab>
+          </Footer>
+          
+        </Container>
       );
-}
+    }
+  
+  }
 
 const styles = StyleSheet.create({
     container: {
@@ -27,3 +54,4 @@ const styles = StyleSheet.create({
   
   });
   
+  export default Search;

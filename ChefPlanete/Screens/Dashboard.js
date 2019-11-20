@@ -14,9 +14,7 @@ class Dashboard extends React.Component {
       //   onPress={() => navigate('Profile', {name: 'Jane'})}
       // />
       <Container style={styles.container}>
-         
-        <Header />
-        <View>
+                 <View>
           <Text style={styles.text}>Good Morning, User!</Text>
            <Text style={styles.text2}>Today</Text>
            <Text style={styles.text2}>The Fridge</Text>
