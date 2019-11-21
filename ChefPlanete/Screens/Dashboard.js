@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, StyleProvider } from 'native-base';
+import getTheme from '../native-base-theme/components';
+import material from '../native-base-theme/variables/material';
 
 class Dashboard extends React.Component {
   static navigationOptions = {
@@ -13,11 +15,12 @@ class Dashboard extends React.Component {
       //   title="Go to Jane's profile"
       //   onPress={() => navigate('Profile', {name: 'Jane'})}
       // />
+      <StyleProvider style={getTheme(material)}>
       <Container style={styles.container}>
-                 <View>
+      <View>
           <Text style={styles.text}>Good Morning, User!</Text>
            <Text style={styles.text2}>Today</Text>
-           <Text style={styles.text2}>The Fridge</Text>
+           <Text style={styles.text2}>My Fridge</Text>
            <Text style={styles.text2}>Goals</Text>
         </View>
         <Content />
@@ -39,6 +42,7 @@ class Dashboard extends React.Component {
         </Footer>
         
       </Container>
+      </StyleProvider>
     );
   }
     // return (
@@ -92,8 +96,8 @@ const styles = StyleSheet.create({
     text2: {
       color: "rgba(255,255,255,1)",
       fontSize: 24,
-      marginTop: 14,
-      marginLeft: 26
+      marginBottom: "25%",
+      marginLeft: "10%"
     }
 
 });
