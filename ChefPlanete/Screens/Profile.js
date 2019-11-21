@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Badge } from "react-native";
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import { StyleSheet, View, Text } from "react-native";
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Badge } from 'native-base';
 
 class Profile extends React.Component {
   static navigationOptions = {
@@ -9,21 +9,36 @@ class Profile extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <Container style={styles.container}>
-    <View style={styles.container}>
+    <Container style={styles.container}>
+
       <Text style={styles.heading}>Profile</Text>
+
+
+      <Content>
+        <View styles={{flex:1, flexDirection: 'row'}}>
       <Text style={styles.text}>About</Text>
       <Text style={styles.text1}>Skill Level</Text>
+        <Badge>
+            <Text style={{color: "white"}}>Beginner</Text>
+      </Badge>
+      <Badge>
+            <Text style={{color: "white"}}>Intermediate</Text>
+      </Badge>
 
+      <Badge>
+            <Text style={{color: "white"}}>Advanced</Text>
+      </Badge>
 
+      <Badge style>
+            <Text style={{color: "white"}}>Professional</Text>
+      </Badge>
       <Text style={styles.text3}>Dietary Restrictions</Text>
-      <Text style={styles.text2}>Goals</Text>
-    </View>
-        <Content />
+      </View>
+      </Content >
         <Footer>
           <FooterTab>
             <Button>
-              <Icon name="apps" />
+              <Icon name="nutrition" />
             </Button>
             <Button active>
               <Icon name="camera" />
@@ -36,7 +51,8 @@ class Profile extends React.Component {
             </Button>
           </FooterTab>
         </Footer>
-        
+     
+
       </Container>
     );
   }
@@ -84,7 +100,31 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginTop: "120%",
     marginLeft: "10%"
-  }
+  },
+  badge1: {
+    backgroundColor: "yellow",
+    marginTop: "75%",
+    marginLeft: "10%"
+  },
+  badgeText: {
+    color: "white",
+  },
+  badge2: {
+    backgroundColor: "orange",
+    marginTop: "75%",
+    marginLeft: "20%"
+  },
+  badge3: {
+    backgroundColor: "pink",
+    marginTop: "75%",
+    marginLeft: "40%"
+  },
+  badge4: {
+    backgroundColor: "red",
+    marginTop: "75%",
+    marginLeft: "60%"
+  },
+
 
 });
 

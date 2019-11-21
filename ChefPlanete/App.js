@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from "react-navigation";
-
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
@@ -10,6 +9,7 @@ import Login from './Screens/Login';
 import Profile from './Screens/Profile';
 import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
+import MyFridge from './Screens/MyFridge';
 
 const MainNavigator = createStackNavigator({
   Start: { screen: Start }, 
@@ -17,6 +17,7 @@ const MainNavigator = createStackNavigator({
   Profile: { screen: Profile },
   Dashboard: { screen: Dashboard },
   Search: {screen: Search},
+  MyFridge: {screen: MyFridge},
 },
 
 {

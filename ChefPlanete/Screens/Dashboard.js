@@ -23,8 +23,8 @@ class Dashboard extends React.Component {
         <Content />
         <Footer>
           <FooterTab>
-            <Button>
-              <Icon name="apps" />
+            <Button active onPress={()=> navigate('MyFridge')}>
+              <Icon name="nutrition" />
             </Button>
             <Button active>
               <Icon name="camera" />

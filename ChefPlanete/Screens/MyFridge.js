@@ -3,17 +3,17 @@ import { StyleSheet, View, Text, Badge } from "react-native";
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 
 
-class Search extends React.Component {
+class MyFridge extends React.Component {
     static navigationOptions = {
-      title: 'Search',
+      title: 'MyFridge',
     };
     render() {
       const {navigate} = this.props.navigation;
       return (
-    <Container style={styles.container}>
+        <Container style={styles.container}>
       <View style={styles.container}>
-      <Text style={styles.heading}>Search</Text>
-      </View>
+        <Text style={styles.heading}>MyFridge</Text>
+        </View>
           <Content />
           <Footer>
             <FooterTab>
@@ -36,8 +36,8 @@ class Search extends React.Component {
       );
     }
   
-  }
-
+}
+  
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
       fontSize: 45,
       lineHeight: 0,
       textAlign: "center",
-      marginTop: "10%"
+      marginTop: "10%",
+      marginLeft: "30%"
     },
-  
   });
   
-  export default Search;
+  export default MyFridge;
