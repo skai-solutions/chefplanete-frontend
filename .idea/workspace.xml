@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0730812e-6670-4578-9ca0-57a4497a0165" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ChefPlanete/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ChefPlanete/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChefPlanete/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/ChefPlanete/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChefPlanete/components/OCRCamera.js" beforeDir="false" afterPath="$PROJECT_DIR$/ChefPlanete/components/OCRCamera.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChefPlanete/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ChefPlanete/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChefPlanete/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ChefPlanete/package.json" afterDir="false" />
@@ -13,6 +12,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="chefplanete-frontend" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,7 +53,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573503205339</updated>
-      <workItem from="1573503207199" duration="11310000" />
+      <workItem from="1573503207199" duration="11846000" />
+      <workItem from="1573665143527" duration="998000" />
+      <workItem from="1573745245779" duration="4007000" />
+      <workItem from="1573767618933" duration="585000" />
+      <workItem from="1573925106634" duration="198000" />
+      <workItem from="1574271304094" duration="274000" />
+      <workItem from="1574350296429" duration="413000" />
+      <workItem from="1574354223973" duration="920000" />
+      <workItem from="1574375238016" duration="1281000" />
     </task>
     <servers />
   </component>
@@ -63,7 +73,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

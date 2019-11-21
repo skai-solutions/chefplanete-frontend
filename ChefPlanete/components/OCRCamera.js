@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import {Header, Item, Icon} from 'native-base'
+import {Header, Item} from 'native-base'
 import { Text, View, Button, StyleSheet } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+import * as FileSystem from "expo-file-system";
+import { Icon } from 'react-native-elements';
+
 
 
 class OCRCamera extends React.Component {
@@ -27,16 +29,25 @@ class OCRCamera extends React.Component {
             const options = {
                 quality: 0,
                 base64: true,
+                base64Encoded: true,
                 fixOrientation: true,
                 exif: true
             };
-
-            await this.camera.takePictureAsync(options).then(photo => {
-                console.log(photo.base64);
-                this.setState({path: photo.uri});
+           await this.camera.takePictureAsync(options).then((data) =>
+            {
+                console.log(data.base64);
+                this.setState({path: data.uri});
 
             });
+           // console.log(photo.base64Encoded);
         }
+    }
+    onPictureSaved = async photo => {
+        await FileSystem.moveAsync({
+            from: photo.uri,
+            to: `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`,
+        });
+        this.setState({ newPhotos: true });
     }
 
     render() {
@@ -55,7 +66,7 @@ class OCRCamera extends React.Component {
                         ref={ref => {
                             this.camera = ref;
                         }}
-                        style={{ flex: 1, justifyContent: 'space-between' }}
+                        style={styles.CameraContainer}
                         type={this.state.type}
                     >
                         <Header
@@ -74,7 +85,7 @@ class OCRCamera extends React.Component {
 
 
                             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'space-around' }}>
-                                <Icon name="ios-flash" style={{ color: 'white', fontWeight: 'bold' }} />
+                                <Icon reverse={ true } name="md-flash" type='ionicon' style={{ color: 'black', fontWeight: 'bold' }} />
                                 <Icon
                                     onPress={() => {
                                         this.setState({
@@ -83,8 +94,10 @@ class OCRCamera extends React.Component {
                                                 Camera.Constants.Type.back
                                         })
                                     }}
-                                    name="ios-reverse-camera"
-                                    style={{ color: 'white', fontWeight: 'bold' }}
+                                    name="md-reverse-camera"
+                                    reverse={true}
+                                    type='ionicon'
+                                    style={{ color: 'black', fontWeight: 'bold' }}
                                 />
                             </View>
                         </Header>
@@ -92,7 +105,9 @@ class OCRCamera extends React.Component {
                             <Icon
                                 onPress = {this.snapPhoto.bind(this)}
 
-                                name = 'ios-camera' style={{ color: 'white', fontWeight: 'bold' }} />
+                                name = 'camera'
+                                reverse={true}
+                                style={{ color: 'white', fontWeight: 'bold' }} />
 
                         </View>
                     </Camera>
@@ -100,58 +115,6 @@ class OCRCamera extends React.Component {
             )
         }
     }
-=======
-import { Text, View, TouchableOpacity, Button } from 'react-native';
-import * as Permissions from 'expo-permissions';
-import { Camera } from 'expo-camera';
-
-const OCRCamera = props => {
-  const [cameraPermission, setCameraPermission] = useState(null);
-
-  const componentDidMount = async() => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    setCameraPermission(() => {
-      return status === 'granted';
-    });
-  }
-
-  // if (cameraPermission === null) {
-  //   return <View />;
-  // } else if (cameraPermission === false) {
-  //   return <Text>No access to camera</Text>;
-  // } else {
-  return (
-    <View style={{ flex: 1 }}>
-      <Button title="Set camera permission" onPress={componentDidMount}/>
-      <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'row',
-          }}>
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: 'flex-end',
-              alignItems: 'center',
-            }}
-            onPress={() => {
-              this.setState({
-                type:
-                  this.state.type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back,
-              });
-            }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
-    </View>
-  );
-  // }
->>>>>>> 1968a0fdddcf43ddfb723601a499636f06a9f531
 }
 
 export default OCRCamera;
@@ -162,6 +125,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginBottom: 36,
         alignSelf: 'center'
+    },
+    CameraContainer:{
+        flex: 1,
+        justifyContent: 'space-between',
+        width: "100%",
+
     }
 })
 
