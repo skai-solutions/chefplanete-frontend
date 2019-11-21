@@ -28,21 +28,23 @@ class Profile extends React.Component {
             <Text style={{color: "black"}}>Beginner</Text>
         </Badge>
 
-        <Badge style={{backgroundColor: "orange", marginLeft: "20%"}}>
+        <Badge style={{backgroundColor: "orange"}}>
             <Text style={{color: "black"}}>Intermediate</Text>
         </Badge>
 
-        <Badge style={{backgroundColor: "pink", marginLeft: "50%"}}>
+        <Badge style={{backgroundColor: "pink"}}>
             <Text style={{color: "black"}}>Advanced</Text>
         </Badge>
 
-        <Badge style={{backgroundColor: "red", marginLeft: "70%"}}>
+        <Badge style={{backgroundColor: "red"}}>
             <Text style={{color: "black"}}>Professional</Text>
         </Badge>
       </View>
 
       <Text style={styles.text3}>Dietary Restrictions</Text>
       <Text style={styles.text4}>Vegan</Text>
+
+      <Text style={styles.text4}>Allergies</Text>
 
       
       </Content >
@@ -115,6 +117,8 @@ const styles = StyleSheet.create({
 
   badge1: {
     marginTop: "75%",
+    flexDirection: "row",
+    padding: 30
   },
 
   badgeText: {
