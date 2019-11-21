@@ -11,17 +11,11 @@ class Dashboard extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      // <Button
-      //   title="Go to Jane's profile"
-      //   onPress={() => navigate('Profile', {name: 'Jane'})}
-      // />
       <StyleProvider style={getTheme(material)}>
       <Container style={styles.container}>
       <View>
           <Text style={styles.text}>Good Morning, User!</Text>
            <Text style={styles.text2}>Today</Text>
-           <Text style={styles.text2}>My Fridge</Text>
-           <Text style={styles.text2}>Goals</Text>
         </View>
         <Content />
         <Footer>

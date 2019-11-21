@@ -29,7 +29,7 @@ class Profile extends React.Component {
             <Text style={{color: "white"}}>Advanced</Text>
       </Badge>
 
-      <Badge style>
+      <Badge>
             <Text style={{color: "white"}}>Professional</Text>
       </Badge>
       <Text style={styles.text3}>Dietary Restrictions</Text>

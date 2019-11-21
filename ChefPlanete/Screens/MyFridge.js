@@ -10,11 +10,14 @@ class MyFridge extends React.Component {
     render() {
       const {navigate} = this.props.navigation;
       return (
-        <Container style={styles.container}>
+    <Container style={styles.container}>
+
       <View style={styles.container}>
         <Text style={styles.heading}>MyFridge</Text>
-        </View>
-          <Content />
+    </View>
+
+    <Content />
+         
           <Footer>
             <FooterTab>
               <Button>
