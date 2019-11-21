@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Badge } from "react-native";
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import { StyleSheet, View, Text } from "react-native";
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Badge } from 'native-base';
 
 class Profile extends React.Component {
   static navigationOptions = {
@@ -9,21 +9,53 @@ class Profile extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <Container style={styles.container}>
-    <View style={styles.container}>
-      <Text style={styles.heading}>Profile</Text>
-      <Text style={styles.text}>About</Text>
+    <Container style={styles.container}>
+
+      <View>
+          <Text style={styles.heading}>Profile</Text>
+          <Text style={styles.text} >About</Text>
+      </View>
+
+      
+      
+
+
+      <Content> 
+
+      
+      <Text> Firstname Lastname </Text>
+      <Text>Age</Text>
+      <Text>Email</Text>
+      
       <Text style={styles.text1}>Skill Level</Text>
 
+      <View style={styles.badge1}>
+        <Badge style={{backgroundColor: "yellow"}}>
+            <Text style={{color: "black"}}>Beginner</Text>
+        </Badge>
+
+        <Badge style={{backgroundColor: "orange", marginLeft: "20%"}}>
+            <Text style={{color: "black"}}>Intermediate</Text>
+        </Badge>
+
+        <Badge style={{backgroundColor: "pink", marginLeft: "50%"}}>
+            <Text style={{color: "black"}}>Advanced</Text>
+        </Badge>
+
+        <Badge style={{backgroundColor: "red", marginLeft: "70%"}}>
+            <Text style={{color: "black"}}>Professional</Text>
+        </Badge>
+      </View>
 
       <Text style={styles.text3}>Dietary Restrictions</Text>
-      <Text style={styles.text2}>Goals</Text>
-    </View>
-        <Content />
+      <Text style={styles.text4}>Vegan</Text>
+
+      
+      </Content >
         <Footer>
           <FooterTab>
-            <Button>
-              <Icon name="apps" />
+            <Button active onPress={()=> navigate('MyFridge')}>
+              <Icon name="nutrition" />
             </Button>
             <Button active>
               <Icon name="camera" />
@@ -36,7 +68,8 @@ class Profile extends React.Component {
             </Button>
           </FooterTab>
         </Footer>
-        
+     
+
       </Container>
     );
   }
@@ -84,7 +117,34 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginTop: "120%",
     marginLeft: "10%"
+  },
+
+  badge1: {
+    marginTop: "75%",
+  },
+
+  badgeText: {
+    color: "white",
+  },
+  badge2: {
+    backgroundColor: "orange",
+    marginTop: "75%",
+    marginLeft: "20%"
+  },
+  badge3: {
+    backgroundColor: "pink",
+    marginTop: "75%",
+    marginLeft: "40%"
+  },
+  badge4: {
+    backgroundColor: "red",
+    marginTop: "75%",
+    marginLeft: "60%"
+  },
+  text4: {
+    marginTop: "110%"
   }
+
 
 });
 
