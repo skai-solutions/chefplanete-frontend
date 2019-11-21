@@ -16,13 +16,7 @@ class Profile extends React.Component {
           <Text style={styles.text} >About</Text>
       </View>
 
-      
-      
-
-
       <Content> 
-
-      
       <Text> Firstname Lastname </Text>
       <Text>Age</Text>
       <Text>Email</Text>
