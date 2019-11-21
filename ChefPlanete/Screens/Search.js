@@ -32,7 +32,7 @@ class Search extends React.Component {
             <Footer>
               <FooterTab>
                 <Button>
-                  <Icon name="apps" />
+                  <Icon name="nutrition" />
                 </Button>
                 <Button active>
                   <Icon name="camera" />
