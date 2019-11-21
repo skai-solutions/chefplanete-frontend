@@ -31,7 +31,7 @@ class Search extends React.Component {
             <Content />
             <Footer>
               <FooterTab>
-                <Button>
+                <Button active onPress={()=> navigate('MyFridge')}>
                   <Icon name="nutrition" />
                 </Button>
                 <Button active>

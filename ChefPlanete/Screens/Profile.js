@@ -11,33 +11,50 @@ class Profile extends React.Component {
     return (
     <Container style={styles.container}>
 
-      <Text style={styles.heading}>Profile</Text>
-
-
-      <Content>
-        <View styles={{flex:1, flexDirection: 'row'}}>
-      <Text style={styles.text}>About</Text>
-      <Text style={styles.text1}>Skill Level</Text>
-        <Badge>
-            <Text style={{color: "white"}}>Beginner</Text>
-      </Badge>
-      <Badge>
-            <Text style={{color: "white"}}>Intermediate</Text>
-      </Badge>
-
-      <Badge>
-            <Text style={{color: "white"}}>Advanced</Text>
-      </Badge>
-
-      <Badge>
-            <Text style={{color: "white"}}>Professional</Text>
-      </Badge>
-      <Text style={styles.text3}>Dietary Restrictions</Text>
+      <View>
+          <Text style={styles.heading}>Profile</Text>
+          <Text style={styles.text} >About</Text>
       </View>
+
+      
+      
+
+
+      <Content> 
+
+      
+      <Text> Firstname Lastname </Text>
+      <Text>Age</Text>
+      <Text>Email</Text>
+      
+      <Text style={styles.text1}>Skill Level</Text>
+
+      <View style={styles.badge1}>
+        <Badge style={{backgroundColor: "yellow"}}>
+            <Text style={{color: "black"}}>Beginner</Text>
+        </Badge>
+
+        <Badge style={{backgroundColor: "orange", marginLeft: "20%"}}>
+            <Text style={{color: "black"}}>Intermediate</Text>
+        </Badge>
+
+        <Badge style={{backgroundColor: "pink", marginLeft: "50%"}}>
+            <Text style={{color: "black"}}>Advanced</Text>
+        </Badge>
+
+        <Badge style={{backgroundColor: "red", marginLeft: "70%"}}>
+            <Text style={{color: "black"}}>Professional</Text>
+        </Badge>
+      </View>
+
+      <Text style={styles.text3}>Dietary Restrictions</Text>
+      <Text style={styles.text4}>Vegan</Text>
+
+      
       </Content >
         <Footer>
           <FooterTab>
-            <Button>
+            <Button active onPress={()=> navigate('MyFridge')}>
               <Icon name="nutrition" />
             </Button>
             <Button active>
@@ -101,11 +118,11 @@ const styles = StyleSheet.create({
     marginTop: "120%",
     marginLeft: "10%"
   },
+
   badge1: {
-    backgroundColor: "yellow",
     marginTop: "75%",
-    marginLeft: "10%"
   },
+
   badgeText: {
     color: "white",
   },
@@ -124,6 +141,9 @@ const styles = StyleSheet.create({
     marginTop: "75%",
     marginLeft: "60%"
   },
+  text4: {
+    marginTop: "110%"
+  }
 
 
 });
