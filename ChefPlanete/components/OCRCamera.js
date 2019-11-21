@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
 import {Header, Item, Icon} from 'native-base'
 import { Text, View, Button, StyleSheet } from 'react-native';
 import * as Permissions from 'expo-permissions';
@@ -100,7 +99,7 @@ class OCRCamera extends React.Component {
             )
         }
     }
-=======
+
 import { Text, View, TouchableOpacity, Button } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
@@ -151,7 +150,6 @@ const OCRCamera = props => {
     </View>
   );
   // }
->>>>>>> 1968a0fdddcf43ddfb723601a499636f06a9f531
 }
 
 export default OCRCamera;
