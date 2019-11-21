@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0730812e-6670-4578-9ca0-57a4497a0165" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChefPlanete/components/OCRCamera.js" beforeDir="false" afterPath="$PROJECT_DIR$/ChefPlanete/components/OCRCamera.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,7 +59,7 @@
       <workItem from="1574271304094" duration="274000" />
       <workItem from="1574350296429" duration="413000" />
       <workItem from="1574354223973" duration="920000" />
-      <workItem from="1574375238016" duration="1377000" />
+      <workItem from="1574375238016" duration="1426000" />
     </task>
     <servers />
   </component>
