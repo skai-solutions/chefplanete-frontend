@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Header, Item} from 'native-base'
+import {Header, Item} from 'native-base';
 import { Text, View, Button, StyleSheet } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
