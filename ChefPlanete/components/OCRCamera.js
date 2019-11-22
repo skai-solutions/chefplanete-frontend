@@ -68,6 +68,7 @@ class OCRCamera extends React.Component {
                         }}
                         style={styles.CameraContainer}
                         type={this.state.type}
+                        ratio="20:9" //FOR DEMO ON ANDROID
                     >
                         <Header
                             searchBar
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         width: "100%",
-
     }
 })
 
