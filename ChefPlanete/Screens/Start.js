@@ -15,12 +15,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(20,19,19,1)"
   },
   text: {
-    width: 353,
-    height: 80,
+    justifyContent: 'center',
     color: "rgba(94,167,11,1)",
     fontSize: 56,
-    lineHeight: 0,
-    marginTop: 325,
-    marginLeft: 22
+    flex: 1,
+    textAlign: "center",
+    marginTop: "60%"
   }
 });
