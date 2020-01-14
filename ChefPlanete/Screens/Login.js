@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 function Login() {
   return (
@@ -19,7 +13,6 @@ function Login() {
         <Text style={styles.link}>Forgot Password ?</Text>
       </TouchableOpacity>
 
-
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
@@ -27,10 +20,9 @@ function Login() {
       <View style={styles.rect1}>
         <Text style={styles.text}>Don't have an account ?</Text>
         <TouchableOpacity style={styles.rect2}>
-        <Text style={styles.link2}>Sign Up</Text>
-      </TouchableOpacity>
+          <Text style={styles.link2}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
-
     </View>
   );
 }
@@ -50,7 +42,6 @@ const styles = StyleSheet.create({
     marginTop: "25%",
     alignSelf: "center"
   },
-
   textInput: {
     width: "80%",
     height: "7%",
@@ -62,7 +53,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "solid",
     marginLeft: "10%"
-
   },
   textInput2: {
     width: "80%",
