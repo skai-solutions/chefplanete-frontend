@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import { StyleSheet, View, Text, Badge } from "react-native";
 import { Button, Container, Content, Footer, FooterTab, Header, Icon } from 'native-base';
-
+import RecipeRecommender from '../components/RecipeRecommender';
 
 class MyFridge extends Component {
   static navigationOptions = {
@@ -14,15 +14,13 @@ class MyFridge extends Component {
         <View style={styles.container}>
           <Text style={styles.heading}>MyFridge</Text>
         </View>
-      
-        <Content />
-        
+        <RecipeRecommender/>
         <Footer>
           <FooterTab>
             <Button>
               <Icon name="nutrition" />
             </Button>
-            <Button active>
+            <Button>
               <Icon name="camera" />
             </Button>
             <Button active onPress={()=> navigate('Search')}>
@@ -54,4 +52,4 @@ const styles = StyleSheet.create({
     },
   });
   
-  export default MyFridge;
+export default MyFridge;

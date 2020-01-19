@@ -1,71 +1,75 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
+import React, { Component } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 
-const RecipeRecommender = props => {
-  const [enteredGoal, setEnteredGoal] = useState('');
+class RecipeRecommender extends Component {
+  //Queries Edamam API for recipes based on user's food inventory
+  //and returns a list of recipes that use specified ingredients
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      dataSource:[]
+    };
+  }
 
-  const queryRecipes = async() => {
-    return fetch('https://api.edamam.com/search?', {
+  async componentDidMount(){
+    const api_keys= ['0bafdd91', '8c7be662dbc5c515d1d6518286169759'];
+    fetch(`https://api.edamam.com/search?q=chicken&app_id=${api_keys[0]}&app_key=${api_keys[1]}`, {
       method: 'GET',
       headers: {},
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      return responseJson.movies;
+      this.setState({
+        loading: false,
+        dataSource: responseJson
+       })
     })
     .catch((error) => {
       console.error(error);
     });
   }
 
-  // const addGoalHandler = () => {
-  //   props.onAddGoal(enteredGoal);
-  //   setEnteredGoal('');
-  // }
-
-  return (
-      <Modal visible={props.visible} animationType="slide">
-        <View style={styles.inputContainer}>
-          <TextInput 
-            placeholder= " Enter search param... " 
-            style={styles.textInput} 
-            onChangeText={goalInputHandler}
-            value={enteredGoal}
-          />
-          <View style={styles.horizontal}>
-            <View style={styles.button}>
-              <Button title=" ADD " onPress={addGoalHandler}/>
-            </View>
-            <View style={styles.button}>
-              <Button title=" CANCEL " color="red" onPress={props.onCancelGoal}/>
-            </View>
-          </View>
+  render() {
+    if(this.state.loading){
+      return( 
+        <View> 
+          <Text style={styles.text}>Loading</Text>
         </View>
-    </Modal>
-  );
-};
+    )}
+    // return (
+    //   <StyleProvider style={getTheme(material)}>
+    //     <View>
+    //       {/* <FlatList
+    //         data= {this.state.dataSource}
+    //         ItemSeparatorComponent = {this.FlatListItemSeparator}
+    //         renderItem= {item=> this.renderItem(item)}
+    //         keyExtractor= {item=>item.id.toString()}
+    //       />   */}
+    //       <Text style={styles.text}>{this.state.dataSource}</Text>
+    //     </View>
+    //   </StyleProvider>
+    // );
+  }
+}
 
 const styles = StyleSheet.create({
-    inputContainer: {
-      justifyContent: 'center', 
-      alignItems: 'center',
-      flex: 1
+    text: {
+      color: "rgba(243,235,235,1)",
+      position: "absolute",
+      fontSize: 19,
+      marginTop: "30%",
+      marginLeft: "10%"
     },
-    textInput: {
-      borderColor: 'black', 
-      borderWidth: 1, 
-      width: '80%',
-      padding: 10
-    }, 
-    horizontal: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      width: '60%'
-    },
-    button: {
-        width: '40%',
-        justifyContent: 'space-around'
-    }
+    // horizontal: {
+    //   flexDirection: 'row',
+    //   justifyContent: 'space-around',
+    //   width: '60%'
+    // },
+    // button: {
+    //     width: '40%',
+    //     justifyContent: 'space-around'
+    // }
 });
 
 export default RecipeRecommender;
