@@ -6,8 +6,6 @@ import { Camera } from 'expo-camera';
 import * as FileSystem from "expo-file-system";
 import { Icon } from 'react-native-elements';
 
-
-
 class OCRCamera extends React.Component {
 
     // cameraRef = this.Camera;
