@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, Text, StyleSheet, View } from 'react-native';
+import { StyleProvider } from 'native-base';
+import getTheme from '../native-base-theme/components';
+import material from '../native-base-theme/variables/material';
 
 class RecipeRecommender extends Component {
   //Queries Edamam API for recipes based on user's food inventory
@@ -37,19 +40,19 @@ class RecipeRecommender extends Component {
           <Text style={styles.text}>Loading</Text>
         </View>
     )}
-    // return (
-    //   <StyleProvider style={getTheme(material)}>
-    //     <View>
-    //       {/* <FlatList
-    //         data= {this.state.dataSource}
-    //         ItemSeparatorComponent = {this.FlatListItemSeparator}
-    //         renderItem= {item=> this.renderItem(item)}
-    //         keyExtractor= {item=>item.id.toString()}
-    //       />   */}
-    //       <Text style={styles.text}>{this.state.dataSource}</Text>
-    //     </View>
-    //   </StyleProvider>
-    // );
+    return (
+      <StyleProvider style={getTheme(material)}>
+        <View>
+          {/* <FlatList
+            data= {this.state.dataSource}
+            ItemSeparatorComponent = {this.FlatListItemSeparator}
+            renderItem= {item=> this.renderItem(item)}
+            keyExtractor= {item=>item.id.toString()}
+          />   */}
+          <Text style={styles.text}>Is this working</Text>
+        </View>
+      </StyleProvider>
+    );
   }
 }
 
