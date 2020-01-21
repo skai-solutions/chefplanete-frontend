@@ -41,7 +41,7 @@ const Profile = ({ navigation }) => {
       <Text style={styles.text4}>Allergies</Text>
       
       </Content >
-      <NavigationBar navigation={navigate}/>
+      <NavigationBar/>
     </Container>
   );
 }

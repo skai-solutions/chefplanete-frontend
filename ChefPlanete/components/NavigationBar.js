@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Footer, FooterTab, Icon, StyleProvider } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 const NavigationBar = ({ navigation }) => {
   const { navigate } = navigation;
@@ -23,4 +24,4 @@ const NavigationBar = ({ navigation }) => {
   )
 }
 
-export default NavigationBar;
+export default withNavigation(NavigationBar);

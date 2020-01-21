@@ -35,7 +35,7 @@ const Dashboard = ({ navigation }) => {
         </View>
       </View>
     </Content >
-    <NavigationBar navigation={navigate}/>
+    <NavigationBar/>
     </Container>
     </StyleProvider>
   );

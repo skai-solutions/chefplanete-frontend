@@ -26,7 +26,7 @@ const MyFridge = ({ navigation }) => {
         />
       </View>
       <Content />
-      <NavigationBar navigation={navigate}/>
+      <NavigationBar/>
     </Container>
   );
 }

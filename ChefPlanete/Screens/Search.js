@@ -28,7 +28,7 @@ const Search = ({ navigation }) => {
 
         <Content />
 
-        <NavigationBar navigation={navigate}/>
+        <NavigationBar/>
       </Container>
     </StyleProvider>
   );
