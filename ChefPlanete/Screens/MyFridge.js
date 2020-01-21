@@ -1,50 +1,34 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Badge, ScrollView, Image, FlatList } from "react-native";
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import NavigationBar from '../components/NavigationBar';
 
 const MyFridge = ({ navigation }) => {
-    const { navigate } = navigation;
-    return (
-        <Container style={styles.container}>
-            <View>
-                <Text style={styles.heading}>MyFridge</Text>
-                <FlatList
-                    data={[
-                        { key: 'Devin' },
-                        { key: 'Dan' },
-                        { key: 'Dominic' },
-                        { key: 'Jackson' },
-                        { key: 'James' },
-                        { key: 'Joel' },
-                        { key: 'John' },
-                        { key: 'Jillian' },
-                        { key: 'Jimmy' },
-                        { key: 'Julie' },
-                    ]}
-                    renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
-                />
-            </View>
-            <Content />
-
-            <Footer>
-                <FooterTab>
-                    <Button>
-                        <Icon name="nutrition" />
-                    </Button>
-                    <Button active>
-                        <Icon name="camera" />
-                    </Button>
-                    <Button active onPress={() => navigate('Search')}>
-                        <Icon name="search" />
-                    </Button>
-                    <Button active onPress={() => navigate('Profile')}>
-                        <Icon name="person" />
-                    </Button>
-                </FooterTab>
-            </Footer>
-
-        </Container>
-    );
+  const { navigate } = navigation;
+  return (
+    <Container style={styles.container}>
+      <View>
+        <Text style={styles.heading}>MyFridge</Text>
+        <FlatList
+          data={[
+            { key: 'Devin' },
+            { key: 'Dan' },
+            { key: 'Dominic' },
+            { key: 'Jackson' },
+            { key: 'James' },
+            { key: 'Joel' },
+            { key: 'John' },
+            { key: 'Jillian' },
+            { key: 'Jimmy' },
+            { key: 'Julie' },
+            ]}
+          renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+        />
+      </View>
+      <Content />
+      <NavigationBar navigation={navigate}/>
+    </Container>
+  );
 }
 
 const styles = StyleSheet.create({

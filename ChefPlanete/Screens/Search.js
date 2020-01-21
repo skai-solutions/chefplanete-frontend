@@ -3,54 +3,35 @@ import { Badge, StyleSheet, Text, View } from "react-native";
 import { Button, Container, Content, Footer, FooterTab, Header, Icon, Input, Item, StyleProvider } from 'native-base';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
+import NavigationBar from '../components/NavigationBar';
 
-class Search extends Component {
-  static navigationOptions = {
-    title: 'Search',
-  };
-  render() {
-    const {navigate} = this.props.navigation;
-    return (
-      <StyleProvider style={getTheme(material)}>
-        <Container style={styles.container}>
-          <View style={styles.moveDown}>
-            <Header searchBar rounded style={styles.searchBar}>
-              <Item>
-                <Icon name="search"/>
-                <Input placeholder="Search" />
-              </Item>
-              <Button transparent>
-                <Text>Search</Text>
-              </Button>
-            </Header>
+const Search = ({ navigation }) => {
+  const { navigate } = navigation;
+  return (
+    <StyleProvider style={getTheme(material)}>
+      <Container style={styles.container}>
+        <View style={styles.moveDown}>
+          <Header searchBar rounded style={styles.searchBar}>
+            <Item>
+              <Icon name="search"/>
+              <Input placeholder="Search" />
+            </Item>
+            <Button transparent>
+              <Text>Search</Text>
+            </Button>
+          </Header>
+        </View>
+        {/* <View style={styles.main}>
+          <View style={styles.recommendRectangle}>
           </View>
-          {/* <View style={styles.main}>
-            <View style={styles.recommendRectangle}>
-            </View>
-          </View> */}
+        </View> */}
 
-          <Content />
+        <Content />
 
-          <Footer>
-            <FooterTab>
-              <Button active onPress={()=> navigate('MyFridge')}>
-                <Icon name="nutrition" />
-              </Button>
-              <Button active>
-                <Icon name="camera" />
-              </Button>
-              <Button active onPress={()=> navigate('Search')}>
-                <Icon name="search" />
-              </Button>
-              <Button active onPress={()=> navigate('Profile')}>
-                <Icon name="person"  />
-              </Button>
-            </FooterTab>
-          </Footer>
-        </Container>
-      </StyleProvider>
-    );
-  }
+        <NavigationBar navigation={navigate}/>
+      </Container>
+    </StyleProvider>
+  );
 }
 
 const styles = StyleSheet.create({

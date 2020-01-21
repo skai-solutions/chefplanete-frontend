@@ -3,63 +3,42 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, CheckBox, Container, Content, Footer, FooterTab, Header, Icon, List, ListItem, StyleProvider } from 'native-base';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
+import NavigationBar from '../components/NavigationBar';
 
-class Dashboard extends Component {
-  static navigationOptions = {
-    title: 'Dashboard',
-  };
-  render() {
-    const {navigate} = this.props.navigation;
-    return (
-      <StyleProvider style={getTheme(material)}>
-      <Container style={styles.container}>
-      <Content>
-        <View>
-          <Text style={styles.text}>Good Morning, User!</Text>
-          <Text style={styles.text2}>Today</Text>
-          <View style={styles.text5Row}>
-            <Text style={styles.text5}>Breakfast</Text>
-            <Text style={styles.text6}>Lunch</Text>
-            <Text style={styles.text7}>Dinner</Text>
-          </View>
-          <Text style={styles.text2}>My Fridge</Text>
-          <View>
-            <Text style={styles.text3}>Goals</Text>
-            <List>
-              <ListItem>
-                <CheckBox checked={false} />
-                <Text style={{color: "white"}}>Goal #1</Text>
-              </ListItem>
-              <ListItem>
-                <CheckBox checked={false} />
-                <Text style={{color: "white"}}>Goal #2</Text>
-              </ListItem>
-            </List>   
-          </View>
+const Dashboard = ({ navigation }) => {
+  const { navigate } = navigation;
+  return (
+    <StyleProvider style={getTheme(material)}>
+    <Container style={styles.container}>
+    <Content>
+      <View>
+        <Text style={styles.text}>Good Morning, User!</Text>
+        <Text style={styles.text2}>Today</Text>
+        <View style={styles.text5Row}>
+          <Text style={styles.text5}>Breakfast</Text>
+          <Text style={styles.text6}>Lunch</Text>
+          <Text style={styles.text7}>Dinner</Text>
         </View>
-      </Content >
-      <Footer>
-        <FooterTab>
-          <Button active onPress={()=> navigate('MyFridge')}>
-            <Icon name="nutrition" />
-          </Button>
-          <Button active>
-            <Icon name="camera" />
-          </Button>
-          <Button active onPress={()=> navigate('Search')}>
-            <Icon name="search" />
-          </Button>
-          <Button active onPress={()=> navigate('Profile')}>
-            <Icon name="person"  />
-          </Button>
-        </FooterTab>
-      </Footer>
-      </Container>
-      </StyleProvider>
-    );
-  }
-   
-  
+        <Text style={styles.text2}>My Fridge</Text>
+        <View>
+          <Text style={styles.text3}>Goals</Text>
+          <List>
+            <ListItem>
+              <CheckBox checked={false} />
+              <Text style={{color: "white"}}>Goal #1</Text>
+            </ListItem>
+            <ListItem>
+              <CheckBox checked={false} />
+              <Text style={{color: "white"}}>Goal #2</Text>
+            </ListItem>
+          </List>   
+        </View>
+      </View>
+    </Content >
+    <NavigationBar navigation={navigate}/>
+    </Container>
+    </StyleProvider>
+  );
 }
 
 const styles = StyleSheet.create({
