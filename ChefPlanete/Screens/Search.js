@@ -36,7 +36,7 @@ class Search extends Component {
               <Button active onPress={()=> navigate('MyFridge')}>
                 <Icon name="nutrition" />
               </Button>
-              <Button active>
+              <Button active onPress={()=> navigate('OCRCamera')}>
                 <Icon name="camera" />
               </Button>
               <Button active onPress={()=> navigate('Search')}>

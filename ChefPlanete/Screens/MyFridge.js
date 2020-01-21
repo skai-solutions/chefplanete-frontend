@@ -22,7 +22,7 @@ class MyFridge extends Component {
             <Button>
               <Icon name="nutrition" />
             </Button>
-            <Button active>
+            <Button active onPress={()=> navigate('OCRCamera')}>
               <Icon name="camera" />
             </Button>
             <Button active onPress={()=> navigate('Search')}>

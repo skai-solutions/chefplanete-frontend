@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import {Header, Item} from 'native-base';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, Button, StyleSheet, Clipboard } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as FileSystem from "expo-file-system";
 import { Icon } from 'react-native-elements';
+import { StackNavigator } from 'react-navigation';
 
 class OCRCamera extends React.Component {
-
-    // cameraRef = this.Camera;
-
+    static navigationOptions = {
+        title: 'OCRCamera',
+    };
     state = {
         hasCameraPermission: null,
         type: Camera.Constants.Type.back
@@ -17,7 +18,12 @@ class OCRCamera extends React.Component {
 
     async componentWillMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({ hasCameraPermission: status === 'granted' })
+        if(status == "granted"){
+            this.setState({ hasCameraPermission: status === 'granted' })
+        }else {
+            throw new Error('Camera permission not granted');
+        }
+
     }
 
     async snapPhoto() {
@@ -33,23 +39,27 @@ class OCRCamera extends React.Component {
             };
            await this.camera.takePictureAsync(options).then((data) =>
             {
-                console.log(data.base64);
+                Clipboard.setString(data.base64);
+                //console.log(data.base64);
                 this.setState({path: data.uri});
+                navigate()
+
 
             });
            // console.log(photo.base64Encoded);
         }
     }
-    onPictureSaved = async photo => {
-        await FileSystem.moveAsync({
-            from: photo.uri,
-            to: `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`,
-        });
-        this.setState({ newPhotos: true });
-    }
+    // onPictureSaved = async photo => {
+    //     await FileSystem.moveAsync({
+    //         from: photo.uri,
+    //         to: `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`,
+    //     });
+    //     this.setState({ newPhotos: true });
+    // }
 
     render() {
-        const { hasCameraPermission } = this.state
+        const { hasCameraPermission } = this.state;
+        const {navigate} = this.props.navigation;
 
         if (hasCameraPermission === null) {
             return <View />
@@ -103,6 +113,8 @@ class OCRCamera extends React.Component {
                         <View style = {styles.bottom}>
                             <Icon
                                 onPress = {this.snapPhoto.bind(this)}
+                                onPressOut={() => navigate('CameraLoading')}
+
 
                                 name = 'camera'
                                 reverse={true}

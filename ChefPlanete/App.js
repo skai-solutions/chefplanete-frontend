@@ -10,6 +10,9 @@ import Profile from './Screens/Profile';
 import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
+import Camera from './Screens/Camera';
+import OCRCamera from "./Screens/OCRCamera";
+import CameraLoading from "./Screens/CameraLoading";
 
 const MainNavigator = createStackNavigator({
   Start: { screen: Start },
@@ -18,6 +21,8 @@ const MainNavigator = createStackNavigator({
   Dashboard: { screen: Dashboard },
   Search: {screen: Search},
   MyFridge: {screen: MyFridge},
+  OCRCamera: {screen: OCRCamera},
+  CameraLoading: {screen: CameraLoading},
 },
 
 {
