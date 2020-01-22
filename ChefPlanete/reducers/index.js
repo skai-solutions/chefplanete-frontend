@@ -17,6 +17,8 @@ export default {
 
 export const getUser = (state) => user.getUser(state.user);
 export const userIsLoading = (state) => user.isLoading(state.user);
+export const getUserErrors = (state) => user.getErrors(state.user);
 
 export const getDietaryProfile = (state) => dp.getDietaryProfile(state.dp);
 export const dietaryProfileIsLoading = (state) => dp.isLoading(state.dp);
+export const getDietaryProfileErrors = (state) => dp.getErrors(state.dp);

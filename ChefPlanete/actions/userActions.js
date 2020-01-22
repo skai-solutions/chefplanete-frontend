@@ -15,15 +15,12 @@ export const signInUser = (user) => (dispatch) => {
         authToken: response.token,
       },
     });
+    fetchDietaryProfile()(dispatch);
   }).catch((error) => {
     dispatch({
       type: actionTypes.USER_SIGN_IN_FAILURE,
       payload: error,
     });
-  }).finally(() => {
-    dispatch({
-      type: actionTypes.USER_SIGN_IN_ENDED,
-    });
-    fetchDietaryProfile()(dispatch);
+    return Promise.reject(error);
   });
 };
