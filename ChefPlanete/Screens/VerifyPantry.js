@@ -30,7 +30,6 @@ const VerifyPantry = ({navigation, pantry}) => {
                 {
                     Object.entries(pantry).map(([key,value])=> <Text style={styles.text} key={key}>{value.name}</Text>)
                 }
-
             </View>
         </Container>
     );
