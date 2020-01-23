@@ -1,35 +1,27 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Badge, ScrollView, Image, FlatList } from "react-native";
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import React, { Component }  from 'react';
+import { StyleSheet, View, Text, Badge } from "react-native";
+import { Button, Container, Content, Footer, FooterTab, Header, Icon } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
+import RecipeRecommender from '../components/recipeRecommender';
+import {getPantry} from "../reducers";
+import {connect} from "react-redux";
 
-const MyFridge = ({ navigation }) => {
-  const { navigate } = navigation;
-  return (
-    <Container style={styles.container}>
-      <View>
-        <Text style={styles.heading}>MyFridge</Text>
-        <FlatList
-          data={[
-            { key: 'Devin' },
-            { key: 'Dan' },
-            { key: 'Dominic' },
-            { key: 'Jackson' },
-            { key: 'James' },
-            { key: 'Joel' },
-            { key: 'John' },
-            { key: 'Jillian' },
-            { key: 'Jimmy' },
-            { key: 'Julie' },
-            ]}
-          renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
-        />
-      </View>
-      <Content />
-      <NavigationBar/>
-    </Container>
-  );
-}
+const MyFridge = ({navigation, pantry}) => {
+
+    const {navigate} = navigation;
+    return (
+      <Container style={styles.container}>
+        <View style={styles.container}>
+          <Text style={styles.heading}>MyFridge</Text>
+            {
+                Object.entries(pantry).map(([key,value])=> <Text style={styles.text} key={key}>{value.name} {value.quantity} {value.unitName}</Text>)
+            }
+        </View>
+
+        <NavigationBar/>
+      </Container>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -50,7 +42,20 @@ const styles = StyleSheet.create({
         fontSize: 18,
         height: 44,
         color: "rgba(236,243,229,1)",
-    }
+    },
+    text: {
+        width: 375,
+        height: 50,
+        color: "rgba(94,167,11,1)",
+        fontSize: 32,
+        textAlign: "center",
+        marginTop: 62,
+        alignSelf: "center"
+    },
+  });
+
+const mapStateToProps = state => ({
+    pantry: getPantry(state),
 });
 
-export default MyFridge;
+export default connect(mapStateToProps)(MyFridge);
