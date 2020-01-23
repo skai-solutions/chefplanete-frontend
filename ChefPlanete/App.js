@@ -10,6 +10,7 @@ import Profile from './Screens/Profile';
 import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
+import VerifyPantry from './Screens/VerifyPantry';
 import store from "./store";
 import { Provider } from "react-redux";
 
@@ -20,6 +21,7 @@ const MainNavigator = createStackNavigator({
     Dashboard: {screen: Dashboard},
     Search: {screen: Search},
     MyFridge: {screen: MyFridge},
+    VerifyPantry: {screen: VerifyPantry},
   },
 
   {
@@ -39,6 +41,7 @@ const App = () => {
     </Provider>
   );
 };
+
 
 export default App;
 

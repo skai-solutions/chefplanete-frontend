@@ -11,7 +11,7 @@ export const fetchPantry = () => (dispatch) => {
     return getPantry().then((response) => {
         dispatch({
             type: actionTypes.FETCH_PANTRY_SUCCESS,
-            payload: response,
+            payload: response.inventory,
         });
         // Handle the error (if there is one)
     }).catch((error) => {
