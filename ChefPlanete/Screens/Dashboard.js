@@ -15,6 +15,7 @@ import {
 } from 'native-base';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
+import NavigationBar from '../components/NavigationBar';
 import { getUser } from "../reducers";
 import { connect } from "react-redux";
 
@@ -48,22 +49,7 @@ const Dashboard = ({navigation, user}) => {
             </View>
           </View>
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button active onPress={() => navigate('MyFridge')}>
-              <Icon name="nutrition"/>
-            </Button>
-            <Button active>
-              <Icon name="camera"/>
-            </Button>
-            <Button active onPress={() => navigate('Search')}>
-              <Icon name="search"/>
-            </Button>
-            <Button active onPress={() => navigate('Profile')}>
-              <Icon name="person"/>
-            </Button>
-          </FooterTab>
-        </Footer>
+        <NavigationBar/>
       </Container>
     </StyleProvider>
   );
