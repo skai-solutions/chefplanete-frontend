@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import { StyleSheet, View, Text, Badge } from "react-native";
 import { Button, Container, Content, Footer, FooterTab, Header, Icon } from 'native-base';
-
+import RecipeRecommender from '../components/recipeRecommender';
 
 class MyFridge extends Component {
   static navigationOptions = {
@@ -14,9 +14,9 @@ class MyFridge extends Component {
         <View style={styles.container}>
           <Text style={styles.heading}>MyFridge</Text>
         </View>
-      
+
         <Content />
-        
+
         <Footer>
           <FooterTab>
             <Button>
@@ -53,5 +53,5 @@ const styles = StyleSheet.create({
       marginLeft: "30%"
     },
   });
-  
+
   export default MyFridge;
