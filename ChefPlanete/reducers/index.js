@@ -1,5 +1,6 @@
 import dietaryProfileReducer, * as dp from './dietaryProfile';
-import userReducer, * as user from './user.js'
+import userReducer, * as user from './user';
+import cameraReducer, * as camera from "./camera";
 
 /**
  * Add all reducers to this default import. Use the form 'storeName': reducer.
@@ -7,6 +8,7 @@ import userReducer, * as user from './user.js'
 export default {
   dp: dietaryProfileReducer,
   user: userReducer,
+  camera: cameraReducer,
 };
 
 /**
@@ -22,3 +24,7 @@ export const getUserErrors = (state) => user.getErrors(state.user);
 export const getDietaryProfile = (state) => dp.getDietaryProfile(state.dp);
 export const dietaryProfileIsLoading = (state) => dp.isLoading(state.dp);
 export const getDietaryProfileErrors = (state) => dp.getErrors(state.dp);
+
+export const getIngredients = (state) => camera.getIngredients(state.camera);
+export const cameraIsLoading = (state) => camera.isLoading(state.camera);
+export const getIngredientsErrors = (state) => camera.getErrors(state.camera);

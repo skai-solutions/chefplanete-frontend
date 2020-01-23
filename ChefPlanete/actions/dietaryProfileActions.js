@@ -1,6 +1,6 @@
 import actionTypes from "./actionTypes";
 
-import { getDietaryProfile, updateDietaryProfile } from "../services/dietaryProfile";
+import {getDietaryProfile, updateDietaryProfile} from "../services/dietaryProfile";
 
 export const fetchDietaryProfile = () => (dispatch) => {
   // Start the action call
@@ -13,7 +13,7 @@ export const fetchDietaryProfile = () => (dispatch) => {
       type: actionTypes.FETCH_DIETARY_PROFILE_SUCCESS,
       payload: response,
     });
-  // Handle the error (if there is one)
+    // Handle the error (if there is one)
   }).catch((error) => {
     console.log(error);
     dispatch({
@@ -32,13 +32,13 @@ export const updateUserDietaryProfile = (updatedProfile) => (dispatch) => {
     dispatch({
       type: actionTypes.UPDATE_DIETARY_PROFILE_SUCCESS,
       payload: updatedProfile,
-    }).catch((error) => {
-      console.log(error);
-      dispatch({
-        type: actionTypes.UPDATE_DIETARY_PROFILE_FAILURE,
-        payload: error,
-      });
-      return Promise.reject(error);
     });
-  })
+  }).catch((error) => {
+    console.log(error);
+    dispatch({
+      type: actionTypes.UPDATE_DIETARY_PROFILE_FAILURE,
+      payload: error,
+    });
+    return Promise.reject(error);
+  });
 };
