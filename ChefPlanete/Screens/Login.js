@@ -33,8 +33,8 @@ const Login = ({onSubmit, user, userLoading, profileLoading, navigation, errors}
   const [authState, setAuthState] = useState(null);
   const login = async () => {
     const authState = await Google.logInAsync(loginConfig).catch(() => null);
+    setErrorState(false);
     if (authState) {
-      setErrorState(false);
       setAuthState(authState);
       onSubmit({
         id: authState.user.id,
