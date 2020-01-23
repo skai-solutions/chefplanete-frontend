@@ -1,36 +1,32 @@
 import React, { Component }  from 'react';
 import { Badge, StyleSheet, Text, View } from "react-native";
-import { Button, Container, Content, Footer, FooterTab, Header, Icon, Input, Item, StyleProvider } from 'native-base';
-import getTheme from '../native-base-theme/components';
-import material from '../native-base-theme/variables/material';
+import { Button, Container, Content, Footer, FooterTab, Header, Icon, Input, Item } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 
 const Search = ({ navigation }) => {
   const { navigate } = navigation;
   return (
-    <StyleProvider style={getTheme(material)}>
-      <Container style={styles.container}>
-        <View style={styles.moveDown}>
-          <Header searchBar rounded style={styles.searchBar}>
-            <Item>
-              <Icon name="search"/>
-              <Input placeholder="Search" />
-            </Item>
-            <Button transparent>
-              <Text>Search</Text>
-            </Button>
-          </Header>
+    <Container style={styles.container}>
+      <View style={styles.moveDown}>
+        <Header searchBar rounded style={styles.searchBar}>
+          <Item>
+            <Icon name="search"/>
+            <Input placeholder="Search" />
+          </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+      </View>
+      {/* <View style={styles.main}>
+        <View style={styles.recommendRectangle}>
         </View>
-        {/* <View style={styles.main}>
-          <View style={styles.recommendRectangle}>
-          </View>
-        </View> */}
+      </View> */}
 
-        <Content />
+      <Content />
 
-        <NavigationBar/>
-      </Container>
-    </StyleProvider>
+      <NavigationBar/>
+    </Container>
   );
 }
 
