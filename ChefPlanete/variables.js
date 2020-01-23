@@ -1,8 +1,9 @@
 import Constants from "expo-constants";
+const { manifest } = Constants;
 
 const ENV = {
   dev: {
-    apiUrl: "http://172.30.2.110:8081"
+    apiUrl: `http://${manifest.debuggerHost.split(':').shift()}:8081`,
   },
 };
 

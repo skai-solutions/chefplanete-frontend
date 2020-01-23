@@ -31,5 +31,5 @@ export const pullOutJson = (response) => {
   if (contentType && contentType.includes('application/json')) {
     return response.json();
   }
-  throw new TypeError('Oops, we haven\'t got JSON!');
+  return Promise.reject(new TypeError('Oops, we haven\'t got JSON!'));
 };

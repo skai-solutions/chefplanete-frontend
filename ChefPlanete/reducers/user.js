@@ -14,6 +14,8 @@ export default (state = DEFAULT_STATE, action) => {
       return { ...state, loading: false, errors: action.payload };
     case actionTypes.USER_SIGN_IN_SUCCESS:
       return {...state, loading: false, data: action.payload };
+    case actionTypes.USER_SIGN_IN_ENDED:
+
     default:
       return state;
   }
@@ -25,7 +27,6 @@ export default (state = DEFAULT_STATE, action) => {
  */
 
 export const getUser = (state) => {
-  console.log(state);
   if (!state) {
     throw new Error("No state data found.");
   }

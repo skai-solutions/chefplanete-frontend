@@ -20,11 +20,7 @@ export const fetchDietaryProfile = () => (dispatch) => {
       type: actionTypes.FETCH_DIETARY_PROFILE_FAILURE,
       payload: error,
     });
-  // Handle the ending, regardless of whether success or error
-  }).finally(() => {
-    dispatch({
-      type: actionTypes.FETCH_DIETARY_PROFILE_ENDED,
-    });
+    return Promise.reject(error);
   });
 };
 
@@ -42,10 +38,7 @@ export const updateUserDietaryProfile = (updatedProfile) => (dispatch) => {
         type: actionTypes.UPDATE_DIETARY_PROFILE_FAILURE,
         payload: error,
       });
-    }).finally(() => {
-      dispatch({
-        type: actionTypes.UPDATE_DIETARY_PROFILE_ENDED,
-      });
+      return Promise.reject(error);
     });
   })
 };

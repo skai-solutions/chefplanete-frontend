@@ -1,8 +1,12 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import AllReducers from './reducers';
-import { logger } from "redux-logger/src";
 import thunk from "redux-thunk";
+import { createLogger } from "redux-logger";
 import promise from 'redux-promise';
+
+const logger = createLogger({
+  collapsed: true,
+});
 
 const reducer = combineReducers(AllReducers);
 const storeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
