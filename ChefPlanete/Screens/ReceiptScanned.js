@@ -32,10 +32,7 @@ const ReceiptScanned = ({onSubmit, ingredients, ingredientsLoading, errors, navi
         </View>
       }
       {
-        ingredients &&
-        <View>
-          <Text style={styles.text}>{ingredients[0].ingredientName}</Text>
-        </View>
+        ingredients && ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
       }
       {
         isErrorState &&
