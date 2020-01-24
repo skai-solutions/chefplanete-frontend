@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, FlatList,} from 'react-native';
-import {bindActionCreators} from "redux";
-import {scanReceipt} from "../actions/cameraActions";
-import {getPantry,getIngredients, cameraIsLoading, getIngredientsErrors} from "../reducers";
+
+import {getPantry} from "../reducers";
 import { connect } from "react-redux";
 import {
     Button,
@@ -20,9 +19,7 @@ import {
 
 import getTheme from "../native-base-theme/components";
 import material from "../native-base-theme/variables/material";
-import {mapDispatchToProps} from "./ReceiptScanned";
-//
-// export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit:scanReceipt}, dispatch);
+
 const VerifyPantry = ({navigation, pantry}) => {
     const {navigate} = navigation;
 
@@ -65,17 +62,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     pantry: getPantry(state),
-    // ingredients: !state.camera.data ? null : getIngredients(state),
-    // ingredientsLoading: cameraIsLoading(state),
-    // errors: getIngredientsErrors(state),
 });
 
-// export default connect(mapStateToProps)(VerifyPantry);
-//
+export default connect(mapStateToProps)(VerifyPantry);
 
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(VerifyPantry);
 
 
