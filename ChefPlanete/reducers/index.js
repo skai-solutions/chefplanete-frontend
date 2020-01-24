@@ -1,6 +1,7 @@
 import dietaryProfileReducer, * as dp from './dietaryProfile';
 import userReducer, * as user from './user.js'
 import pantryReducer, * as pantry from './pantry.js';
+import cameraReducer, * as camera from './camera.js'
 
 /**
  * Add all reducers to this default import. Use the form 'storeName': reducer.
@@ -9,6 +10,7 @@ export default {
   dp: dietaryProfileReducer,
   user: userReducer,
   pantry: pantryReducer,
+  camera: cameraReducer,
 };
 
 /**
@@ -28,3 +30,7 @@ export const getDietaryProfileErrors = (state) => dp.getErrors(state.dp);
 export const getPantry =  (state) => pantry.getPantry(state.pantry);
 export const pantryIsLoading =  (state) => pantry.isLoading(state.pantry);
 export const getPantryErrors =  (state) => pantry.getErrors(state.pantry);
+
+export const getIngredients =  (state) => camera.getIngredients(state.camera);
+export const isLoading =  (state) => camera.isLoading(state.camera);
+export const getErrors =  (state) => camera.getErrors(state.camera);

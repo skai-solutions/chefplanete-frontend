@@ -15,6 +15,7 @@ import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
 import VerifyPantry from './Screens/VerifyPantry';
+import OCRCamera from  './Screens/OCRCamera';
 import store from "./store";
 import { Provider } from "react-redux";
 
@@ -26,6 +27,7 @@ const MainNavigator = createStackNavigator({
     Search: {screen: Search},
     MyFridge: {screen: MyFridge},
     VerifyPantry: {screen: VerifyPantry},
+    OCRCamera: {screen: OCRCamera},
   },
 
   {
