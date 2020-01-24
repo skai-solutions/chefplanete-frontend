@@ -1,6 +1,7 @@
 import dietaryProfileReducer, * as dp from './dietaryProfile';
 import userReducer, * as user from './user';
 import cameraReducer, * as camera from "./camera";
+import pantryReducer, * as pantry from "./pantry";
 
 /**
  * Add all reducers to this default import. Use the form 'storeName': reducer.
