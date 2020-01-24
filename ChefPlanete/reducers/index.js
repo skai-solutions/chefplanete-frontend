@@ -8,6 +8,7 @@ import cameraReducer, * as camera from "./camera";
 export default {
   dp: dietaryProfileReducer,
   user: userReducer,
+  pantry: pantryReducer,
   camera: cameraReducer,
 };
 
@@ -24,6 +25,10 @@ export const getUserErrors = (state) => user.getErrors(state.user);
 export const getDietaryProfile = (state) => dp.getDietaryProfile(state.dp);
 export const dietaryProfileIsLoading = (state) => dp.isLoading(state.dp);
 export const getDietaryProfileErrors = (state) => dp.getErrors(state.dp);
+
+export const getPantry =  (state) => pantry.getPantry(state.pantry);
+export const pantryIsLoading =  (state) => pantry.isLoading(state.pantry);
+export const getPantryErrors =  (state) => pantry.getErrors(state.pantry);
 
 export const getIngredients = (state) => camera.getIngredients(state.camera);
 export const cameraIsLoading = (state) => camera.isLoading(state.camera);
