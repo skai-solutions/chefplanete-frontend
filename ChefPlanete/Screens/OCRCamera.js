@@ -7,14 +7,14 @@ import {Icon} from 'react-native-elements';
 import {scanReceipt} from "../actions/cameraActions";
 import {bindActionCreators} from "redux";
 import {signInUser} from "../actions/userActions";
-import {isLoading,getErrors} from "../reducers";
+import {cameraIsLoading, getIngredientsErrors} from "../reducers";
 import connect from "react-redux/lib/connect/connect";
 
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: scanReceipt}, dispatch);
 
 export const mapStateToProps = state => ({
-  cameraIsLoading: isLoading(state),
-  errors: getErrors(state),
+  cameraIsLoading: cameraIsLoading(state),
+  errors: getIngredientsErrors(state),
 });
 
 const OCRCamera = ({navigation, onSubmit, cameraIsLoading, errors}) => {

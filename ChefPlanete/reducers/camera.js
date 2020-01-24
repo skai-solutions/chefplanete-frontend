@@ -26,14 +26,14 @@ export const getIngredients = (state) => {
   return state.data;
 };
 
-export const isLoading = (state) => {
+export const cameraIsLoading = (state) => {
   if (!state) {
     throw new Error("No Ingredients data found.")
   }
   return state.loading;
 };
 
-export const getErrors = (state) => {
+export const getIngredientsErrors = (state) => {
   if (!state) {
     throw new Error("No Ingredients data found.")
   } else if (!state.errors) {

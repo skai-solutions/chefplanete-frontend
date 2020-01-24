@@ -32,5 +32,5 @@ export const pantryIsLoading =  (state) => pantry.isLoading(state.pantry);
 export const getPantryErrors =  (state) => pantry.getErrors(state.pantry);
 
 export const getIngredients =  (state) => camera.getIngredients(state.camera);
-export const isLoading =  (state) => camera.isLoading(state.camera);
-export const getErrors =  (state) => camera.getErrors(state.camera);
+export const cameraIsLoading =  (state) => camera.cameraIsLoading(state.camera);
+export const getIngredientsErrors =  (state) => camera.getIngredientsErrors(state.camera);
