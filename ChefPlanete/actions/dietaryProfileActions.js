@@ -1,6 +1,6 @@
 import actionTypes from "./actionTypes";
 
-import {getDietaryProfile, updateDietaryProfile} from "../services/dietaryProfile";
+import { getDietaryProfile, updateDietaryProfile } from "../services/dietaryProfile";
 
 export const fetchDietaryProfile = () => (dispatch) => {
   // Start the action call

@@ -15,11 +15,9 @@ import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
 import VerifyPantry from './Screens/VerifyPantry';
+import OCRCamera from  './Screens/OCRCamera';
 import store from "./store";
 import { Provider } from "react-redux";
-import OCRCamera from "./Screens/OCRCamera";
-import CameraLoading from "./Screens/CameraLoading";
-import ReceiptScanned from "./Screens/ReceiptScanned";
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},
@@ -28,11 +26,13 @@ const MainNavigator = createStackNavigator({
     Dashboard: {screen: Dashboard},
     Search: {screen: Search},
     MyFridge: {screen: MyFridge},
+    VerifyPantry: {screen: VerifyPantry},
     OCRCamera: {screen: OCRCamera},
     CameraLoading: {screen: CameraLoading},
     ReceiptScanned: {screen: ReceiptScanned},
     VerifyPantry: {screen: VerifyPantry},
   },
+
   {
     initialRouteName: 'Login',
     headerMode: 'none'

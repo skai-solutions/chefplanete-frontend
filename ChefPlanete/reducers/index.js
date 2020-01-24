@@ -34,3 +34,4 @@ export const getPantryErrors =  (state) => pantry.getErrors(state.pantry);
 export const getIngredients = (state) => camera.getIngredients(state.camera);
 export const cameraIsLoading = (state) => camera.isLoading(state.camera);
 export const getIngredientsErrors = (state) => camera.getErrors(state.camera);
+

@@ -7,10 +7,7 @@ import {Icon} from 'react-native-elements';
 import {scanReceipt} from "../actions/cameraActions";
 import {bindActionCreators} from "redux";
 import {signInUser} from "../actions/userActions";
-import {
-  cameraIsLoading,
-  getIngredientsErrors,
-} from "../reducers";
+import {cameraIsLoading, getIngredientsErrors} from "../reducers";
 import connect from "react-redux/lib/connect/connect";
 
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: scanReceipt}, dispatch);
