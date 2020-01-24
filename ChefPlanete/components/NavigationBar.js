@@ -7,11 +7,11 @@ const NavigationBar = ({ navigation }) => {
   return(
     <Footer>
       <FooterTab>
-        <Button active onPress={()=> navigate('ReceiptScanned')}>
+        <Button active onPress={()=> navigate('MyFridge')}>
           <Icon name="nutrition" />
         </Button>
-        <Button active onPress={()=> navigate('OCRCamera')}>
-          <Icon name="camera" />
+        <Button active>
+          <Icon name="camera"onPress={() => navigate('OCRCamera')} />
         </Button>
         <Button active onPress={()=> navigate('Search')}>
           <Icon name="search" />

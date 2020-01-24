@@ -28,6 +28,9 @@ const MainNavigator = createStackNavigator({
     MyFridge: {screen: MyFridge},
     VerifyPantry: {screen: VerifyPantry},
     OCRCamera: {screen: OCRCamera},
+    CameraLoading: {screen: CameraLoading},
+    ReceiptScanned: {screen: ReceiptScanned},
+    VerifyPantry: {screen: VerifyPantry},
   },
 
   {

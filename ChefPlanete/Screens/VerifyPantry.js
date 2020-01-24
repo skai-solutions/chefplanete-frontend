@@ -1,4 +1,19 @@
 import React, { Component } from 'react';
+import {
+    Button,
+    CheckBox,
+    Container,
+    Content,
+    Footer,
+    FooterTab,
+    Icon,
+    List,
+    ListItem,
+    StyleProvider,
+
+} from "native-base";
+import getTheme from "../native-base-theme/components";
+import material from "../native-base-theme/variables/material";
 import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
 import { Button, Container, Icon, List, ListItem } from "native-base";
 import { getPantry } from "../reducers";
@@ -54,8 +69,8 @@ const styles = StyleSheet.create({
       marginTop: "10%",
     },
     text: {
-        // width: 375,
-        // height: 50,
+        //width: 375,
+        //height: 50,
         color: "rgba(94,167,11,1)",
         fontSize: 32,
         textAlign: "center",
@@ -69,6 +84,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(VerifyPantry);
-
-
-

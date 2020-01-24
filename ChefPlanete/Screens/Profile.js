@@ -13,6 +13,7 @@ const Profile = ({ navigation }) => {
       </View>
 
       <Content> 
+
         <Text> Firstname Lastname </Text>
         <Text>Age</Text>
         <Text>Email</Text>
@@ -39,7 +40,7 @@ const Profile = ({ navigation }) => {
       <Text style={styles.text3}>Dietary Restrictions</Text>
       <Text style={styles.text4}>Vegan</Text>
       <Text style={styles.text4}>Allergies</Text>
-      
+
       </Content >
       <NavigationBar/>
     </Container>
