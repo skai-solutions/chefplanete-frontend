@@ -15,7 +15,6 @@ import {
 import getTheme from "../native-base-theme/components";
 import material from "../native-base-theme/variables/material";
 import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
-import { Button, Container, Icon, List, ListItem } from "native-base";
 import { getPantry } from "../reducers";
 import { connect } from "react-redux";
 
