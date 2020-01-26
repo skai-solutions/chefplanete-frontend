@@ -44,7 +44,7 @@ const OCRCamera = ({navigation, onSubmit, cameraIsLoading, errors}) => {
         exif: true
       };
       await this.camera.takePictureAsync(options).then((data) => {
-        onSubmit(data.base64).then(() => navigation.replace('ReceiptScanned'))
+        onSubmit(data.base64).then(() => navigation.replace('VerifyIdentifiedIngredients'))
           .catch(() => console.log("camera error"));
         //Clipboard.setString(data.base64);
       });

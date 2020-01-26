@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
-import {
-    Button,
-    CheckBox,
-    Container,
-    Content,
-    Footer,
-    FooterTab,
-    Icon,
-    List,
-    ListItem,
-    StyleProvider,
-
-} from "native-base";
-import getTheme from "../native-base-theme/components";
-import material from "../native-base-theme/variables/material";
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
+import React from 'react';
+import { Button, Container } from "native-base";
+import { StyleSheet, Text, View } from 'react-native';
 import { getPantry } from "../reducers";
 import { connect } from "react-redux";
 
-const VerifyPantry = ({navigation, pantry}) => {
+// export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit:scanReceipt}, dispatch);
+
+// export const mapStateToProps = state => ({
+//   ingredients: !state.camera.data ? null : getIngredients(state),
+//   ingredientsLoading: cameraIsLoading(state),
+//   errors: getIngredientsErrors(state),
+// });
+
+const VerifyIdentifiedIngredients = ({navigation, pantry}) => {
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
@@ -82,4 +76,4 @@ const mapStateToProps = state => ({
     pantry: getPantry(state),
 });
 
-export default connect(mapStateToProps)(VerifyPantry);
+export default connect(mapStateToProps)(VerifyIdentifiedIngredients);
