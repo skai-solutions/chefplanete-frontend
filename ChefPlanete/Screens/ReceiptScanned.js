@@ -32,12 +32,12 @@ const ReceiptScanned = ({onSubmit, ingredients, ingredientsLoading, errors, navi
         </View>
       }
       {
-        ingredients && ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
+        (ingredients && !ingredientsLoading) && ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
       }
       {
-        isErrorState &&
+        errors &&
         <View>
-          <Text style={styles.text}>There was an error signing in!</Text>
+          <Text style={styles.text}>There was an error loading ingredients!</Text>
           <Text style={styles.errorText}>{errors}</Text>
         </View>
       }

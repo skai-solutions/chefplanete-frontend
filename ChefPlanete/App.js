@@ -4,6 +4,10 @@ import { SafeAreaView } from "react-navigation";
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+import { StyleProvider } from 'native-base';
+import getTheme from './native-base-theme/components';
+import material from './native-base-theme/variables/material';
+
 import Start from './Screens/Start';
 import Login from './Screens/Login';
 import Profile from './Screens/Profile';
@@ -21,6 +25,9 @@ const MainNavigator = createStackNavigator({
     Dashboard: {screen: Dashboard},
     Search: {screen: Search},
     MyFridge: {screen: MyFridge},
+    OCRCamera: {screen: OCRCamera},
+    CameraLoading: {screen: CameraLoading},
+    ReceiptScanned: {screen: ReceiptScanned},
     VerifyPantry: {screen: VerifyPantry},
   },
 
@@ -36,9 +43,11 @@ const state = store.getState();
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <AppContainer/>
-    </Provider>
+    <StyleProvider style={getTheme(material)}>
+      <Provider store={store}>
+        <AppContainer/>
+      </Provider>
+    </StyleProvider>
   );
 };
 

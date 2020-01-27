@@ -12,7 +12,7 @@ const Profile = ({ navigation }) => {
         <Text style={styles.text} >About</Text>
       </View>
 
-      <Content> 
+      <Content>
         <Text> Firstname Lastname </Text>
         <Text>Age</Text>
         <Text>Email</Text>
@@ -39,7 +39,7 @@ const Profile = ({ navigation }) => {
       <Text style={styles.text3}>Dietary Restrictions</Text>
       <Text style={styles.text4}>Vegan</Text>
       <Text style={styles.text4}>Allergies</Text>
-      
+
       </Content >
       <NavigationBar/>
     </Container>
@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(20,19,19,1)"
   },
   heading: {
-    color: "rgba(236,243,229,1)",
-    position: "absolute",
+    color: "rgba(94,167,11,1)",
     fontSize: 45,
     lineHeight: 0,
     textAlign: "center",

@@ -11,10 +11,7 @@ import {
   Icon,
   List,
   ListItem,
-  StyleProvider
 } from 'native-base';
-import getTheme from '../native-base-theme/components';
-import material from '../native-base-theme/variables/material';
 import NavigationBar from '../components/NavigationBar';
 import { getUser } from "../reducers";
 import { connect } from "react-redux";
@@ -22,8 +19,7 @@ import { connect } from "react-redux";
 const Dashboard = ({navigation, user}) => {
   const {navigate} = navigation;
   return (
-    <StyleProvider style={getTheme(material)}>
-      <Container style={styles.container}>
+    <Container style={styles.container}>
         <Content>
           <View>
             <Text style={styles.text}>Good Morning, {user.name}!</Text>
@@ -51,7 +47,7 @@ const Dashboard = ({navigation, user}) => {
         </Content>
         <NavigationBar/>
       </Container>
-    </StyleProvider>
+
   );
 };
 

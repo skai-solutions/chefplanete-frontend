@@ -40,16 +40,14 @@ const OCRCamera = ({navigation, onSubmit, cameraIsLoading, errors}) => {
     if (this.camera) {
       console.log("button pressed");
       const options = {
-        quality: 0,
+        quality: 0.8,
         base64: true,
-        base64Encoded: true,
         fixOrientation: true,
-        exif: true
       };
-      await this.camera.takePictureAsync(options).then((data) => {
-        onSubmit(data.base64).then(() => navigation.replace('ReceiptScanned'))
-          .catch(() => console.log("camera error"));
-        //Clipboard.setString(data.base64);
+      await this.camera.takePictureAsync(options).then(async (data) => {
+        const base64image = data.base64.replace(/(?:\r\n|\r|\n)/g, '');
+        onSubmit(base64image).catch(() => console.log("camera error"));
+        navigation.replace('ReceiptScanned');
       });
     }
   };
