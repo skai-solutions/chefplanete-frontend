@@ -47,7 +47,7 @@ const OCRCamera = ({navigation, onSubmit, cameraIsLoading, errors}) => {
       await this.camera.takePictureAsync(options).then(async (data) => {
         const base64image = data.base64.replace(/(?:\r\n|\r|\n)/g, '');
         onSubmit(base64image).catch(() => console.log("camera error"));
-        navigation.replace('ReceiptScanned');
+        navigation.replace('CameraResults');
       });
     }
   };
