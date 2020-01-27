@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import { StyleSheet, View, Text, Badge } from "react-native";
-import { Button, Container, Content, Footer, FooterTab, Header, Icon } from 'native-base';
+import { Button, Container, Content, Footer, FooterTab, Header, Icon ,  Card, CardItem, Body,} from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 import RecipeRecommender from '../components/recipeRecommender';
 import {getPantry} from "../reducers";
@@ -13,9 +13,15 @@ const MyFridge = ({navigation, pantry}) => {
       <Container style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.heading}>MyFridge</Text>
+            <Card>
+                <CardItem>
+                    <Body>
             {
                 Object.entries(pantry).map(([key,value])=> <Text style={styles.text} key={key}>{value.name} {value.quantity} {value.unitName}</Text>)
             }
+                    </Body>
+                </CardItem>
+            </Card>
         </View>
 
         <NavigationBar/>
