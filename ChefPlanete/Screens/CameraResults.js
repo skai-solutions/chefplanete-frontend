@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image} from "react-native";
+import {Card, CardItem, Body, Content} from "native-base"
 import {bindActionCreators} from "redux";
 import {updateUserPantry} from "../actions/pantryActions";
 import {getIngredients, cameraIsLoading, getIngredientsErrors} from "../reducers";
@@ -14,6 +15,21 @@ export const mapStateToProps = state => ({
 });
 
 const CameraResults = ({onSubmit, ingredients, loading, errors, navigation}) => {
+  const [isErrorState, setErrorState] = useState(false);
+
+  const approveIngredientList = (ingredients) => {
+    console.log("Sending ingredients...");
+    console.log(JSON.stringify(ingredients));
+    // onSubmit({
+    //   id: ingredients,
+    //   name: ingredients.name,
+    //   quantity: 1,
+    //   unitName: "self"
+    // })
+    onSubmit(ingredients).then(() => navigation.replace('MyFridge'))
+      .catch(() => setErrorState(true));
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -34,10 +50,11 @@ const CameraResults = ({onSubmit, ingredients, loading, errors, navigation}) => 
           </View>
         }
         {
-          (ingredients && !loading) && ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
+          (ingredients && !loading) && 
+          ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
         }
         {
-          (errors && !loading) &&
+          isErrorState &&
           <View>
             <Text style={styles.text}>There was an error loading the ingredients!</Text>
             <Text style={styles.errorText}>{errors}</Text>
@@ -45,17 +62,24 @@ const CameraResults = ({onSubmit, ingredients, loading, errors, navigation}) => 
         }
       </View>
       <View style={styles.footer}>
-        <Button title="Approve" onPress={approveIngredientList}/>
+        {
+          !loading &&
+          <Content>
+            <Button title="Approve" onPress={approveIngredientList}/>
+            <Card>
+              <CardItem>
+                <Body>
+                  <Text>
+                    COOL TEXT
+                  </Text>
+                </Body>
+              </CardItem>
+            </Card>
+          </Content>
+        }
       </View>
     </View>
   );
-}
-
-const approveIngredientList = async () => {
-  console.log("Sending ingredients...");
-  // const ingredientList = {}
-  console.log(ingredients);
-  onSubmit(ingredients).catch(() => console.log("ERROR: Could not PUT ingredients to backend."));
 }
 
 const styles = StyleSheet.create({
