@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image} from "react-native";
 import {Card, CardItem, Body, Content} from "native-base"
 import {bindActionCreators} from "redux";
@@ -16,19 +16,48 @@ export const mapStateToProps = state => ({
 
 const CameraResults = ({onSubmit, ingredients, loading, errors, navigation}) => {
   const [isErrorState, setErrorState] = useState(false);
+  const [identifiedItems, setIdentifiedItems] = useState({});
 
-  const approveIngredientList = (ingredients) => {
+  // useEffect(() => {
+  //   if (ingredients && !loading) {
+  //     var receiptIngredients = {};
+  //     ingredients.forEach((item) => {
+  //       receiptIngredients[item.ingredientName.toUpperCase()] = {
+  //         name: item.ingredientName,
+  //         quantity: 1,
+  //         unitName: "self"
+  //       }
+  //     })
+  //     console.log("SETTING IDENTIFIED ITEMS:", identifiedItems);
+  //     setIdentifiedItems(receiptIngredients)
+  //   }
+  // });
+
+  const approveIngredientList = () => {
     console.log("Sending ingredients...");
-    console.log(JSON.stringify(ingredients));
-    // onSubmit({
-    //   id: ingredients,
-    //   name: ingredients.name,
-    //   quantity: 1,
-    //   unitName: "self"
-    // })
-    onSubmit(ingredients).then(() => navigation.replace('MyFridge'))
+    var receiptIngredients = {};
+    ingredients.forEach((item) => {
+      receiptIngredients[item.ingredientName.toUpperCase()] = {
+        name: item.ingredientName,
+        quantity: 1,
+        unitName: "self"
+      }
+    })
+    console.log("ingredients: ", receiptIngredients);
+    onSubmit(receiptIngredients).then(() => navigation.replace('MyFridge'))
       .catch(() => setErrorState(true));
   }
+
+  // const onChangeIdentifiedItems = (itemKey) => {
+  //   setIdentifiedItems({
+  //     ...identifiedItems,
+  //     itemKey: {
+  //       name: "test",
+  //       quantity: 100,
+  //       unitName: "TesT"
+  //     }
+  //   })
+  // }
 
   return (
     <View style={styles.container}>
@@ -49,6 +78,31 @@ const CameraResults = ({onSubmit, ingredients, loading, errors, navigation}) => 
             <Text style={styles.text}>LOADING...</Text>
           </View>
         }
+        {/* {
+          !loading && 
+          Object.entries(identifiedItems).map(([key,value]) => {
+            <Card>
+              <CardItem>
+                <Body>
+                  <Text>TEST</Text>
+                  <Text style={styles.text} key={key}>{value.name}</Text>
+                  <TextInput
+                    style={{ height: 10, borderColor: 'gray', borderWidth: 1 }}
+                    keyboardType="number-pad"
+                    onChangeText={onChangeIdentifiedItems}
+                    value={value.quantity}
+                  />
+                </Body>
+              </CardItem>
+            </Card>
+          })
+        } */}
+        {/* {
+          (Object.keys(identifiedItems).length != 0 && !loading) && 
+          Object.entries(identifiedItems).map(([key,value]) => {
+            <Text key={key} style={styles.text}>{value.name}</Text>
+          })
+        } */}
         {
           (ingredients && !loading) && 
           ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
