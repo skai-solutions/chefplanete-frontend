@@ -34,7 +34,7 @@ const OCRCamera = ({navigation, onSubmit, cameraIsLoading, errors}) => {
         throw new Error('Camera permission not granted');
       }
     });
-  });
+  }, []);
 
   const snapPhoto = async () => {
     if (this.camera) {

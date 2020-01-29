@@ -16,160 +16,137 @@ export const mapStateToProps = state => ({
 
 const CameraResults = ({onSubmit, ingredients, loading, errors, navigation}) => {
   const [isErrorState, setErrorState] = useState(false);
+  const [isSetup, setSetup] = useState(false);
   const [identifiedItems, setIdentifiedItems] = useState({});
-
-  // useEffect(() => {
-  //   if (ingredients && !loading) {
-  //     var receiptIngredients = {};
-  //     ingredients.forEach((item) => {
-  //       receiptIngredients[item.ingredientName.toUpperCase()] = {
-  //         name: item.ingredientName,
-  //         quantity: 1,
-  //         unitName: "self"
-  //       }
-  //     })
-  //     console.log("SETTING IDENTIFIED ITEMS:", identifiedItems);
-  //     setIdentifiedItems(receiptIngredients)
-  //   }
-  // });
-
-  const approveIngredientList = () => {
-    console.log("Sending ingredients...");
-    var receiptIngredients = {};
-    ingredients.forEach((item) => {
+  
+  useEffect(() => {
+    if (ingredients && !isSetup){
+      var receiptIngredients = {};
+      ingredients.forEach((item) =>
       receiptIngredients[item.ingredientName.toUpperCase()] = {
         name: item.ingredientName,
         quantity: 1,
         unitName: "self"
       }
+      );
+      setIdentifiedItems(receiptIngredients);
+      console.log("SETTING IDENTIFIED ITEMS:", receiptIngredients);
+      setSetup(true);
+    }
+  }, [loading]);
+  
+  const updateIngredientQuantity = (inputQuantity, itemKey) => {
+    console.log("updating item: ", inputQuantity, itemKey);
+    setIdentifiedItems({
+      ...identifiedItems,
+      [itemKey]: {
+        ...identifiedItems[itemKey],
+        quantity: inputQuantity,
+      }
     })
-    console.log("ingredients: ", receiptIngredients);
-    onSubmit(receiptIngredients).then(() => navigation.replace('MyFridge'))
-      .catch(() => setErrorState(true));
   }
-
-  // const onChangeIdentifiedItems = (itemKey) => {
-  //   setIdentifiedItems({
-  //     ...identifiedItems,
-  //     itemKey: {
-  //       name: "test",
-  //       quantity: 100,
-  //       unitName: "TesT"
-  //     }
-  //   })
-  // }
-
+  
+  const approveIngredientList = () => {
+    console.log("Sending ingredients...");
+    console.log("ingredients: ", identifiedItems);
+    onSubmit(identifiedItems).then(() => navigation.replace('MyFridge'))
+    .catch(() => setErrorState(true));
+  }
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {
-          loading &&
-          <Text style={styles.heading}>Identifying items from receipt image...</Text>
-        }
-        {
-          !loading &&
-          <Text style={styles.heading}>We have identified the following items:</Text>
-        }
+      {
+        loading &&
+        <Text style={styles.heading}>Identifying items from receipt image...</Text>
+      }
+      {
+        !loading &&
+        <Text style={styles.heading}>We have identified the following items:</Text>
+      }
       </View>
       <View style={styles.list}>
-        {
-          loading &&
-          <View>
-            <Text style={styles.text}>LOADING...</Text>
-          </View>
-        }
-        {/* {
-          !loading && 
-          Object.entries(identifiedItems).map(([key,value]) => {
-            <Card>
-              <CardItem>
-                <Body>
-                  <Text>TEST</Text>
-                  <Text style={styles.text} key={key}>{value.name}</Text>
-                  <TextInput
-                    style={{ height: 10, borderColor: 'gray', borderWidth: 1 }}
-                    keyboardType="number-pad"
-                    onChangeText={onChangeIdentifiedItems}
-                    value={value.quantity}
-                  />
-                </Body>
-              </CardItem>
+      {
+        loading &&
+        <View>
+        <Text style={styles.text}>LOADING...</Text>
+        </View>
+      }
+      {
+        isSetup ? 
+        Object.entries(identifiedItems).sort(([keyA], [keyB]) => {
+          if(keyA > keyB) return -1;
+          if(keyB > keyA) return 1;
+          return 0;
+        }).map(([key,value]) => {
+          return (
+            <Card key={key}>
+            <CardItem>
+            <Body>
+            <Text style={styles.text}>{value.name}</Text>
+            <TextInput
+            style={{ height: 10, borderColor: 'gray', borderWidth: 1 }}
+            keyboardType="number-pad"
+            onChangeText={(newText) => updateIngredientQuantity(newText, key)}
+            value={value.quantity}
+            />
+            </Body>
+            </CardItem>
             </Card>
-          })
-        } */}
-        {/* {
-          (Object.keys(identifiedItems).length != 0 && !loading) && 
-          Object.entries(identifiedItems).map(([key,value]) => {
-            <Text key={key} style={styles.text}>{value.name}</Text>
-          })
-        } */}
-        {
-          (ingredients && !loading) && 
-          ingredients.map(({ingredientName}) => <Text key={ingredientName} style={styles.text}>{ingredientName}</Text>)
-        }
+            );
+          }):null
+        }    
         {
           isErrorState &&
           <View>
-            <Text style={styles.text}>There was an error loading the ingredients!</Text>
-            <Text style={styles.errorText}>{errors}</Text>
+          <Text style={styles.text}>There was an error loading the ingredients!</Text>
+          <Text style={styles.errorText}>{errors}</Text>
           </View>
         }
       </View>
       <View style={styles.footer}>
         {
           !loading &&
-          <Content>
-            <Button title="Approve" onPress={approveIngredientList}/>
-            <Card>
-              <CardItem>
-                <Body>
-                  <Text>
-                    COOL TEXT
-                  </Text>
-                </Body>
-              </CardItem>
-            </Card>
-          </Content>
+          <Button title="Approve" onPress={approveIngredientList}/>
         }
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 6,
-    backgroundColor: "rgba(20,19,19,1)",
-  },
-  errorText: {
-    color: "rgba(243,130,76,1)",
-    textAlign: "center",
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: "rgba(20,19,19,1)",
-    marginBottom: "5%",
-  },
-  heading: {
-    color: "rgba(94,167,11,1)",
-    fontSize: 45,
-    textAlign: "center",
-    marginTop: "10%"
-  },
-  header: {
-    flex: 2,
-    backgroundColor: "rgba(20,19,19,1)",
-  },
-  list: {
-    flex: 3,
-    backgroundColor: "rgba(20,19,19,1)",
-    marginTop: "10%"
-  },
-  text: {
-    color: "rgb(238,243,233)",
-    textAlign: "center",
-    fontSize: 20
-  }
-});
-
+    
+  const styles = StyleSheet.create({
+    container: {
+      flex: 6,
+      backgroundColor: "rgba(20,19,19,1)",
+    },
+    errorText: {
+      color: "rgba(243,130,76,1)",
+      textAlign: "center",
+    },
+    footer: {
+      flex: 1,
+      backgroundColor: "rgba(20,19,19,1)",
+      marginBottom: "5%",
+    },
+    heading: {
+      color: "rgba(94,167,11,1)",
+      fontSize: 45,
+      textAlign: "center",
+      marginTop: "10%"
+    },
+    header: {
+      flex: 2,
+      backgroundColor: "rgba(20,19,19,1)",
+    },
+    list: {
+      flex: 3,
+      backgroundColor: "rgba(20,19,19,1)",
+      marginTop: "10%"
+    },
+    text: {
+      color: "rgb(238,243,233)",
+      textAlign: "center",
+      fontSize: 20
+    }
+  });
 export default connect(mapStateToProps, mapDispatchToProps)(CameraResults);
