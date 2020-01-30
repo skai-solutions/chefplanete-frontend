@@ -28,7 +28,7 @@ const Login = ({onSubmit, user, userLoading, profileLoading, navigation, errors}
     Font.loadAsync({
       'pacifico': require('../assets/fonts/Pacifico-Regular.ttf'),
     }).then(() => setFontLoaded(true));
-  });
+  }, []);
   const [isErrorState, setErrorState] = useState(false);
   const [authState, setAuthState] = useState(null);
   const login = async () => {
