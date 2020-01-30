@@ -14,7 +14,6 @@ import Profile from './Screens/Profile';
 import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
-import VerifyPantry from './Screens/VerifyPantry';
 import store from "./store";
 import { Provider } from "react-redux";
 import * as Font from "expo-font";
@@ -30,6 +29,9 @@ const MainNavigator = createStackNavigator({
     Dashboard: {screen: Dashboard},
     Search: {screen: Search},
     MyFridge: {screen: MyFridge},
+    OCRCamera: {screen: OCRCamera},
+    CameraLoading: {screen: CameraLoading},
+    CameraResults: {screen: CameraResults},
     VerifyPantry: {screen: VerifyPantry},
   },
 
