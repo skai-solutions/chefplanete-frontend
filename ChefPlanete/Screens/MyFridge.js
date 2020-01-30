@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button} from "react-native";
+import {StyleSheet, View, Text, Button, TouchableHighlight} from "react-native";
 import {Container, Body, Card, CardItem, Icon} from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 import RecipeRecommender from '../components/recipeRecommender';
@@ -8,6 +8,10 @@ import {connect} from "react-redux";
 import * as Font from 'expo-font';
 
 const MyFridge = ({navigation, pantry}) => {
+
+  const removeItem = () => {
+    console.log("Item being removed...");
+  }
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
@@ -22,7 +26,9 @@ const MyFridge = ({navigation, pantry}) => {
                     <Body>
                       <View style={styles.itemView}>
                         <Text style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
-                        <Icon name="close" style={styles.icon}/>
+                        <TouchableHighlight onPress={removeItem}>
+                          <Icon name="close" style={styles.icon}/>
+                        </TouchableHighlight>
                       </View>
                     </Body>
                   </CardItem>
@@ -59,21 +65,23 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "grey",
     paddingRight: "10%",
-    justifyContent: 'center',
   },
   cardPadding: {
     paddingLeft: "10%",
-    paddingRight: "10%"
+    paddingRight: "10%",
+
   },
   icon: {
     fontSize: 30,
-    color: "black",
+    color: "white",
     lineHeight: 20,
-    top: "5%"
+    top: "90%",
+    flexDirection: "row-reverse",
   },
   itemView: {
+    justifyContent: 'space-between',
+
     flexDirection: 'row',
-    justifyContent: 'space-between'
   }
 });
 
