@@ -100,7 +100,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
       <ScrollView>
         <View style={{marginLeft: "10%", marginRight: "10%"}}>
           {
-            isSetup ? 
+            isSetup && !loading ?
             Object.entries(identifiedIngredients).sort(([keyA], [keyB]) => {
               if(keyA > keyB) return -1;
               if(keyB > keyA) return 1;
@@ -151,7 +151,9 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
       }
       {
         !loading &&
-        <Button title="Approve" onPress={approveIngredientList} color="rgba(94,167,11,1)"/>
+        <View style={{marginBottom: 20}}>
+          <Button title="Approve" onPress={approveIngredientList} color="rgba(94,167,11,1)"/>
+        </View>
       }
     </View>
   );
