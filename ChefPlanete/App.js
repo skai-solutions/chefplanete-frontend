@@ -7,7 +7,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { StyleProvider } from 'native-base';
 import getTheme from './native-base-theme/components';
 import material from './native-base-theme/variables/material';
-
 import Start from './Screens/Start';
 import Login from './Screens/Login';
 import Profile from './Screens/Profile';
@@ -17,6 +16,9 @@ import MyFridge from './Screens/MyFridge';
 import VerifyPantry from './Screens/VerifyPantry';
 import store from "./store";
 import { Provider } from "react-redux";
+import OCRCamera from "./Screens/OCRCamera";
+import ReceiptScanned from "./Screens/ReceiptScanned";
+import CameraLoading from "./Screens/CameraLoading";
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},

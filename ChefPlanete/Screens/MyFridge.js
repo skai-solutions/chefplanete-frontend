@@ -1,64 +1,84 @@
-import React, { Component }  from 'react';
-import { StyleSheet, View, Text, Badge } from "react-native";
-import { Button, Container, Content, Footer, FooterTab, Header, Icon ,  Card, CardItem, Body,} from 'native-base';
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, Button} from "react-native";
+import {Container, Body, Card, CardItem, Icon} from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 import RecipeRecommender from '../components/recipeRecommender';
 import {getPantry} from "../reducers";
 import {connect} from "react-redux";
+import * as Font from 'expo-font';
 
 const MyFridge = ({navigation, pantry}) => {
-
-    const {navigate} = navigation;
-    return (
-      <Container style={styles.container}>
-        <View style={styles.container}>
-          <Text style={styles.heading}>MyFridge</Text>
-            <Card>
-                <CardItem>
+  const {navigate} = navigation;
+  return (
+    <Container style={styles.container}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>MyFridge</Text>
+        {
+          Object.entries(pantry).map(([key, value]) => {
+            return (
+              <View key={key} style={styles.cardPadding}>
+                <Card key={key}>
+                  <CardItem style={styles.card}>
                     <Body>
-            {
-                Object.entries(pantry).map(([key,value])=> <Text style={styles.text} key={key}>{value.name} {value.quantity} {value.unitName}</Text>)
-            }
+                      <View style={styles.itemView}>
+                        <Text style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
+                        <Icon name="close" style={styles.icon}/>
+                      </View>
                     </Body>
-                </CardItem>
-            </Card>
-        </View>
-
-        <NavigationBar/>
-      </Container>
-    );
+                  </CardItem>
+                </Card>
+              </View>
+            )
+          })
+        }
+      </View>
+      <NavigationBar/>
+    </Container>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "rgba(20,19,19,1)"
-    },
-    heading: {
-      color: "rgba(94,167,11,1)",
-      fontSize: 45,
-      textAlign: "center",
-      marginTop: "10%",
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-        color: "rgba(236,243,229,1)",
-    },
-    text: {
-        width: 375,
-        height: 50,
-        color: "rgba(94,167,11,1)",
-        fontSize: 32,
-        textAlign: "center",
-        marginTop: 62,
-        alignSelf: "center"
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "rgba(20,19,19,1)"
+  },
+  heading: {
+    fontFamily: 'pacifico',
+    color: "rgba(94,167,11,1)",
+    fontSize: 45,
+    textAlign: "center",
+    marginTop: "10%",
+    paddingBottom: 20,
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    color: "white",
+  },
+  card: {
+    backgroundColor: "grey",
+    paddingRight: "10%",
+    justifyContent: 'center',
+  },
+  cardPadding: {
+    paddingLeft: "10%",
+    paddingRight: "10%"
+  },
+  icon: {
+    fontSize: 30,
+    color: "black",
+    lineHeight: 20,
+    top: "5%"
+  },
+  itemView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
+});
 
 const mapStateToProps = state => ({
-    pantry: getPantry(state),
+  pantry: getPantry(state),
 });
 
 export default connect(mapStateToProps)(MyFridge);
