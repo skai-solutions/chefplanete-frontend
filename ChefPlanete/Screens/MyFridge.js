@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, TouchableHighlight} from "react-native";
+import {StyleSheet, View, Text, Button, TouchableHighlight, ScrollView} from "react-native";
 import {Container, Body, Card, CardItem, Icon} from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 import RecipeRecommender from '../components/recipeRecommender';
@@ -15,11 +15,13 @@ const MyFridge = ({navigation, pantry}) => {
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
+      <ScrollView>
       <View style={styles.container}>
         <Text style={styles.heading}>MyFridge</Text>
         {
           Object.entries(pantry).map(([key, value]) => {
             return (
+
               <View key={key} style={styles.cardPadding}>
                 <Card key={key}>
                   <CardItem style={styles.card}>
@@ -34,10 +36,12 @@ const MyFridge = ({navigation, pantry}) => {
                   </CardItem>
                 </Card>
               </View>
+
             )
           })
         }
       </View>
+      </ScrollView>
       <NavigationBar/>
     </Container>
   );
