@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {Button, Picker, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
-import {Card, CardItem, Body, Content, Row} from "native-base"
+import {Button, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
+import {Card, CardItem, Body, Content, Picker, Row} from "native-base"
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {cameraIsLoading, getIngredients, getIngredientsErrors, getPantry} from "../reducers";
@@ -164,7 +164,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
     },
     container: {
       backgroundColor: "rgba(20,19,19,1)",
-      flex: 4,
+      flex: 5,
     },
     errorText: {
       color: "rgba(243,130,76,1)",
@@ -176,14 +176,17 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
       textAlign: "center",
       marginTop: "10%",
     },
-    ingredientDetails: {
-      flex: 1,
-      marginLeft: "5%",
-      marginRight: "5%",
-    },
     ingredientName: {
       flex: 2,
       marginRight: "5%",
+    },
+    ingredientQuantity: {
+      flex: 1,
+      marginRight: "5%",
+    },
+    ingredientUnitName: {
+      flex: 2,
+      marginLeft: "5%",
     },
     ingredientText: {
       color: "rgb(238,243,233)",
