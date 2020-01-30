@@ -20,33 +20,34 @@ const Dashboard = ({navigation, user}) => {
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
-      <Content>
-        <View>
-          <Text style={styles.text}>Good Morning, {user.name}!</Text>
-          <Text style={styles.text2}>Today</Text>
-          <View style={styles.text5Row}>
-            <Text style={styles.text5}>Breakfast</Text>
-            <Text style={styles.text6}>Lunch</Text>
-            <Text style={styles.text7}>Dinner</Text>
-          </View>
-          <Text style={styles.text2}>My Fridge</Text>
+        <Content>
           <View>
-            <Text style={styles.text3}>Goals</Text>
-            <List>
-              <ListItem>
-                <CheckBox checked={false}/>
-                <Text style={{color: "white"}}>Goal #1</Text>
-              </ListItem>
-              <ListItem>
-                <CheckBox checked={false}/>
-                <Text style={{color: "white"}}>Goal #2</Text>
-              </ListItem>
-            </List>
+            <Text style={styles.text}>Good Morning, {user.name}!</Text>
+            <Text style={styles.text2}>Today</Text>
+            <View style={styles.text5Row}>
+              <Text style={styles.text5}>Breakfast</Text>
+              <Text style={styles.text6}>Lunch</Text>
+              <Text style={styles.text7}>Dinner</Text>
+            </View>
+            <Text style={styles.text2}>My Fridge</Text>
+            <View>
+              <Text style={styles.text3}>Goals</Text>
+              <List>
+                <ListItem>
+                  <CheckBox checked={false}/>
+                  <Text style={{color: "white"}}>Goal #1</Text>
+                </ListItem>
+                <ListItem>
+                  <CheckBox checked={false}/>
+                  <Text style={{color: "white"}}>Goal #2</Text>
+                </ListItem>
+              </List>
+            </View>
           </View>
-        </View>
-      </Content>
-      <NavigationBar/>
-    </Container>
+        </Content>
+        <NavigationBar/>
+      </Container>
+
   );
 };
 
