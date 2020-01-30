@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from "react-navigation";
 import { createAppContainer } from 'react-navigation';
@@ -19,6 +19,9 @@ import store from "./store";
 import { Provider } from "react-redux";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+import OCRCamera from "./Screens/OCRCamera";
+import ReceiptScanned from "./Screens/ReceiptScanned";
+import CameraLoading from "./Screens/CameraLoading";
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},
@@ -29,6 +32,7 @@ const MainNavigator = createStackNavigator({
     MyFridge: {screen: MyFridge},
     VerifyPantry: {screen: VerifyPantry},
   },
+
   {
     initialRouteName: 'Login',
     headerMode: 'none'
@@ -40,14 +44,6 @@ const AppContainer = createAppContainer(MainNavigator);
 const state = store.getState();
 
 const App = () => {
-  const [isReady, setReady] = useState(false);
-  useEffect(() => {
-    Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      ...Ionicons.font,
-    });
-  }, []);
   return (
     <StyleProvider style={getTheme(material)}>
       <Provider store={store}>

@@ -11,7 +11,7 @@ const NavigationBar = ({ navigation }) => {
           <Icon name="nutrition" />
         </Button>
         <Button active>
-          <Icon name="camera" />
+          <Icon name="camera"onPress={() => navigate('OCRCamera')} />
         </Button>
         <Button active onPress={()=> navigate('Search')}>
           <Icon name="search" />
