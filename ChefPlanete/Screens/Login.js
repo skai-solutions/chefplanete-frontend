@@ -7,6 +7,7 @@ import { dietaryProfileIsLoading, getUser, getUserErrors, userIsLoading } from "
 import { connect } from "react-redux";
 import * as Font from 'expo-font';
 import GoogleSignInButton from '../assets/signin_google_2x.png';
+import StyleVars from "../styles/variables";
 
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: signInUser}, dispatch);
 
@@ -27,6 +28,12 @@ const Login = ({onSubmit, user, userLoading, profileLoading, navigation, errors}
   useEffect(() => {
     Font.loadAsync({
       'pacifico': require('../assets/fonts/Pacifico-Regular.ttf'),
+      'Abril Fatface': require('../assets/fonts/AbrilFatface-Regular.ttf'),
+      'Montserrat': require('../assets/fonts/Montserrat-Bold.ttf'),
+      'Playfair Display': require('../assets/fonts/PlayfairDisplay-Medium.ttf'),
+      'SF Pro Display Heavy': require('../assets/fonts/SF-Pro-Display-Heavy.otf'),
+      'SF Pro Display Bold': require('../assets/fonts/SF-Pro-Display-Bold.otf'),
+      'SF Pro Display Medium': require('../assets/fonts/SF-Pro-Display-Medium.otf'),
     }).then(() => setFontLoaded(true));
   }, []);
   const [isErrorState, setErrorState] = useState(false);
@@ -73,11 +80,11 @@ const Login = ({onSubmit, user, userLoading, profileLoading, navigation, errors}
 const styles = StyleSheet.create({
   container: {
     flex: 3,
-    backgroundColor: "rgba(20,19,19,1)",
     justifyContent: "center",
+    backgroundColor: StyleVars.background,
   },
   text: {
-    color: "rgb(238,243,233)",
+    color: "rgb(23,23,23)",
     textAlign: "center",
   },
   errorText: {

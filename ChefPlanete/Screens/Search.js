@@ -1,39 +1,38 @@
-import React, {Component} from 'react';
-import {Badge, StyleSheet, Text, View} from "react-native";
-import {Button, Container, Content, Footer, FooterTab, Header, Icon, Input, Item} from 'native-base';
+import React, { Component } from 'react';
+import { Badge, StyleSheet, Text, View } from "react-native";
+import { Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Input, Item, Title } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
+import StyleVars from '../styles/variables';
+import PageHeader from "../components/PageHeader";
 
 const Search = ({navigation}) => {
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
-      <View style={styles.moveDown}>
-        <Header searchBar rounded style={styles.searchBar}>
-          <Item>
-            <Icon name="search"/>
-            <Input placeholder="Search"/>
-          </Item>
+      <PageHeader title="Search Recipes"/>
+        <Item style={{paddingHorizontal: 5}}>
+          <Icon name="search"/>
+          <Input placeholder="Search"/>
           <Button transparent>
-            <Text>Search</Text>
+            <Icon name="md-checkmark-circle"/>
           </Button>
-        </Header>
-      </View>
-      {/* <View style={styles.main}>
-        <View style={styles.recommendRectangle}>
-        </View>
-      </View> */}
-
-      <Content/>
-
-      <NavigationBar/>
+        </Item>
+      <Content>
+      </Content>
+      <NavigationBar currentScreen="SEARCH"/>
     </Container>
   );
 }
 
 const styles = StyleSheet.create({
+  titleHeader: {
+    fontFamily: "SF Pro Display Heavy",
+    textAlign: "center",
+    alignSelf: "center",
+    fontSize: 25,
+  },
   container: {
-    flex: 1,
-    backgroundColor: "rgba(20,19,19,1)",
+    backgroundColor: StyleVars.background,
   },
   heading: {
     color: "rgba(236,243,229,1)",
@@ -41,26 +40,7 @@ const styles = StyleSheet.create({
     fontSize: 45,
     lineHeight: 0,
     textAlign: "center",
-    marginTop: "10%"
   },
-  searchBar: {
-    justifyContent: "flex-start"
-  },
-  moveDown: {
-    marginTop: "10%"
-  },
-  recommendRectangle: {
-    width: 50,
-    height: 50,
-    backgroundColor: 'rgba(94,167,11,1)',
-    alignItems: "stretch",
-    // justifyContent: "space-around"
-  },
-  main: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: "space-around"
-  }
 });
 
 export default Search;

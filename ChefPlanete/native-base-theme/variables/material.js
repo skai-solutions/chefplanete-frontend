@@ -132,7 +132,7 @@ export default {
   brandLight: '#f4f4f4',
 
   // Container
-  containerBgColor: '#fff',
+  containerBgColor: '#ffffff',
 
   // Date Picker
   datePickerTextColor: '#000',
@@ -168,7 +168,7 @@ export default {
   tabBarActiveTextColor: '#fff',
   tabActiveBgColor: '#5ea70b',
 
-  // Header
+  // PageHeader
   toolbarBtnColor: '#fff',
   toolbarDefaultBg: '#5ea70b',
   toolbarHeight: 56,
