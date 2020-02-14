@@ -140,7 +140,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
                           value={stringQuantity}
                         />
                         <Picker
-                          iosIcon={<Icon style={{color: "white"}} name="arrow-down" />}
+                          iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
                           mode="dropdown"
                           selectedValue={value.unitName}
                           placeholderIconColor="white"
@@ -183,19 +183,19 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
 const styles = StyleSheet.create({
   nameInput: {
     fontFamily: "SF Pro Display Bold",
-    color: "black",
+    color: StyleVars.headingColor,
   },
   picker: {
     fontFamily: "SF Pro Display Bold",
-    backgroundColor: "black",
+    backgroundColor: StyleVars.headingColor,
   },
   quantityInput: {
     fontFamily: "SF Pro Display Bold",
-    color: "black",
+    color: StyleVars.headingColor,
   },
   unitSelection: {
     fontFamily: "SF Pro Display Bold",
-    color: "black"
+    color: StyleVars.headingColor,
   },
   receiptItem: {
     flexDirection: "row",
@@ -208,9 +208,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   buttonText: {
+    color: "white",
     fontFamily: "SF Pro Display Bold",
   },
   approveButton: {
+    color: StyleVars.headingColor,
     borderRadius: 8,
     width: "45%",
     alignSelf: "center",
@@ -228,7 +230,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     alignSelf: "center",
-    color: "rgb(0,57,7)",
+    color: StyleVars.brandSecondaryColor,
     fontSize: 25,
     paddingBottom: "3%",
   },
@@ -242,7 +244,7 @@ const styles = StyleSheet.create({
     backgroundColor: StyleVars.cardBackground,
   },
   container: {
-    backgroundColor: "black",
+    backgroundColor: StyleVars.background,
     flex: 5,
   },
   errorText: {
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: "SF Pro Display Bold",
-    color: "rgba(94,167,11,1)",
+    color: StyleVars.brandColor,
     fontSize: 30,
     textAlign: "center",
     marginTop: "10%",
