@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Button, TouchableHighlight, ScrollView } from "react-native";
-import { Container, Body, Card, CardItem, Icon, Content, Title } from 'native-base';
+import { StyleSheet, View, Text, TouchableHighlight, ScrollView } from "react-native";
+import { Container, Body, Card, CardItem, Icon, Content, Title, Button } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 import RecipeRecommender from '../components/recipeRecommender';
 import { getPantry } from "../reducers";
@@ -18,29 +18,23 @@ const MyFridge = ({navigation, pantry}) => {
   return (
     <Container style={styles.container}>
       <PageHeader title="My Fridge" />
-      <Content>
-        <View style={styles.container}>
-          {
-            Object.entries(pantry).map(([key, value]) => {
-              return (
-                <View key={key} style={styles.cardPadding}>
-                  <Card key={key}>
-                    <CardItem style={styles.card}>
-                      <Body>
-                        <View style={styles.itemView}>
-                          <Text style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
-                          <TouchableHighlight onPress={removeItem}>
-                            <Icon name="close" style={styles.icon}/>
-                          </TouchableHighlight>
-                        </View>
-                      </Body>
-                    </CardItem>
-                  </Card>
-                </View>
-              )
-            })
-          }
-        </View>
+      <Content style={{paddingVertical: 10, paddingHorizontal: 15}}>
+        {
+          Object.entries(pantry).map(([key, value]) => {
+            return (
+              <Card style={styles.card} key={key}>
+                <CardItem style={styles.card}>
+                  <Body style={styles.itemView}>
+                    <Text adjustsFontSizeToFit style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
+                    <Button style={styles.button} onPress={removeItem}>
+                      <Icon name="close"/>
+                    </Button>
+                  </Body>
+                </CardItem>
+              </Card>
+            )
+          })
+        }
       </Content>
       <NavigationBar currentScreen="FRIDGE"/>
     </Container>
@@ -49,7 +43,6 @@ const MyFridge = ({navigation, pantry}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: StyleVars.background,
   },
   heading: {
@@ -57,23 +50,20 @@ const styles = StyleSheet.create({
     color: StyleVars.headingColor,
     fontSize: 45,
     textAlign: "center",
-    marginTop: "10%",
-    paddingBottom: 20,
   },
   item: {
-    padding: 10,
+    fontFamily: 'SF Pro Display Bold',
+    flex: 5,
     fontSize: 18,
-    height: 44,
     color: "black",
   },
-  card: {
-    backgroundColor: StyleVars.cardBackground,
-    paddingRight: "10%",
+  button: {
+    flex: 1,
+    justifyContent: "center",
   },
-  cardPadding: {
-    paddingLeft: "10%",
-    paddingRight: "10%",
-
+  card: {
+    borderRadius: 8,
+    backgroundColor: StyleVars.cardBackground,
   },
   icon: {
     fontSize: 30,
@@ -84,7 +74,6 @@ const styles = StyleSheet.create({
   },
   itemView: {
     justifyContent: 'space-between',
-
     flexDirection: 'row',
   }
 });

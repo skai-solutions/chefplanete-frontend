@@ -1,5 +1,6 @@
 export default {
   background: "rgb(251,251,251)",
+  footerColor: "rgb(241,241,241)",
   brandColor: "rgba(94,167,11,1)",
   brandSecondaryColor: "rgb(0,57,7)",
   cardBackground: "rgba(234,232,236,0.96)",
