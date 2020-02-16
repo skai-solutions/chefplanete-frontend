@@ -121,7 +121,7 @@ export default (variables /* : * */ = variable) => {
     },
 
     'NativeBase.Container': {
-      ...containerTheme(variables)
+      ...containerTheme(variables),
     },
     'NativeBase.Content': {
       ...contentTheme(variables)

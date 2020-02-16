@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from "react";
-import {Button, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
-import {Card, CardItem, Body, Content, Picker, Row} from "native-base"
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
-import {cameraIsLoading, getIngredients, getIngredientsErrors, getPantry} from "../reducers";
-import {updateUserPantry} from "../actions/pantryActions";
+import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Card,
+  Icon,
+  CardItem,
+  Body,
+  Button,
+  Container,
+  Content,
+  Header,
+  Item,
+  Picker,
+  Row,
+  Title,
+  Input
+} from "native-base"
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { cameraIsLoading, getIngredients, getIngredientsErrors, getPantry } from "../reducers";
+import { updateUserPantry } from "../actions/pantryActions";
+import PageHeader from "../components/PageHeader";
+import StyleVars from "../styles/variables";
 
-export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit:updateUserPantry}, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: updateUserPantry}, dispatch);
 
 export const mapStateToProps = state => ({
   ingredients: !state.camera.data ? null : getIngredients(state),
@@ -19,9 +35,9 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
   const [isErrorState, setErrorState] = useState(false);
   const [isSetup, setSetup] = useState(false);
   const [identifiedIngredients, setIdentifiedIngredients] = useState({});
-  
+
   useEffect(() => {
-    if (ingredients && !isSetup){
+    if (!loading && ingredients && !isSetup) {
       var receiptIngredients = {};
       ingredients.forEach((item) =>
         receiptIngredients[item.ingredientName.toUpperCase()] = {
@@ -35,13 +51,12 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
       setSetup(true);
     }
   }, [loading]);
-  
+
   const updateIngredientQuantity = (inputQuantity, ingredientKey) => {
     console.log("updating ingr qty: ", inputQuantity, ingredientKey);
     if (inputQuantity && inputQuantity !== "") {
       inputQuantity = parseFloat(inputQuantity);
-    }
-    else {
+    } else {
       inputQuantity = 0;
     }
     setIdentifiedIngredients({
@@ -53,7 +68,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
         quantity: inputQuantity,
       }
     })
-  }
+  };
 
   const updateIngredientUnitName = (unitName, ingredientKey) => {
     console.log("updating ingr unitName: ", unitName, ingredientKey);
@@ -66,8 +81,21 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
         unitName: unitName,
       }
     })
-  }
-  
+  };
+
+  const updateIngredientName = (ingredientName, ingredientKey) => {
+    console.log("updating ingr unitName: ", ingredientName, ingredientKey);
+    setIdentifiedIngredients({
+      //Copy the other identifiedIngredients with the spread operator so we don't overwrite them
+      ...identifiedIngredients,
+      [ingredientKey]: {
+        //Copy the other key/vals in the ingredient with the spread operator so we don't overwrite them
+        ...identifiedIngredients[ingredientKey],
+        name: ingredientName,
+      }
+    })
+  };
+
   const approveIngredientList = () => {
     console.log("Sending ingredients...");
     console.log("ingredients: ", identifiedIngredients);
@@ -78,132 +106,174 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
     // }
     //Send identifiedIngredients through updatePantry action
     onSubmit(identifiedIngredients).then(() => navigation.replace('MyFridge'))
-    .catch(() => setErrorState(true));
-  }
-  
+      .catch(() => setErrorState(true));
+  };
+
   return (
-    <View style={styles.container}>
-      {
-        loading &&
-        <Text style={styles.heading}>Identifying items from receipt image...</Text>
-      }
-      {
-        !loading &&
-        <Text style={styles.heading}>We have identified the following items:</Text>
-      }
-      {
-        loading &&
-        <View>
-          <Text style={styles.text}>LOADING...</Text>
-        </View>
-      }
-      <ScrollView>
-        <View style={{marginLeft: "10%", marginRight: "10%"}}>
-          {
-            isSetup && !loading ?
+    <Container style={styles.container}>
+      <PageHeader title="Receipt Items" />
+      <Content style={styles.receiptItems}>
+        {
+          isSetup && !loading ?
             Object.entries(identifiedIngredients).sort(([keyA], [keyB]) => {
-              if(keyA > keyB) return -1;
-              if(keyB > keyA) return 1;
+              if (keyA > keyB) return -1;
+              if (keyB > keyA) return 1;
               return 0;
-            }).map(([key,value]) => {
+            }).map(([key, value]) => {
               const stringQuantity = value.quantity.toString();
               return (
-                <Card key={key} transparent>
-                  <CardItem style={{backgroundColor: "grey"}}>
-                    <Body>
-                      <View style={styles.card}>
-                        <View style={styles.ingredientName}>
-                          <Text style={styles.ingredientText} adjustsFontSizeToFit>{value.name}</Text>
-                        </View>
-                        <View style={styles.ingredientDetails}>
-                          <TextInput
-                            style={styles.textInput}
-                            keyboardType="number-pad"
-                            onChangeText={(newText) => updateIngredientQuantity(newText, key)}
-                            value={stringQuantity}
-                          />
-                        </View>
-                        <View style={styles.ingredientDetails}>
-                          <Picker
-                            selectedValue={value.unitName}
-                            style={{height: 50, width: 120}}
-                            onValueChange={(itemValue) => updateIngredientUnitName(itemValue, key)}
-                          >
-                            <Picker.Item label="grams" value="grams" />
-                            <Picker.Item label="kg" value="kg" />
-                          </Picker>
-                        </View>
-                      </View>
+                <Card style={styles.card} key={key}>
+                  <CardItem style={styles.card}>
+                    <Body style={styles.receiptItem}>
+                      <Item style={{flex: 4}} underline>
+                        <Input
+                          style={styles.nameInput}
+                          onChangeText={(newText) => updateIngredientName(newText, key)}
+                          value={value.name}
+                        />
+                      </Item>
+                      <Item style={{flex: 4}}>
+                        <Input
+                          style={styles.quantityInput}
+                          keyboardType="decimal-pad"
+                          onChangeText={(newText) => updateIngredientQuantity(newText, key)}
+                          value={stringQuantity}
+                        />
+                        <Picker
+                          iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
+                          mode="dropdown"
+                          selectedValue={value.unitName}
+                          placeholderIconColor="white"
+                          textStyle={styles.unitSelection}
+                          onValueChange={(itemValue) => updateIngredientUnitName(itemValue, key)}
+                        >
+                          <Picker.Item label="grams" value="grams" />
+                          <Picker.Item label="kg" value="kg" />
+                        </Picker>
+                      </Item>
                     </Body>
                   </CardItem>
                 </Card>
               );
-            }):null
-          }
-        </View>
-      </ScrollView>
-      {
-        isErrorState &&
-        <View>
-          <Text style={styles.text}>Error(s) loading the ingredients.</Text>
-          <Text style={styles.errorText}>{errors}</Text>
-        </View>
-      }
-      {
-        !loading &&
-        <View style={{marginBottom: 20}}>
-          <Button title="Approve" onPress={approveIngredientList} color="rgba(94,167,11,1)"/>
-        </View>
-      }
-    </View>
+            }) : <Text adjustsFontSizeToFit style={styles.heading}>Identifying items from receipt image...</Text>
+        }
+        {
+          isErrorState &&
+          <View>
+            <Text style={styles.text}>Error(s) loading the ingredients.</Text>
+            <Text style={styles.errorText}>{errors}</Text>
+          </View>
+        }
+        {
+          !loading &&
+          <View style={styles.buttonContainer}>
+            <Button style={styles.approveButton} onPress={approveIngredientList}>
+              <Text adjustsFontSizeToFit style={styles.buttonText}>Approve</Text>
+            </Button>
+            <Button style={styles.cancelButton} onPress={() => navigation.replace("Dashboard")}>
+              <Text adjustsFontSizeToFit style={styles.buttonText}>Cancel</Text>
+            </Button>
+          </View>
+        }
+      </Content>
+    </Container>
   );
 }
-    
-  const styles = StyleSheet.create({
-    card: {
-      flexDirection: "row",
-      flex: 3,
-    },
-    container: {
-      backgroundColor: "rgba(20,19,19,1)",
-      flex: 5,
-    },
-    errorText: {
-      color: "rgba(243,130,76,1)",
-      textAlign: "center",
-    },
-    heading: {
-      color: "rgba(94,167,11,1)",
-      fontSize: 30,
-      textAlign: "center",
-      marginTop: "10%",
-    },
-    ingredientName: {
-      flex: 2,
-      marginRight: "5%",
-    },
-    ingredientQuantity: {
-      flex: 1,
-      marginRight: "5%",
-    },
-    ingredientUnitName: {
-      flex: 2,
-      marginLeft: "5%",
-    },
-    ingredientText: {
-      color: "rgb(238,243,233)",
-      fontSize: 20,
-      textAlign: "left",
-    },
-    text: {
-      color: "rgb(238,243,233)",
-      fontSize: 20,
-      textAlign: "center",
-    },
-    textInput: {
-      borderColor: 'gray', 
-      borderWidth: 1,
-      height: 30,
-    }
-  });
+
+const styles = StyleSheet.create({
+  nameInput: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  picker: {
+    fontFamily: "SF Pro Display Bold",
+    backgroundColor: StyleVars.headingColor,
+  },
+  quantityInput: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  unitSelection: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  receiptItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  buttonText: {
+    color: "white",
+    fontFamily: "SF Pro Display Bold",
+  },
+  approveButton: {
+    color: StyleVars.headingColor,
+    borderRadius: 8,
+    width: "45%",
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  cancelButton: {
+    borderRadius: 8,
+    width: "45%",
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(243,130,76,1)"
+  },
+  titleHeader: {
+    fontFamily: "SF Pro Display Heavy",
+    justifyContent: "center",
+    textAlign: "center",
+    alignSelf: "center",
+    color: StyleVars.brandSecondaryColor,
+    fontSize: 25,
+    paddingBottom: "3%",
+  },
+  receiptItems: {
+    paddingTop: "5%",
+    paddingLeft: "5%",
+    paddingRight: "5%",
+  },
+  card: {
+    borderRadius: 8,
+    backgroundColor: StyleVars.cardBackground,
+  },
+  container: {
+    backgroundColor: StyleVars.background,
+    flex: 5,
+  },
+  errorText: {
+    color: "rgba(243,130,76,1)",
+    textAlign: "center",
+    fontFamily: "SF Pro Display Bold",
+  },
+  heading: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.brandColor,
+    fontSize: 30,
+    textAlign: "center",
+    marginTop: "10%",
+  },
+  ingredientName: {
+    flex: 2,
+    marginRight: "5%",
+  },
+  ingredientQuantity: {
+    flex: 1,
+    marginRight: "5%",
+  },
+  ingredientUnitName: {
+    flex: 2,
+  },
+  text: {
+    color: "rgb(0,0,0)",
+    fontSize: 20,
+    textAlign: "center",
+  }
+});
 export default connect(mapStateToProps, mapDispatchToProps)(CameraResults);

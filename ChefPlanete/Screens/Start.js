@@ -12,7 +12,6 @@ export default function Start() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(20,19,19,1)"
   },
   text: {
     justifyContent: 'center',
