@@ -2,6 +2,7 @@ import dietaryProfileReducer, * as dp from './dietaryProfile';
 import userReducer, * as user from './user';
 import cameraReducer, * as camera from "./camera";
 import pantryReducer, * as pantry from "./pantry";
+import searchReducer, * as search from "./search";
 
 /**
  * Add all reducers to this default import. Use the form 'storeName': reducer.
@@ -34,3 +35,7 @@ export const getPantryErrors =  (state) => pantry.getErrors(state.pantry);
 export const getIngredients = (state) => camera.getIngredients(state.camera);
 export const cameraIsLoading = (state) => camera.isLoading(state.camera);
 export const getIngredientsErrors = (state) => camera.getErrors(state.camera);
+
+export const getSearchedRecipes = (state) => search.getRecipesByKeywords(state.search);
+export const searchIsLoading = (state) => search.isLoading(state.search);
+export const getSearchedRecipesErrors = (state) => search.getErrors(state.search);
