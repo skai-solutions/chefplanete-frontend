@@ -1,49 +1,96 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import {
   Body,
+  Badge,
+  Button,
   Card,
   CardItem,
   Container,
   Content,
+  Text,
   Header,
   Title,
+  Spinner,
+  List,
+  Left,
+  Right,
+  ListItem,
+  Thumbnail,
 } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
-import { getUser } from "../reducers";
+import { getGoals, getPantry, getUser, goalsIsLoading, pantryIsLoading } from "../reducers";
 import { connect } from "react-redux";
 import PageHeader from "../components/PageHeader";
 import StyleVars from "../styles/variables";
 
-const Dashboard = ({navigation, user}) => {
+const Dashboard = ({navigation, user, pantry, goals, goalsAreLoading}) => {
   const {navigate} = navigation;
+  const getGoalProgress = () => {
+    let completedGoals = 0;
+    for(let i = 0; i < goals.length; i++) {
+      if (goals[i].complete) {
+        completedGoals++;
+      }
+    }
+    return (completedGoals/goals.length) * 100.0 ;
+  };
   return (
     <Container style={styles.container}>
       <PageHeader title="Dashboard"/>
-      <Content>
-        <View style={styles.dashboard}>
-          <Text style={styles.title}>Hello {user.name.split(" ")[0]}!</Text>
-          <Card transparent style={styles.card}>
-            <CardItem style={styles.card} header>
-              <Text style={styles.heading}>Goals</Text>
-            </CardItem>
-            <CardItem style={styles.card}>
-              <Body>
-              </Body>
-            </CardItem>
-          </Card>
-          <Card transparent style={styles.card}>
-            <CardItem style={styles.card} header>
-              <Text style={styles.heading}>Pantry</Text>
-            </CardItem>
-            <CardItem style={styles.card}>
-              <Body>
-              </Body>
-            </CardItem>
-          </Card>
-        </View>
+      <Content style={styles.dashboard}>
+        <Text style={styles.title}>Hello {user.name.split(" ")[0]}!</Text>
+        <Card transparent style={styles.card}>
+          <CardItem style={styles.card} header>
+            <Content>
+              <View style={{justifyContent: "space-between", flexDirection: "row"}}>
+                <Text style={styles.heading}>Goals</Text>
+                <Button onPress={() => navigate("ManageGoals")} style={{height: "90%"}}>
+                  <Text adjustsFontSizeToFit>Manage</Text>
+                </Button>
+              </View>
+              <List>
+                {
+                  !goalsAreLoading ?
+                    goals.filter(goal => !goal.complete).map(goal =>
+                      <ListItem button style={styles.goalItems} key={goal.goalId} avatar>
+                        <Left>
+                          <Thumbnail source={{uri: goal.recipe.recipeImageUrl}}/>
+                        </Left>
+                        <Body>
+                          <Text>{goal.recipe.recipeName}</Text>
+                          <View style={{paddingTop: 10, justifyContent: "space-between", flexDirection: "row"}}>
+                            {
+                              Object.entries(goal.recipe.ingredients).slice(0, 3).map(([key, value]) => (
+                                <Badge key={key} primary>
+                                  <Text>{value.name}</Text>
+                                </Badge>
+                              ))
+                            }
+                          </View>
+                        </Body>
+                        <Right>
+                          <Text note>{goal.goalType}</Text>
+                          <Text note>{`${goal.recipe.recipeCookTime} min`}</Text>
+                        </Right>
+                      </ListItem>
+                    ) : <Spinner color="green"/>
+                }
+              </List>
+            </Content>
+          </CardItem>
+        </Card>
+        <Card transparent style={styles.card}>
+          <CardItem style={styles.card} header>
+            <Text style={styles.heading}>Pantry</Text>
+          </CardItem>
+          <CardItem style={styles.card}>
+            <Body>
+            </Body>
+          </CardItem>
+        </Card>
       </Content>
-      <NavigationBar currentScreen="DASH" />
+      <NavigationBar currentScreen="DASH"/>
     </Container>
   );
 };
@@ -75,6 +122,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: StyleVars.headingColor,
   },
+  goalItems: {
+    width: '100%',
+    marginLeft: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    marginRight: 0
+  },
   dashboard: {
     padding: 20,
   },
@@ -91,6 +145,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   user: getUser(state),
+  pantry: getPantry(state),
+  goalsAreLoading: goalsIsLoading(state),
+  goals: getGoals(state),
 });
 
 export default connect(mapStateToProps)(Dashboard);
