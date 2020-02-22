@@ -1,90 +1,79 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, TouchableHighlight, ScrollView} from "react-native";
-import {Container, Body, Card, CardItem, Icon} from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableHighlight, ScrollView } from "react-native";
+import { Container, Body, Card, CardItem, Icon, Content, Title, Button } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
 import RecipeRecommender from '../components/recipeRecommender';
-import {getPantry} from "../reducers";
-import {connect} from "react-redux";
+import { getPantry } from "../reducers";
+import { connect } from "react-redux";
 import * as Font from 'expo-font';
+import PageHeader from "../components/PageHeader";
+import StyleVars from "../styles/variables";
 
 const MyFridge = ({navigation, pantry}) => {
 
   const removeItem = () => {
     console.log("Item being removed...");
-  }
+  };
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
-      <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.heading}>MyFridge</Text>
+      <PageHeader title="My Fridge" />
+      <Content style={{paddingVertical: 10, paddingHorizontal: 15}}>
         {
           Object.entries(pantry).map(([key, value]) => {
             return (
-
-              <View key={key} style={styles.cardPadding}>
-                <Card key={key}>
-                  <CardItem style={styles.card}>
-                    <Body>
-                      <View style={styles.itemView}>
-                        <Text style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
-                        <TouchableHighlight onPress={removeItem}>
-                          <Icon name="close" style={styles.icon}/>
-                        </TouchableHighlight>
-                      </View>
-                    </Body>
-                  </CardItem>
-                </Card>
-              </View>
-
+              <Card style={styles.card} key={key}>
+                <CardItem style={styles.card}>
+                  <Body style={styles.itemView}>
+                    <Text adjustsFontSizeToFit style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
+                    <Button style={styles.button} onPress={removeItem}>
+                      <Icon name="close"/>
+                    </Button>
+                  </Body>
+                </CardItem>
+              </Card>
             )
           })
         }
-      </View>
-      </ScrollView>
-      <NavigationBar/>
+      </Content>
+      <NavigationBar currentScreen="FRIDGE"/>
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "rgba(20,19,19,1)"
+    backgroundColor: StyleVars.background,
   },
   heading: {
     fontFamily: 'pacifico',
-    color: "rgba(94,167,11,1)",
+    color: StyleVars.headingColor,
     fontSize: 45,
     textAlign: "center",
-    marginTop: "10%",
-    paddingBottom: 20,
   },
   item: {
-    padding: 10,
+    fontFamily: 'SF Pro Display Bold',
+    flex: 5,
     fontSize: 18,
-    height: 44,
-    color: "white",
+    color: "black",
+  },
+  button: {
+    flex: 1,
+    justifyContent: "center",
   },
   card: {
-    backgroundColor: "grey",
-    paddingRight: "10%",
-  },
-  cardPadding: {
-    paddingLeft: "10%",
-    paddingRight: "10%",
-
+    borderRadius: 8,
+    backgroundColor: StyleVars.cardBackground,
   },
   icon: {
     fontSize: 30,
-    color: "white",
+    color: "black",
     lineHeight: 20,
     top: "90%",
     flexDirection: "row-reverse",
   },
   itemView: {
     justifyContent: 'space-between',
-
     flexDirection: 'row',
   }
 });

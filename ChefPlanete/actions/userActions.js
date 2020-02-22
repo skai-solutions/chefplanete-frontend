@@ -3,6 +3,7 @@ import actionTypes from "./actionTypes";
 import { signIn, register } from "../services/user";
 import { fetchDietaryProfile } from "./dietaryProfileActions";
 import {fetchPantry} from "./pantryActions";
+import { fetchWeeklyGoals } from "./weeklyGoalsActions";
 
 export const signInUser = (user) => (dispatch) => {
   dispatch({
@@ -18,6 +19,7 @@ export const signInUser = (user) => (dispatch) => {
     });
     fetchDietaryProfile()(dispatch);
     fetchPantry()(dispatch);
+    fetchWeeklyGoals()(dispatch);
   }).catch((error) => {
     dispatch({
       type: actionTypes.USER_SIGN_IN_FAILURE,

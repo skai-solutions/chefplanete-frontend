@@ -2,6 +2,7 @@ import dietaryProfileReducer, * as dp from './dietaryProfile';
 import userReducer, * as user from './user';
 import cameraReducer, * as camera from "./camera";
 import pantryReducer, * as pantry from "./pantry";
+import weeklyGoalsReducer, * as weeklyGoals from "./weeklyGoals";
 import searchReducer, * as search from "./search";
 
 /**
@@ -12,6 +13,7 @@ export default {
   user: userReducer,
   pantry: pantryReducer,
   camera: cameraReducer,
+  weeklyGoals: weeklyGoalsReducer,
 };
 
 /**
@@ -35,6 +37,10 @@ export const getPantryErrors =  (state) => pantry.getErrors(state.pantry);
 export const getIngredients = (state) => camera.getIngredients(state.camera);
 export const cameraIsLoading = (state) => camera.isLoading(state.camera);
 export const getIngredientsErrors = (state) => camera.getErrors(state.camera);
+
+export const getGoals =  (state) => weeklyGoals.getGoals(state.weeklyGoals);
+export const goalsIsLoading =  (state) => weeklyGoals.isLoading(state.weeklyGoals);
+export const getGoalsErrors =  (state) => weeklyGoals.getErrors(state.weeklyGoals);
 
 export const getSearchedRecipes = (state) => search.getRecipesByKeywords(state.search);
 export const searchIsLoading = (state) => search.isLoading(state.search);
