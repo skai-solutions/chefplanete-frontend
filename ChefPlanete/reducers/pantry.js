@@ -2,7 +2,7 @@ import actionTypes from '../actions/actionTypes';
 
 const DEFAULT_STATE = {
     loading: false,
-    data: null,
+    data: {},
     errors: null
 };
 

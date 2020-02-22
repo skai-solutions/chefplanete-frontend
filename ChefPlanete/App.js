@@ -21,13 +21,20 @@ import { Ionicons } from "@expo/vector-icons";
 import OCRCamera from "./Screens/OCRCamera";
 import CameraLoading from "./Screens/CameraLoading";
 import CameraResults from "./Screens/CameraResults";
+import ManageGoals from "./Screens/manageGoals/ManageGoals";
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},
     Login: {screen: Login},
     Profile: {screen: Profile},
-    Dashboard: {screen: Dashboard},
+    Dashboard: {
+      screen: Dashboard,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
     Search: {screen: Search},
+    ManageGoals: {screen: ManageGoals},
     MyFridge: {screen: MyFridge},
     OCRCamera: {screen: OCRCamera},
     CameraLoading: {screen: CameraLoading},

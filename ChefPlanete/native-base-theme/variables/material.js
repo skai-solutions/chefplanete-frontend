@@ -238,20 +238,20 @@ export default {
   },
 
   // Segment
-  segmentBackgroundColor: '#3F51B5',
+  segmentBackgroundColor: '#5EA70B',
   segmentActiveBackgroundColor: '#fff',
   segmentTextColor: '#fff',
-  segmentActiveTextColor: '#3F51B5',
+  segmentActiveTextColor: '#5EA70B',
   segmentBorderColor: '#fff',
-  segmentBorderColorMain: '#3F51B5',
+  segmentBorderColorMain: '#5EA70B',
 
   // Spinner
   defaultSpinnerColor: '#45D56E',
   inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: '#3F51B5',
-  topTabBarTextColor: '#b3c7f9',
+  tabDefaultBg: '#5EA70B',
+  topTabBarTextColor: '#f2eaf6',
   topTabBarActiveTextColor: '#fff',
   topTabBarBorderColor: '#fff',
   topTabBarActiveBorderColor: '#fff',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image } from "react-native";
+import { Spinner } from "native-base";
 import * as Google from 'expo-google-app-auth';
 import { bindActionCreators } from "redux";
 import { signInUser } from "../actions/userActions";
@@ -57,14 +58,11 @@ const Login = ({onSubmit, user, userLoading, profileLoading, navigation, errors}
         fontLoaded &&
         <Text allowFontScaling style={styles.heading}>ChefPlanète</Text>
       }
-      <TouchableOpacity style={{alignSelf: "center"}} onPress={login}>
-        <Image style={styles.googleSignInButton} source={GoogleSignInButton}/>
-      </TouchableOpacity>
       {
-        (userLoading || profileLoading) &&
-        <View>
-          <Text style={styles.text}>LOADING...</Text>
-        </View>
+        !userLoading ?
+        <TouchableOpacity style={{alignSelf: "center"}} onPress={login}>
+          <Image style={styles.googleSignInButton} source={GoogleSignInButton}/>
+        </TouchableOpacity> : <Spinner color="green" />
       }
       {
         isErrorState &&

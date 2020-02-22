@@ -7,6 +7,8 @@ export const getApiUrl = () => `${ENV.apiUrl}/api`;
 
 export const getBaseUrl = () => `${ENV.apiUrl}`;
 
+export const getRecipeApiKey = () => `${ENV.recipeApiKey}`;
+
 export const getAuthorizationToken = () => {
   const state = store.getState();
   const user = state.user;

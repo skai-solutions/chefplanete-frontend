@@ -25,7 +25,10 @@ export default (state = DEFAULT_STATE, action) => {
     case actionTypes.FETCH_WEEKLY_GOALS_SUCCESS:
       return {...state, loading: false, data: action.payload};
     case actionTypes.CREATE_NEW_WEEKLY_GOAL_SUCCESS:
-      return {...state, loading: false, data: [...state.data, action.payload]};
+      return {...state, loading: false, data: [...state.data, {
+        ...action.payload,
+          goalId: `${parseInt(state.data[state.data.length - 1].goalId) + 1}`,
+      }]};
     case actionTypes.UPDATE_GOAL_BY_ID_SUCCESS:
       return {...state, loading: false, data: state.data.map(
         goal => goal.goalId === action.payload.goalId ? action.payload : goal
@@ -35,9 +38,13 @@ export default (state = DEFAULT_STATE, action) => {
         goal => goal.goalId === action.payload ? {...goal, complete: true} : goal
       )};
     case actionTypes.RESET_GOALS_SUCCESS:
-      return {...state, loading: false, data: []};
+      return {...state, loading: false, data: state.data.map(
+        goal => { return {...goal, complete: false} }
+      )};
     case actionTypes.DELETE_GOAL_BY_ID_SUCCESS:
-      return {...state, loading: false, data: state.data.filter(goal => goal.goalId !== action.payload)};
+      return {...state, loading: false, data: state.data.filter(
+        goal => goal.goalId !== action.payload
+      )};
     default:
       return state;
   }
