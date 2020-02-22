@@ -13,6 +13,7 @@ export default {
   user: userReducer,
   pantry: pantryReducer,
   camera: cameraReducer,
+  search: searchReducer,
   weeklyGoals: weeklyGoalsReducer,
 };
 
