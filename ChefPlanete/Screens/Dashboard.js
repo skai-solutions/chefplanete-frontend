@@ -49,7 +49,7 @@ const Dashboard = ({navigation, user, pantry, goals, goalsAreLoading}) => {
                   <Text adjustsFontSizeToFit>Manage</Text>
                 </Button>
               </View>
-              <List>
+              <List style={{padding: 0, margin: 0}}>
                 {
                   !goalsAreLoading ?
                     goals.filter(goal => !goal.complete).map(goal =>

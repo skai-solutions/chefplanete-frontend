@@ -15,6 +15,7 @@ import {
   Title,
   Spinner,
   List,
+  Icon,
   Left,
   Right,
   ListItem,
@@ -29,17 +30,11 @@ import { deleteGoalById } from "../../services/weeklyGoals";
 
 const ManageGoals = ({goals, navigation}) => {
   const [segment, setSegment] = useState("TODO");
-  const [test, setTest] = useState(Array(20).fill('').map((_, i) => ({ key: `${i}`, text: `item #${i}` })));
+  const [selectedGoal, setSelectedGoal] = useState(null);
+  const swipeRows = [];
+  const [test, setTest] = useState(Array(20).fill('').map((_, i) => ({key: `${i}`, text: `item #${i}`})));
   const deleteRow = (secId, rowId, goalId, rowMap) => {
     deleteGoalById(goalId).then(() => rowMap[`${secId}${rowId}`].closeRow());
-  };
-  const toFlatList = (list) => {
-    return list.map((index, item) => {
-      return {
-        key: `${index}`,
-        value: item,
-      };
-    });
   };
 
   return (
@@ -56,19 +51,68 @@ const ManageGoals = ({goals, navigation}) => {
       <Content>
         {
           goals &&
-          goals.map((goal, index) => (
-            <SwipeRow leftOpenValue={75} rightOpenValue={-75}>
+          goals.filter(goal => {
+            if (segment === "TODO") {
+              return !goal.complete;
+            } else {
+              return goal.complete;
+            }
+          }).map((goal, index) => (
+            <SwipeRow
+              key={goal.goalId}
+              ref={(c) => swipeRows[index] = c}
+              onRowOpen={() => {
+                if (selectedGoal && selectedGoal !== swipeRows[index]) {
+                  selectedGoal.closeRow();
+                }
+                setSelectedGoal(swipeRows[index]);
+              }}
+              previewDuration={1}
+              leftOpenValue={75}
+              rightOpenValue={-150}>
               <View style={styles.rowBack}>
-                <Text>Left</Text>
-                <Text>Right</Text>
+                <View>
+                  <TouchableOpacity style={{...styles.rowButton, backgroundColor: StyleVars.brandColor}}>
+                    <Icon style={{color: "white"}} name="md-checkmark-circle"/>
+                  </TouchableOpacity>
+                </View>
+                <View style={{flexDirection: "row", height: "100%"}}>
+                  <TouchableOpacity style={{...styles.rowButton, backgroundColor: "#edd546"}}>
+                    <Icon style={{color: "white"}} name="md-brush"/>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{...styles.rowButton, backgroundColor: "red"}}>
+                    <Icon style={{color: "white"}} name="md-trash"/>
+                  </TouchableOpacity>
+                </View>
               </View>
               <View style={styles.rowFront}>
-                <Text>I am a standalone SwipeRow</Text>
+                <ListItem button avatar>
+                  <Left>
+                    <Thumbnail source={{uri: goal.recipe.recipeImageUrl}}/>
+                  </Left>
+                  <Body style={{height: "100%"}}>
+                    <Text>{goal.recipe.recipeName}</Text>
+                    <View style={{paddingTop: 10, justifyContent: "space-between", flexDirection: "row"}}>
+                      {
+                        Object.entries(goal.recipe.ingredients).slice(0, 3).map(([key, value]) => (
+                          <Badge key={key} primary>
+                            <Text>{value.name}</Text>
+                          </Badge>
+                        ))
+                      }
+                    </View>
+                  </Body>
+                  <Right>
+                    <Text note>{goal.goalType}</Text>
+                    <Text note>{`${goal.recipe.recipeCookTime} min`}</Text>
+                  </Right>
+                </ListItem>
               </View>
             </SwipeRow>
           ))
         }
       </Content>
+      <NavigationBar/>
     </Container>
   );
 };
@@ -120,18 +164,24 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   rowFront: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    height: 50,
+    backgroundColor: StyleVars.background,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    height: 88,
   },
   rowBack: {
-    alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: StyleVars.background,
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: 15,
+    height: 88,
+  },
+  rowButton: {
+    height: "100%",
+    justifyContent:"center",
+    alignItems: "center",
+    width: 75
   },
 });
 
