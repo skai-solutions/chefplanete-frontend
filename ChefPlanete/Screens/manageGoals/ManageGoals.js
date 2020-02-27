@@ -92,7 +92,7 @@ const ManageGoals = ({goals, navigation}) => {
                   </Left>
                   <Body style={{height: "100%"}}>
                     <Text>{goal.recipe.recipeName}</Text>
-                    <View style={{paddingTop: 10, justifyContent: "space-between", flexDirection: "row"}}>
+                    <View style={{paddingTop: 10, flexDirection: "row"}}>
                       {
                         Object.entries(goal.recipe.ingredients).slice(0, 3).map(([key, value]) => (
                           <Badge key={key} primary>
