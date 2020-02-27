@@ -1,19 +1,40 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, ScrollView } from "react-native";
-import { Container, Body, Card, CardItem, Icon, Content, Title, Button } from 'native-base';
+import {Container, Body, Card, CardItem, Icon, Content, Title, Button, Input, Item} from 'native-base';
 import NavigationBar from '../components/NavigationBar';
-import RecipeRecommender from '../components/recipeRecommender';
-import { getPantry } from "../reducers";
+import {cameraIsLoading, getIngredients, getIngredientsErrors, getPantry} from "../reducers";
+import { updateUserPantry } from "../actions/pantryActions";
+import {bindActionCreators} from "redux";
 import { connect } from "react-redux";
 import * as Font from 'expo-font';
 import PageHeader from "../components/PageHeader";
 import StyleVars from "../styles/variables";
 
-const MyFridge = ({navigation, pantry}) => {
+export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: updateUserPantry}, dispatch);
 
-  const removeItem = () => {
-    console.log("Item being removed...");
+export const mapStateToProps = state => ({
+  ingredients: !state.camera.data ? null : getIngredients(state),
+  loading: cameraIsLoading(state),
+  errors: getIngredientsErrors(state),
+  pantry: !state.pantry.data ? null : getPantry(state)
+});
+
+const MyFridge = ({onSubmit,navigation, pantry}) => {
+
+  const removeItem = (itemKey) => {
+    onSubmit({
+      [itemKey]: {
+        name: 'TO BE REMOVED',
+        unitName: 'R',
+        quantity: 0,
+      },
+    }).catch(error => console.log(error));
   };
+
+  const addItem = () => {
+    console.log("Item being added...");
+  };
+
   const {navigate} = navigation;
   return (
     <Container style={styles.container}>
@@ -25,8 +46,8 @@ const MyFridge = ({navigation, pantry}) => {
               <Card style={styles.card} key={key}>
                 <CardItem style={styles.card}>
                   <Body style={styles.itemView}>
-                    <Text adjustsFontSizeToFit style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>
-                    <Button style={styles.button} onPress={removeItem}>
+                    {<Text adjustsFontSizeToFit style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>}
+                    <Button style={styles.button} onPress={() => removeItem(key)}>
                       <Icon name="close"/>
                     </Button>
                   </Body>
@@ -39,7 +60,7 @@ const MyFridge = ({navigation, pantry}) => {
       <NavigationBar currentScreen="FRIDGE"/>
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -78,8 +99,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({
-  pantry: getPantry(state),
-});
-
-export default connect(mapStateToProps)(MyFridge);
+export default connect(mapStateToProps,mapDispatchToProps)(MyFridge);
