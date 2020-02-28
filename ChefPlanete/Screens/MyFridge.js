@@ -26,6 +26,11 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
 
+  const [newName, setNewName] = useState(null);
+  const [newUnit, setNewUnit] = useState(null);
+  const [newQuantity, setNewQuantity] = useState(0);
+
+
   const removeItem = (itemKey) => {
     onSubmit({
       [itemKey]: {
@@ -37,9 +42,9 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
   };
 
   const addItem = (name,unit,quantity) => {
-    console.log("Item being added...");
+    // console.log(name.upperCase);
     onSubmit({
-      [itemKey]: {
+      [name.toUpperCase()]: {
         name: name,
         unitName: unit,
         quantity: quantity,
@@ -72,10 +77,12 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
             return (
               <Card style={styles.card} key={key}>
                 <CardItem style={styles.card}>
+
                   <Body style={styles.itemView}>
                     {<Text adjustsFontSizeToFit style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>}
+
                     <Button style={styles.button} onPress={() => setEditModalVisible(true)}>
-                      <Icon name="keypad"/>
+                      <Icon name="settings"/>
                     </Button>
                     <Button style={styles.button} onPress={() => removeItem(key)}>
                       <Icon name="close"/>
@@ -98,23 +105,26 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
               <Item>
                 <Input
                   placeholder="Name"
+                  onChangeText={(newText) => setNewName(newText)}
                 />
                 <Input
                   keyboardType="decimal-pad"
                   placeholder="Quantity"
+                  onChangeText={(newText) => setNewQuantity(newText)}
                 />
                 <Picker
                   iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
                   mode="dropdown"
                   placeholderIconColor="white"
                   textStyle={styles.unitSelection}
+                  onValueChange={(itemValue) => setNewUnit(itemValue)}
                 >
                   <Picker.Item label="grams" value="grams" />
                   <Picker.Item label="kg" value="kg" />
                 </Picker>
               </Item>
               <Button style={styles.button}onPress={() => {
-                setAddModalVisible(!addModalVisible);
+                addItem(newName,newUnit,newQuantity) || setAddModalVisible(!addModalVisible);
               }}>
                 <Text>Add</Text>
               </Button>
@@ -141,7 +151,6 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
       </Content>
       <NavigationBar currentScreen="FRIDGE"/>
     </Container>
-
   );
 }
 
@@ -163,7 +172,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'space-between'
   },
   card: {
     borderRadius: 8,
