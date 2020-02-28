@@ -30,6 +30,10 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
   const [newUnit, setNewUnit] = useState(null);
   const [newQuantity, setNewQuantity] = useState(0);
 
+  const [editKey, setEditKey] = useState(null);
+  const [editName, setEditName] = useState(null);
+  const [editUnit, setEditUnit] = useState(null);
+  const [editQuantity, setEditQuantity] = useState(null);
 
   const removeItem = (itemKey) => {
     onSubmit({
@@ -42,7 +46,6 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
   };
 
   const addItem = (name,unit,quantity) => {
-    // console.log(name.upperCase);
     onSubmit({
       [name.toUpperCase()]: {
         name: name,
@@ -50,14 +53,15 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
         quantity: quantity,
       },
     }).catch(error => console.log(error));
-
   };
 
   const editItem = (name,unit,quantity) => {
     onSubmit({
+      [name.toUpperCase()]: {
         name: name,
         unitName: unit,
         quantity: quantity,
+      },
     }).catch(error => console.log(error));
   };
 
@@ -81,7 +85,7 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
                   <Body style={styles.itemView}>
                     {<Text adjustsFontSizeToFit style={styles.item} key={key}>{value.name} {value.quantity} {value.unitName}</Text>}
 
-                    <Button style={styles.button} onPress={() => setEditModalVisible(true)}>
+                    <Button style={styles.button } key={key} onPress={() => setEditKey(key) ||setEditName(value.name) || setEditUnit(value.unitName) || setEditQuantity(value.quantity) ||setEditModalVisible(true)}>
                       <Icon name="settings"/>
                     </Button>
                     <Button style={styles.button} onPress={() => removeItem(key)}>
@@ -107,6 +111,8 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
                   placeholder="Name"
                   onChangeText={(newText) => setNewName(newText)}
                 />
+              </Item>
+              <Item>
                 <Input
                   keyboardType="decimal-pad"
                   placeholder="Quantity"
@@ -140,8 +146,34 @@ const MyFridge = ({onSubmit,navigation, pantry}) => {
           <Container>
             <PageHeader title="Edit Ingredient" />
             <Content>
+              <Item style={{flex: 4}} underline>
+                <Input
+                  style={styles.nameInput}
+                  onChangeText={(newText) => setNewName(newText)}
+                  value={editName}
+                />
+              </Item>
+              <Item style={{flex: 4}}>
+                <Input
+                  style={styles.quantityInput}
+                  keyboardType="decimal-pad"
+                  onChangeText={(newText) => setNewQuantity(newText)}
+                  value={editQuantity}
+                />
+                <Picker
+                  iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
+                  mode="dropdown"
+                  placeholderIconColor="white"
+                  textStyle={styles.unitSelection}
+                  value={editUnit}
+                  onValueChange={(itemValue) => setNewUnit(itemValue)}
+                >
+                  <Picker.Item label="grams" value="grams" />
+                  <Picker.Item label="kg" value="kg" />
+                </Picker>
+              </Item>
               <Button style={styles.button}onPress={() => {
-                setEditModalVisible(!editModalVisible);
+                removeItem(editKey) || editItem(newName,newUnit,newQuantity) || setEditModalVisible(!editModalVisible);
               }}>
                 <Text>Confirm</Text>
               </Button>
@@ -188,7 +220,23 @@ const styles = StyleSheet.create({
   itemView: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-  }
+  },
+  nameInput: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  picker: {
+    fontFamily: "SF Pro Display Bold",
+    backgroundColor: StyleVars.headingColor,
+  },
+  quantityInput: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  unitSelection: {
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(MyFridge);
