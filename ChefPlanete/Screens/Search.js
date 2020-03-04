@@ -47,10 +47,15 @@ const Search = ({navigation, onSubmit, recipes, recipesAreLoading, errors}) => {
              recipes.results.map(({id, title, image, readyInMinutes, servings}) =>
                <ListItem avatar>
                  <Left>
-                   <Thumbnail source={{uri: `https://spoonacular.com/recipeImages/${image}`}} />
+                   <Thumbnail source={{uri: `https://spoonacular.com/recipeImages/${image}`}}/>
                  </Left>
                  <Body style={{height: "100%"}}>
-                   <Text key={{id}}>{title}</Text>
+                   <Text key={{id}}
+                         onPress={() => navigate("RecipeDisplay", {
+                           recipeId: id,
+                           recipeTitle: title,
+                           recipeImage: image,
+                         })}>{title}</Text>
                  </Body>
                 <Right>
                   <Text>{readyInMinutes} minutes</Text>
