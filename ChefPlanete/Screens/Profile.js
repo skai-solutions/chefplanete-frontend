@@ -1,65 +1,118 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Badge, Button, Container, Content } from 'native-base';
+import { StyleSheet, View } from "react-native";
+import {
+  Card,
+  Icon,
+  CardItem,
+  Body,
+  Button,
+  Container,
+  Content,
+  Header,
+  Item,
+  Picker,
+  Row,
+  Title,
+  Input,
+  Text
+} from "native-base"
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import NavigationBar from '../components/NavigationBar';
 import PageHeader from "../components/PageHeader";
 import StyleVars from "../styles/variables";
-import { isLoading, getErrors, getDietaryProfile } from "../reducers/dietaryProfile";
+import { dietaryProfileIsLoading, getDietaryProfileErrors, getDietaryProfile } from "../reducers";
 import { updateUserDietaryProfile } from "../actions/dietaryProfileActions";
 
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: updateUserDietaryProfile}, dispatch);
 
 export const mapStateToProps = state => ({
-  dietaryProfile: !state.dp.data ? null : getDietaryProfile(state),
-  loading: isLoading(state),
-  errors: getErrors(state),
+  dietaryProfile: getDietaryProfile(state),
+  loading: dietaryProfileIsLoading(state),
+  errors: getDietaryProfileErrors(state),
 });
 
 const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
   const [isErrorState, setErrorState] = useState(false);
-  const [isSetup, setSetup] = useState(false);
-  const [cookingLevel, setCookingLevel] = useState("");
-  const [foodRestrictions, setFoodRestrictions] = useState([]);
-  
-  useEffect(() => {
-    if (!loading && dietaryProfile && !isSetup) {
-      console.log("NOMORELOAD");
-      setCookingLevel(dietaryProfile.cookingLevel)
-      var restrictions = [];
-      dietaryProfile.foodRestrictions.forEach((item) =>
-        restrictions.push(item)
-      );
-      setFoodRestrictions(restrictions);
-      setSetup(true);
-    }
-  });
-  
+  const [cookingLevel, setCookingLevel] = useState(dietaryProfile.cookingLevel);
+  const [goalsCompleted, setGoalsCompleted] = useState(dietaryProfile.totalGoalsCompleted);
+  const [foodRestrictions, setFoodRestrictions] = useState(dietaryProfile.foodRestrictions);
+
+  const updateCookingLevel = (cookingLevel) => {
+    // if (cookingLevel && cookingLevel !== "") {
+    //   cookingLevel = parseFloat(cookingLevel);
+    // } else {
+    //   cookingLevel = 0;
+    // }
+    console.log("updating cooking level: ", cookingLevel);
+    setCookingLevel(cookingLevel);
+  };
+
+  const updateGoalsCompleted = (goalsCompleted) => {
+    // if (goalsCompleted && goalsCompleted !== "") {
+    //   goalsCompleted = parseFloat(goalsCompleted);
+    // } else {
+    //   goalsCompleted = 0;
+    // }
+    console.log("updating goals completed: ", cookingLevel);
+    setGoalsCompleted(goalsCompleted);
+  };
+
   return (
     <Container style={styles.container}>
       <PageHeader title="Profile"/>
       <Content>
         {
-          isSetup && !loading ?
+          !loading ?
           <View>
-          <Text style={styles.text}>Test test</Text>
-            <Card>
-              <CardItem>
-                <Text style={styles.text}>testaaa</Text>
-              </CardItem>
-            </Card>
-          </View>: <Text>Error loading profile.</Text>
+            <Picker
+              iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
+              mode="dropdown"
+              selectedValue={cookingLevel}
+              placeholderIconColor="white"
+              onValueChange={(itemValue) => updateCookingLevel(itemValue, key)}
+            >
+            <Picker.Item label="1 -Beginner" value="1" />
+              <Picker.Item label="2 - Intermediate" value="2" />
+              <Picker.Item label="3 - Advanced" value="3" />
+            </Picker>
+            <Input
+              keyboardType="decimal-pad"
+              onChangeText={(newText) => updateGoalsCompleted(newText)}
+              value={goalsCompleted}
+            />
+            {
+              Object.entries(foodRestrictions).sort(([keyA], [keyB]) => {
+                if (keyA > keyB) return -1;
+                if (keyB > keyA) return 1;
+                return 0;
+              }).map(([key, value]) => {
+                return (
+                  <Card style={styles.card} key={key}>
+                    <CardItem style={styles.card}>
+                      <Body style={styles.cardItems}>
+                        <Item style={{flex: 4}} underline>
+                          <Input
+                            onChangeText={(newText) => updateCookingLevel(newText)}
+                            value={foodRestrictions}
+                          />
+                        </Item>
+                      </Body>
+                    </CardItem>
+                  </Card>
+                );
+              })
+            }
+            <Button onPress={() => navigate("ManageProfile")} style={{height: "90%"}}>
+                  <Text adjustsFontSizeToFit>Manage</Text>
+            </Button>
+          </View> : <Text adjustsFontSizeToFit style={styles.heading}>Unable to find profile data associated with this user.</Text>
         }
         {
           isErrorState &&
           <View>
             <Text style={styles.text}>Error(s) loading the user's profile:</Text>
             <Text style={styles.errorText}>{errors}</Text>
-          </View>
-        }
-        {
-          !loading &&
-          <View>
-            <Text adjustsFontSizeToFit>DONE LOADING HECK YA</Text>
           </View>
         }
       </Content>
@@ -73,6 +126,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: StyleVars.background,
   },
+  card: {
+    borderRadius: 8,
+    backgroundColor: StyleVars.cardBackground,
+  },
+  cardItems: {
+    paddingTop: "5%",
+    paddingLeft: "5%",
+    paddingRight: "5%",
+  },
   text: {
     color: "rgb(0,0,0)",
     fontSize: 20,
@@ -80,4 +142,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Profile;
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
