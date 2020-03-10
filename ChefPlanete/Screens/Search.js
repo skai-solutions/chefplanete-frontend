@@ -44,10 +44,10 @@ const Search = ({navigation, onSubmit, recipes, recipesAreLoading, errors}) => {
           (recipes && !recipesAreLoading) &&
           <List>
            {
-             recipes.results.map(({id, title, image, readyInMinutes, servings}) =>
+             recipes.results.map(({id, title, image, readyInMinutes, diets, analyzedInstructions, summary, missedIngredients}) =>
                <ListItem avatar>
                  <Left>
-                   <Thumbnail source={{uri: `https://spoonacular.com/recipeImages/${image}`}}/>
+                   <Thumbnail source={{uri:image}}/>
                  </Left>
                  <Body style={{height: "100%"}}>
                    <Text key={{id}}
@@ -55,6 +55,10 @@ const Search = ({navigation, onSubmit, recipes, recipesAreLoading, errors}) => {
                            recipeId: id,
                            recipeTitle: title,
                            recipeImage: image,
+                           diets: diets,
+                           instructions: analyzedInstructions,
+                           summary: summary,
+                           ingredients: missedIngredients,
                          })}>{title}</Text>
                  </Body>
                 <Right>
