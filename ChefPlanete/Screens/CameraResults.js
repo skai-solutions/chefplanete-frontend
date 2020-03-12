@@ -14,7 +14,8 @@ import {
   Picker,
   Row,
   Title,
-  Input
+  Input,
+  Spinner,
 } from "native-base"
 import convert from "convert-units";
 import { bindActionCreators } from "redux";
@@ -202,7 +203,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
                   </Item>
                 </View>
               );
-            }) : <Text adjustsFontSizeToFit style={styles.heading}>Identifying items from receipt image...</Text>
+            }) : <Spinner color="green" />
         }
         {
           isErrorState &&
@@ -214,11 +215,11 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
         {
           !loading &&
           <View style={styles.buttonContainer}>
-            <Button style={styles.approveButton} onPress={approveIngredientList}>
-              <Text adjustsFontSizeToFit style={styles.buttonText}>Approve</Text>
-            </Button>
             <Button style={styles.cancelButton} onPress={() => navigation.replace("Dashboard")}>
               <Text adjustsFontSizeToFit style={styles.buttonText}>Cancel</Text>
+            </Button>
+            <Button style={styles.approveButton} onPress={approveIngredientList}>
+              <Text adjustsFontSizeToFit style={styles.buttonText}>Approve</Text>
             </Button>
           </View>
         }

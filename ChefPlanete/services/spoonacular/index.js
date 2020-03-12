@@ -16,7 +16,7 @@ export const getRecipesByIds = (ids) => {
 
 export const getRecipesByIngredientUsageAndRestrictions = (ingredients, restrictions) => {
   const ingredientNames = ingredients.join(",");
-  return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&addRecipeInformation=true&includeIngredients=${ingredientNames}&sort=min-missing-ingredients`), {
+  return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&addRecipeInformation=true&includeIngredients=${ingredientNames}&sort=min-missing-ingredients&ignorePantry=true`), {
     method: "GET",
   })
     .then(handleError)
@@ -26,9 +26,17 @@ export const getRecipesByIngredientUsageAndRestrictions = (ingredients, restrict
 export const searchRecipesByTextIngredientsAndRestrictions = (query, ingredients, restrictions) => {
   const ingredientNames = ingredients.join(",");
   const restrictionList = restrictions.join(",");
-  return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&query=${query}&intolerances=${restrictionList}&addRecipeInformation=true&includeIngredients=${ingredientNames}&sort=min-missing-ingredients`), {
-    method: "GET",
-  })
-    .then(handleError)
-    .then(pullOutJson);
+  if (ingredients.length === 0 && query.length === 0) {
+    return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&intolerances=${restrictionList}&addRecipeInformation=true&sort=random&ignorePantry=true&tags=easy&instructionsRequired=true`), {
+      method: "GET",
+    })
+      .then(handleError)
+      .then(pullOutJson);
+  } else {
+    return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&query=${query}&intolerances=${restrictionList}&addRecipeInformation=true&includeIngredients=${ingredientNames}&sort=min-missing-ingredients&ignorePantry=true&instructionsRequired=true`), {
+      method: "GET",
+    })
+      .then(handleError)
+      .then(pullOutJson);
+  }
 };

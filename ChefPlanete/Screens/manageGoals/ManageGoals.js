@@ -67,7 +67,7 @@ const ManageGoals = ({goals, navigation, onAdd, onEdit, onDelete, onComplete, on
               quantity: Math.max(0, pantryIngredient.quantity - conversion),
             }]
           } catch (e) {
-            return [ingredient.name, {...ingredient, quantity: 0}];
+            return ["", {...ingredient, quantity: 0}];
           }
         }
     }));
@@ -487,7 +487,7 @@ const pickerStyle = StyleSheet.create({
   },
   iconContainer: {
     top: "50%",
-    right: 15,
+    right: 5,
   },
 });
 

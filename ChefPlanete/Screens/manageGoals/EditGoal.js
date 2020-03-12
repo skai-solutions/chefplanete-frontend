@@ -64,7 +64,11 @@ const EditGoal = ({navigation, pantry, dietaryProfile}) => {
   const getRecommendations = () => {
     setRecommendationsLoading(true);
     const pantryItems = Object.entries(pantry).map(([, value]) => value.name.toLowerCase());
-    getRecipesByIngredientUsageAndRestrictions(pantryItems, dietaryProfile.foodRestrictions).then(response => {
+    searchRecipesByTextIngredientsAndRestrictions(
+      pantryItems.join(","),
+      [],
+      dietaryProfile.foodRestrictions,
+    ).then(response => {
       setRecommendations(response.results);
     }).finally(() => setRecommendationsLoading(false));
   };
