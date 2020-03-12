@@ -45,12 +45,12 @@ const Search = ({navigation, onSubmit, recipes, recipesAreLoading, errors}) => {
           <List>
            {
              recipes.results.map(({id, title, image, readyInMinutes, diets, analyzedInstructions, summary, missedIngredients}) =>
-               <ListItem avatar>
+               <ListItem avatar key={{id}}>
                  <Left>
                    <Thumbnail source={{uri:image}}/>
                  </Left>
                  <Body style={{height: "100%"}}>
-                   <Text key={{id}}
+                   <Text
                          onPress={() => navigate("RecipeDisplay", {
                            recipeId: id,
                            recipeTitle: title,
