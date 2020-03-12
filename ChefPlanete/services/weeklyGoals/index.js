@@ -32,12 +32,12 @@ export const createNewGoal = (goal) => {
     .then(handleError);
 };
 
-export const updateGoalById = (goalId, updateGoal) => {
+export const updateGoalById = (updateGoal) => {
   const headers = new Headers({
     'Content-type': 'application/json',
     'Authorization': `Bearer ${getAuthorizationToken()}`
   });
-  return fetch(encodeURI(`${getApiUrl()}/user/${getCurrentUserId()}/goals/${goalId}`), {
+  return fetch(encodeURI(`${getApiUrl()}/user/${getCurrentUserId()}/goals/${updateGoal.goalId}`), {
     method: "PUT",
     headers,
     body: JSON.stringify(updateGoal),

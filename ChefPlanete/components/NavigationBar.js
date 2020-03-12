@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from "react-native";
-import { Button, Footer, FooterTab, Icon, StyleProvider, Text } from 'native-base';
+import { Button, Footer, FooterTab, Icon, StyleProvider, Text, Platform } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import StyleVars from '../styles/variables';
 

@@ -10,13 +10,13 @@ const Search = ({navigation}) => {
   return (
     <Container style={styles.container}>
       <PageHeader title="Search Recipes"/>
-        <Item style={{paddingHorizontal: 5}}>
-          <Icon name="search"/>
-          <Input placeholder="Search"/>
-          <Button transparent>
-            <Icon name="md-checkmark-circle"/>
-          </Button>
-        </Item>
+      <Item style={{paddingHorizontal: 5}}>
+        <Icon name="search"/>
+        <Input placeholder="Search"/>
+        <Button transparent>
+          <Icon name="md-checkmark-circle"/>
+        </Button>
+      </Item>
       <Content>
       </Content>
       <NavigationBar currentScreen="SEARCH"/>

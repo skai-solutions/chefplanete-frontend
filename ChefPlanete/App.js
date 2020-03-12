@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Root } from 'native-base';
 import { SafeAreaView } from "react-navigation";
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -22,6 +23,7 @@ import OCRCamera from "./Screens/OCRCamera";
 import CameraLoading from "./Screens/CameraLoading";
 import CameraResults from "./Screens/CameraResults";
 import ManageGoals from "./Screens/manageGoals/ManageGoals";
+import EditGoal from "./Screens/manageGoals/EditGoal";
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},
@@ -34,7 +36,19 @@ const MainNavigator = createStackNavigator({
       },
     },
     Search: {screen: Search},
-    ManageGoals: {screen: ManageGoals},
+    ManageGoals: {
+      screen: ManageGoals,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
+    EditGoal: {
+      screen: EditGoal,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+      params: {},
+    },
     MyFridge: {screen: MyFridge},
     OCRCamera: {screen: OCRCamera},
     CameraLoading: {screen: CameraLoading},
@@ -60,11 +74,13 @@ const App = () => {
     });
   }, []);
   return (
-    <StyleProvider style={getTheme(material)}>
-      <Provider store={store}>
-        <AppContainer/>
-      </Provider>
-    </StyleProvider>
+    <Root>
+      <StyleProvider style={getTheme(material)}>
+        <Provider store={store}>
+          <AppContainer/>
+        </Provider>
+      </StyleProvider>
+    </Root>
   );
 };
 

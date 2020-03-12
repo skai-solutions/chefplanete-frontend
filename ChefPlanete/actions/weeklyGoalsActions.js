@@ -1,6 +1,7 @@
 import actionTypes from "./actionTypes";
 import { getWeeklyGoals, createNewGoal, updateGoalById, completeGoalById, deleteGoalById, resetAllGoals } from "../services/weeklyGoals";
 import { fetchPantry } from "./pantryActions";
+import { fetchDietaryProfile } from "./dietaryProfileActions";
 
 export const fetchWeeklyGoals = () => (dispatch) => {
   // Start the action call
@@ -43,11 +44,11 @@ export const createNewWeeklyGoal = (goal) => (dispatch) => {
   });
 };
 
-export const updateWeeklyGoalById = (goalId, goal) => (dispatch) => {
+export const updateWeeklyGoalById = (goal) => (dispatch) => {
   dispatch({
     type: actionTypes.UPDATE_GOAL_BY_ID_STARTED,
   });
-  return updateGoalById(goalId, goal).then(() => {
+  return updateGoalById(goal).then(() => {
     dispatch({
       type: actionTypes.UPDATE_GOAL_BY_ID_SUCCESS,
       payload: goal,
@@ -71,7 +72,7 @@ export const completeWeeklyGoal = (goalId) => (dispatch) => {
       type: actionTypes.COMPLETE_GOAL_BY_ID_SUCCESS,
       payload: goalId,
     });
-    fetchPantry()(dispatch);
+    fetchDietaryProfile()(dispatch);
   }).catch((error) => {
     console.log(error);
     dispatch({
