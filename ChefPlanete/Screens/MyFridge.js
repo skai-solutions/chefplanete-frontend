@@ -13,6 +13,7 @@ import setValueForStyles from "react-native-web/dist/vendor/react-dom/setValueFo
 import RNPickerSelect,  { defaultStyles } from 'react-native-picker-select';
 import convert from 'convert-units';
 
+
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: updateUserPantry}, dispatch);
 
 export const mapStateToProps = state => ({
@@ -36,6 +37,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
   const [editName, setEditName] = useState(null);
   const [editUnit, setEditUnit] = useState(null);
   const [editQuantity, setEditQuantity] = useState(null);
+
 
   const removeItem = (itemKey) => {
     onSubmit({
@@ -66,6 +68,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
       value: unit}
   )
   });
+
 
   const {navigate} = navigation;
   return (
