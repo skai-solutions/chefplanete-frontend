@@ -12,6 +12,7 @@ import material from './native-base-theme/variables/material';
 import Start from './Screens/Start';
 import Login from './Screens/Login';
 import Profile from './Screens/Profile';
+import ManageProfile from './Screens/ManageProfile';
 import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
@@ -24,11 +25,13 @@ import CameraLoading from "./Screens/CameraLoading";
 import CameraResults from "./Screens/CameraResults";
 import ManageGoals from "./Screens/manageGoals/ManageGoals";
 import EditGoal from "./Screens/manageGoals/EditGoal";
+import RecipeDisplay from "./Screens/RecipeDisplay"
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},
     Login: {screen: Login},
     Profile: {screen: Profile},
+    ManageProfile: {screen: ManageProfile},
     Dashboard: {
       screen: Dashboard,
       navigationOptions: {
@@ -53,6 +56,7 @@ const MainNavigator = createStackNavigator({
     OCRCamera: {screen: OCRCamera},
     CameraLoading: {screen: CameraLoading},
     CameraResults: {screen: CameraResults},
+    RecipeDisplay: {screen: RecipeDisplay},
   },
 
   {

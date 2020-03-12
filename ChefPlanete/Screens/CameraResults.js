@@ -95,7 +95,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
   };
 
   const updateIngredientName = (ingredientName, ingredientKey) => {
-    console.log("updating ingr unitName: ", ingredientName, ingredientKey);
+    console.log("updating ingr name: ", ingredientName, ingredientKey);
     setIdentifiedIngredients({
       //Copy the other identifiedIngredients with the spread operator so we don't overwrite them
       ...identifiedIngredients,
