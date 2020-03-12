@@ -6,8 +6,6 @@ import {getIngredients, cameraIsLoading, getIngredientsErrors} from "../reducers
 import {connect} from "react-redux";
 
 
-
-
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit:scanReceipt}, dispatch);
 
 export const mapStateToProps = state => ({

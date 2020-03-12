@@ -22,6 +22,7 @@ import OCRCamera from "./Screens/OCRCamera";
 import CameraLoading from "./Screens/CameraLoading";
 import CameraResults from "./Screens/CameraResults";
 import ManageGoals from "./Screens/manageGoals/ManageGoals";
+import RecipeDisplay from "./Screens/RecipeDisplay"
 
 const MainNavigator = createStackNavigator({
     Start: {screen: Start},
@@ -39,6 +40,7 @@ const MainNavigator = createStackNavigator({
     OCRCamera: {screen: OCRCamera},
     CameraLoading: {screen: CameraLoading},
     CameraResults: {screen: CameraResults},
+    RecipeDisplay: {screen: RecipeDisplay},
   },
 
   {
