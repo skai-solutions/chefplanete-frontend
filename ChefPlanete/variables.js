@@ -4,7 +4,8 @@ const { manifest } = Constants;
 const ENV = {
   dev: {
     apiUrl: `http://${manifest.debuggerHost.split(':').shift()}:8081`,
-    recipeApiKey: '998c4c5379e741b18622557bc0cc52b2',
+    recipeApiKey: 'your-api-key-here',
+    imageUrlBase: 'https://spoonacular.com/recipeImages',
   },
 };
 

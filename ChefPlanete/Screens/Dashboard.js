@@ -25,7 +25,6 @@ import PageHeader from "../components/PageHeader";
 import StyleVars from "../styles/variables";
 
 const Dashboard = ({navigation, user, pantry, goals, goalsAreLoading}) => {
-  const {navigate} = navigation;
   const getGoalProgress = () => {
     let completedGoals = 0;
     for(let i = 0; i < goals.length; i++) {
@@ -45,23 +44,23 @@ const Dashboard = ({navigation, user, pantry, goals, goalsAreLoading}) => {
             <Content>
               <View style={{justifyContent: "space-between", flexDirection: "row"}}>
                 <Text style={styles.heading}>Goals</Text>
-                <Button onPress={() => navigate("ManageGoals")} style={{height: "90%"}}>
+                <Button onPress={() => navigation.replace("ManageGoals")} style={{height: "100%", shadowOpacity: 0}}>
                   <Text adjustsFontSizeToFit>Manage</Text>
                 </Button>
               </View>
-              <List>
+              <List style={{padding: 0, margin: 0}}>
                 {
                   !goalsAreLoading ?
-                    goals.filter(goal => !goal.complete).map(goal =>
+                    goals.filter(goal => !goal.complete).slice(0, 3).map(goal =>
                       <ListItem button style={styles.goalItems} key={goal.goalId} avatar>
                         <Left>
                           <Thumbnail source={{uri: goal.recipe.recipeImageUrl}}/>
                         </Left>
                         <Body>
                           <Text>{goal.recipe.recipeName}</Text>
-                          <View style={{paddingTop: 10, justifyContent: "space-between", flexDirection: "row"}}>
+                          <View style={{paddingTop: 10, flexDirection: "row"}}>
                             {
-                              Object.entries(goal.recipe.ingredients).slice(0, 3).map(([key, value]) => (
+                              Object.entries(goal.recipe.ingredients).slice(0, 2).map(([key, value]) => (
                                 <Badge key={key} primary>
                                   <Text>{value.name}</Text>
                                 </Badge>
@@ -70,7 +69,7 @@ const Dashboard = ({navigation, user, pantry, goals, goalsAreLoading}) => {
                           </View>
                         </Body>
                         <Right>
-                          <Text note>{goal.goalType}</Text>
+                          <Text note>{goal.goalType.replace("_", " ")}</Text>
                           <Text note>{`${goal.recipe.recipeCookTime} min`}</Text>
                         </Right>
                       </ListItem>

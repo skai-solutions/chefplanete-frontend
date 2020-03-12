@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
 import {
   Card,
   Icon,
@@ -13,14 +14,17 @@ import {
   Picker,
   Row,
   Title,
-  Input
+  Input,
+  Spinner,
 } from "native-base"
+import convert from "convert-units";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { cameraIsLoading, getIngredients, getIngredientsErrors, getPantry } from "../reducers";
 import { updateUserPantry } from "../actions/pantryActions";
 import PageHeader from "../components/PageHeader";
 import StyleVars from "../styles/variables";
+import { Chevron } from "react-native-shapes";
 
 export const mapDispatchToProps = dispatch => bindActionCreators({onSubmit: updateUserPantry}, dispatch);
 
@@ -38,12 +42,13 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
 
   useEffect(() => {
     if (!loading && ingredients && !isSetup) {
-      var receiptIngredients = {};
+      let receiptIngredients = {};
       ingredients.forEach((item) =>
-        receiptIngredients[item.ingredientName.toUpperCase()] = {
-          name: item.ingredientName,
+        receiptIngredients[item.ingredientName.toLowerCase()] = {
+          name: item.ingredientName.toLowerCase(),
           quantity: 1,
-          unitName: "grams"
+          unitName: "g",
+          noMatchFound: pantry[item.ingredientName] === null || pantry[item.ingredientName] === undefined,
         }
       );
       setIdentifiedIngredients(receiptIngredients);
@@ -83,6 +88,12 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
     })
   };
 
+  const deleteIngredient = (key) => {
+    const updatedResults = {...identifiedIngredients};
+    delete updatedResults[key];
+    setIdentifiedIngredients(updatedResults);
+  };
+
   const updateIngredientName = (ingredientName, ingredientKey) => {
     console.log("updating ingr name: ", ingredientName, ingredientKey);
     setIdentifiedIngredients({
@@ -91,7 +102,7 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
       [ingredientKey]: {
         //Copy the other key/vals in the ingredient with the spread operator so we don't overwrite them
         ...identifiedIngredients[ingredientKey],
-        name: ingredientName,
+        name: ingredientName.toLowerCase(),
       }
     })
   };
@@ -99,20 +110,48 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
   const approveIngredientList = () => {
     console.log("Sending ingredients...");
     console.log("ingredients: ", identifiedIngredients);
-    //Check if ingredient is already in pantry
-    // if (ingredientKey in pantry) {
-    //   //Add already existing quantity to new specified quantity
-    //   inputQuantity += pantry[ingredientKey].quantity;
-    // }
-    //Send identifiedIngredients through updatePantry action
-    onSubmit(identifiedIngredients).then(() => navigation.replace('MyFridge'))
+    const pantryUpdate = Object.fromEntries(Object.entries(identifiedIngredients).map(([key, ingredient]) => {
+      if (pantry[ingredient.name]) {
+        const pantryIngredient = pantry[ingredient.name];
+        try {
+          const converted = convert(ingredient.quantity).from(ingredient.unitName).to(pantryIngredient.unitName);
+          return [ingredient.name, {
+            ...ingredient,
+            quantity: Math.max(0, pantryIngredient.quantity + converted),
+            unitName: pantryIngredient.unitName,
+          }];
+        } catch (e) {
+          return ["", {...ingredient, quantity: 0}];
+        }
+      }
+      else {
+        return [ingredient.name, ingredient];
+      }
+    }));
+    onSubmit(pantryUpdate).then(() => navigation.replace('MyFridge'))
       .catch(() => setErrorState(true));
   };
 
   return (
     <Container style={styles.container}>
-      <PageHeader title="Receipt Items" />
+      <PageHeader title="Receipt Items"/>
       <Content style={styles.receiptItems}>
+        <View style={{flexDirection: "row", paddingVertical: 5}}>
+          <Item style={{flexDirection: "row", flex: 4, borderColor: "transparent"}}>
+            <View style={{flexDirection: "column", flex: 1}}>
+              <Text style={{textAlign: "left"}} note>Name</Text>
+            </View>
+          </Item>
+          <Item style={{flexDirection: "row", flex: 6, borderColor: "transparent"}}>
+            <View style={{flexDirection: "column", flex: 2}}>
+              <Text note>Quantity</Text>
+            </View>
+            <View style={{flexDirection: "column", flex: 2}}>
+              <Text note>Unit</Text>
+            </View>
+            <View style={{flexDirection: "column", flex: 2}}/>
+          </Item>
+        </View>
         {
           isSetup && !loading ?
             Object.entries(identifiedIngredients).sort(([keyA], [keyB]) => {
@@ -121,41 +160,50 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
               return 0;
             }).map(([key, value]) => {
               const stringQuantity = value.quantity.toString();
+              const isValid = !isNaN(value.quantity) && value.name !== null;
               return (
-                <Card style={styles.card} key={key}>
-                  <CardItem style={styles.card}>
-                    <Body style={styles.receiptItem}>
-                      <Item style={{flex: 4}} underline>
-                        <Input
-                          style={styles.nameInput}
-                          onChangeText={(newText) => updateIngredientName(newText, key)}
-                          value={value.name}
-                        />
-                      </Item>
-                      <Item style={{flex: 4}}>
-                        <Input
-                          style={styles.quantityInput}
-                          keyboardType="decimal-pad"
-                          onChangeText={(newText) => updateIngredientQuantity(newText, key)}
-                          value={stringQuantity}
-                        />
-                        <Picker
-                          iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
-                          mode="dropdown"
-                          selectedValue={value.unitName}
-                          placeholderIconColor="white"
-                          textStyle={styles.unitSelection}
-                          onValueChange={(itemValue) => updateIngredientUnitName(itemValue, key)}
-                        >
-                          <Picker.Item label="grams" value="grams" />
-                          <Picker.Item label="kg" value="kg" />
-                        </Picker>
-                      </Item>
-                    </Body>
-                  </CardItem>
-                </Card>
+                <View key={key} style={{flexDirection: "row", paddingVertical: 5}}>
+                  <Item style={{flex: 8, flexDirection: "row"}} underline>
+                    <View style={{flexDirection: "column", flex: 1}}>
+                      <Input
+                        style={styles.nameInput}
+                        onChangeText={(newText) => updateIngredientName(newText, key)}
+                        value={value.name}
+                      />
+                    </View>
+                  </Item>
+                  <Item style={{flex: 10, flexDirection: "row"}}>
+                    <View style={{flexDirection: "column", flex: 5}}>
+                      <Input
+                        style={{
+                          ...styles.quantityInput,
+                          color: isValid ? StyleVars.headingColor : "#ffab29",
+                        }}
+                        keyboardType="decimal-pad"
+                        onChangeText={(newText) => updateIngredientQuantity(newText, key)}
+                        value={stringQuantity}
+                      />
+                    </View>
+                    <View style={{flexDirection: "column", flex: 5}}>
+                      <RNPickerSelect
+                        style={pickerStyle}
+                        items={convert().possibilities("mass").concat(convert().possibilities("volume")).map(unit => {
+                          return {label: unit, value: unit}
+                        })}
+                        value={value.unitName}
+                        onValueChange={(itemValue) => updateIngredientUnitName(itemValue, key)}
+                        Icon={() => <Chevron color="gray" size={1.5}/>}
+                      />
+                    </View>
+                    <View style={{flexDirection: "column", flex: 3}}>
+                      <Button style={{justifyContent: "center"}} onPress={() => deleteIngredient(key)}>
+                        <Icon name="close" color="white" />
+                      </Button>
+                    </View>
+                  </Item>
+                </View>
               );
-            }) : <Text adjustsFontSizeToFit style={styles.heading}>Identifying items from receipt image...</Text>
+            }) : <Spinner color="green" />
         }
         {
           isErrorState &&
@@ -167,11 +215,11 @@ const CameraResults = ({onSubmit, ingredients, loading, pantry, errors, navigati
         {
           !loading &&
           <View style={styles.buttonContainer}>
-            <Button style={styles.approveButton} onPress={approveIngredientList}>
-              <Text adjustsFontSizeToFit style={styles.buttonText}>Approve</Text>
-            </Button>
             <Button style={styles.cancelButton} onPress={() => navigation.replace("Dashboard")}>
               <Text adjustsFontSizeToFit style={styles.buttonText}>Cancel</Text>
+            </Button>
+            <Button style={styles.approveButton} onPress={approveIngredientList}>
+              <Text adjustsFontSizeToFit style={styles.buttonText}>Approve</Text>
             </Button>
           </View>
         }
@@ -190,6 +238,7 @@ const styles = StyleSheet.create({
     backgroundColor: StyleVars.headingColor,
   },
   quantityInput: {
+    textAlign: "right",
     fontFamily: "SF Pro Display Bold",
     color: StyleVars.headingColor,
   },
@@ -213,13 +262,11 @@ const styles = StyleSheet.create({
   },
   approveButton: {
     color: StyleVars.headingColor,
-    borderRadius: 8,
     width: "45%",
     alignSelf: "center",
     justifyContent: "center",
   },
   cancelButton: {
-    borderRadius: 8,
     width: "45%",
     alignSelf: "center",
     justifyContent: "center",
@@ -276,4 +323,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
   }
 });
+
+const pickerStyle = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    fontFamily: "SF Pro Display Bold",
+    color: StyleVars.headingColor,
+  },
+  iconContainer: {
+    top: "50%",
+    right: 15,
+  },
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(CameraResults);

@@ -22,13 +22,13 @@ const Search = ({navigation, onSubmit, recipes, recipesAreLoading, errors}) => {
   return (
     <Container style={styles.container}>
       <PageHeader title="Search Recipes"/>
-        <Item style={{paddingHorizontal: 5}}>
-          <Icon name="search"/>
-          <Input value={query} onChangeText={setQuery} placeholder="Search"/>
-          <Button onPress={() => onSubmit(query)} transparent>
-            <Icon name="md-checkmark-circle"/>
-          </Button>
-        </Item>
+      <Item style={{paddingHorizontal: 5}}>
+        <Icon name="search"/>
+        <Input value={query} onChangeText={setQuery} placeholder="Search"/>
+        <Button onPress={() => onSubmit(query)} transparent>
+          <Icon name="md-checkmark-circle"/>
+        </Button>
+      </Item>
       <Content>
         {
           recipesAreLoading &&
