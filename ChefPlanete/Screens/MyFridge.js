@@ -200,7 +200,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                   value={newUnit}
                 />
               </Item>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15}}>
                 <Button style={{...styles.button, width: 100}} onPress={() => {
                   removeItem(editKey) || addItem(editName, editUnit, editQuantity) || setEditModalVisible(!editModalVisible);
                 }}>
