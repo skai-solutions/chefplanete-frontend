@@ -11,6 +11,7 @@ import material from './native-base-theme/variables/material';
 import Start from './Screens/Start';
 import Login from './Screens/Login';
 import Profile from './Screens/Profile';
+import ManageProfile from './Screens/ManageProfile';
 import Dashboard from './Screens/Dashboard';
 import Search from './Screens/Search';
 import MyFridge from './Screens/MyFridge';
@@ -28,6 +29,7 @@ const MainNavigator = createStackNavigator({
     Start: {screen: Start},
     Login: {screen: Login},
     Profile: {screen: Profile},
+    ManageProfile: {screen: ManageProfile},
     Dashboard: {
       screen: Dashboard,
       navigationOptions: {
