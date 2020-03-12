@@ -35,6 +35,7 @@ export const mapStateToProps = state => ({
 });
 
 const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
+  const {navigate} = navigation;
   const [isErrorState, setErrorState] = useState(false);
   const [cookingLevel, setCookingLevel] = useState(dietaryProfile.cookingLevel);
   const [goalsCompleted, setGoalsCompleted] = useState(dietaryProfile.totalGoalsCompleted);
@@ -43,7 +44,7 @@ const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
   return (
     <Container style={styles.container}>
       <PageHeader title="Profile"/>
-        <Content>
+        <Content style={styles.profile}>
           {
             !loading ?
             <View>
@@ -85,7 +86,7 @@ const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
                   </Content>
                 </CardItem>
               </Card>
-              <Button onPress={() => navigate("ManageProfile")}>
+              <Button onPress={() => navigate("ManageProfile")} style={{height: "90%"}}>
                 <Text adjustsFontSizeToFit>Manage</Text>
               </Button>
             </View> : <Text adjustsFontSizeToFit style={styles.heading}>Unable to find profile data associated with this user.</Text>
@@ -123,6 +124,9 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     paddingRight: 0,
     marginRight: 0
+  },
+  profile: {
+    padding: 20,
   },
   text: {
     color: "rgb(0,0,0)",
