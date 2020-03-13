@@ -86,10 +86,10 @@ const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
                   </Content>
                 </CardItem>
               </Card>
-              <Button onPress={() => navigate("ManageProfile")} style={{height: "90%"}}>
-                <Text adjustsFontSizeToFit>Manage</Text>
+              <Button style={styles.button} onPress={() => navigate("ManageProfile")}>
+                <Text adjustsFontSizeToFit>Update Profile</Text>
               </Button>
-            </View> : <Text adjustsFontSizeToFit style={styles.heading}>Unable to find profile data associated with this user.</Text>
+            </View> : <Text adjustsFontSizeToFit style={styles.heading}>Loading...</Text>
           }
           {
             isErrorState &&
@@ -105,6 +105,10 @@ const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: StyleVars.background,
