@@ -155,7 +155,7 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
               <Picker.Item label="3 - Advanced" value="3" />
             </Picker>
             <Text style={styles.heading}>
-              I have an intolorance for the following:
+              Select any intolerance(s) that apply:
             </Text>
             {
               spoonacularIntolerances.map(({id, value}) => {

@@ -7,5 +7,6 @@ export default {
   titleColor: "rgb(0,0,0)",
   headingColor: "rgb(65,64,65)",
   heavyFont: "SF Pro Display Heavy",
-  mediumFont: "SF Pro Display Medium"
+  mediumFont: "SF Pro Display Medium",
+  checkboxDefaultColor: "transparent"
 };
