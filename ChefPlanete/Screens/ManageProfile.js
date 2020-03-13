@@ -35,13 +35,6 @@ export const mapStateToProps = state => ({
 });
 
 const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
-  const {navigate} = navigation;
-  const [isErrorState, setErrorState] = useState(false);
-  const [cookingLevel, setCookingLevel] = useState(dietaryProfile.cookingLevel);
-  const [foodRestrictions, setFoodRestrictions] = useState(dietaryProfile.foodRestrictions);
-  
-  checkBoxStates = [true, false, false, false, false, false, false, false, false, false, false, false];
-
   const spoonacularIntolerances = [
     {
       id: 0,
@@ -92,35 +85,47 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
       value: "Wheat"
     },
   ]
-
-  const setCheckboxStates = () => {
-    // Future check to see if a restriction is already a thing
-    // foodRestrictions.forEach(() => {
-    //   spoonacularIntolerances
-    // })
-    return [true, false, false, false, false, false, false, false, false, false, false, false];
+  const [isErrorState, setErrorState] = useState(false);
+  const [cookingLevel, setCookingLevel] = useState(dietaryProfile.cookingLevel);
+  const [foodRestrictions, setFoodRestrictions] = useState(dietaryProfile.foodRestrictions);
+  // Set the checkBoxStates to already have the current intolerances selected
+  const initCheckBoxStates = () => {
+    initStates = [false, false, false, false, false, false, false, false, false, false, false, false];
+    foodRestrictions.forEach((restriction) => {
+      spoonacularIntolerances.forEach((intolerance) => {
+        if(Object.values(intolerance)[1] === restriction){
+          initStates[Object.values(intolerance)[0]] = true;
+        }
+      });
+    })
+    return initStates;
   }
+  const [checkBoxStates, setCheckBoxStates] = useState(initCheckBoxStates());
 
-  const toggleCheckboxStates = (index) => {
-    console.log("updating checkbox at ", index, "to true");
-    if (checkBoxStates[index] == false) {
-      checkBoxStates[index] = true;
-    } else {
-      checkBoxStates[index] = false;
-    }
-    console.log("checkBoxStates now: ", checkBoxStates);
+  //Called when the checkbox is selected
+  const toggleCheckBox = (id) => {
+    updatedCheckBoxStates = [];
+    checkBoxStates.map((item, index) => {
+      if (index === id) {
+        if (checkBoxStates[index] == false) {
+          updatedCheckBoxStates[index] = true;
+        } else {
+          updatedCheckBoxStates[index] = false;
+        }
+      } else {
+        updatedCheckBoxStates[index] = item;
+      }
+    });
+    setCheckBoxStates(updatedCheckBoxStates);
   }
 
   const updateProfile = () => {
-    console.log("in update profile!!");
     newFoodRestrictions = []
     checkBoxStates.forEach((checkBoxState, index) => {
       if(checkBoxState) {
         newFoodRestrictions.push(spoonacularIntolerances[index].value);
-        console.log("appended a restriction!!: ", spoonacularIntolerances[index].value)
       }
     })
-    console.log("updating profile completed: ", cookingLevel, newFoodRestrictions);
     onSubmit({
       userId: dietaryProfile.userId,
       cookingLevel: cookingLevel,
@@ -141,7 +146,7 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
             <Picker
               iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
               mode="dropdown"
-              selectedValue={cookingLevel}
+              selectedValue={cookingLevel.toString()}
               placeholderIconColor="white"
               onValueChange={(itemValue) => setCookingLevel(itemValue)}
             >
@@ -156,7 +161,7 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
               spoonacularIntolerances.map(({id, value}) => {
                 return (
                   <ListItem key={id}>
-                    <CheckBox checked={checkBoxStates[id]} onPress={() => toggleCheckboxStates(id)} color={"#5DA60A"} />
+                    <CheckBox checked={checkBoxStates[id]} onPress={() => toggleCheckBox(id)} color={"#5DA60A"} />
                     <Body>
                       <Text>{value}</Text>
                     </Body>
