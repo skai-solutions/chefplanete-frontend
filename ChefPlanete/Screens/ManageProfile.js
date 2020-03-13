@@ -169,9 +169,11 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
                 );
               })
             }
-            <Button onPress={() => updateProfile()} style={styles.button}>
-              <Text adjustsFontSizeToFit>Confirm</Text>
-            </Button>
+            <View style={styles.padding}>
+              <Button onPress={() => updateProfile()} style={styles.button}>
+                <Text adjustsFontSizeToFit>Confirm</Text>
+              </Button>
+            </View>
           </View> : <Text adjustsFontSizeToFit style={styles.heading}>Loading...</Text>
         }
         {
@@ -218,6 +220,10 @@ const styles = StyleSheet.create({
   profile: {
     padding: 20,
   },
+  padding: {
+    paddingBottom: "10%",
+    paddingTop: "5%"
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageProfile);
