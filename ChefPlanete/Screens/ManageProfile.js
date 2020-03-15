@@ -7,9 +7,11 @@ import {
   Body,
   Button,
   Container,
+  CheckBox,
   Content,
   Header,
   Item,
+  ListItem,
   Picker,
   Row,
   Title,
@@ -33,81 +35,104 @@ export const mapStateToProps = state => ({
 });
 
 const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
-  const {navigate} = navigation;
-  const [isErrorState, setErrorState] = useState(false);
-  const [cookingLevel, setCookingLevel] = useState(dietaryProfile.cookingLevel);
-  const [foodRestrictions, setFoodRestrictions] = useState(dietaryProfile.foodRestrictions);
-
   const spoonacularIntolerances = [
     {
-      id: 1,
+      id: 0,
       value: "Dairy"
     },
     {
-      id: 2,
+      id: 1,
       value: "Egg"
     },
     {
-      id: 3,
+      id: 2,
       value: "Gluten"
     },
     {
-      id: 4,
+      id: 3,
       value: "Grain"
     },
     {
-      id: 5,
+      id: 4,
       value: "Peanut"
     },
     {
-      id: 6,
+      id: 5,
       value: "Seafood"
     },
     {
-      id: 7,
+      id: 6,
       value: "Sesame"
     },
     {
-      id: 8,
+      id: 7,
       value: "Shellfish"
     },
     {
-      id: 9,
+      id: 8,
       value: "Soy"
     },
     {
-      id: 10,
+      id: 9,
       value: "Sulfite"
     },
     {
-      id: 11,
+      id: 10,
       value: "Tree Nut"
     },
     {
-      id: 12,
+      id: 11,
       value: "Wheat"
     },
   ]
+  const [isErrorState, setErrorState] = useState(false);
+  const [cookingLevel, setCookingLevel] = useState(dietaryProfile.cookingLevel);
+  const [foodRestrictions, setFoodRestrictions] = useState(dietaryProfile.foodRestrictions);
+  // Set the checkBoxStates to already have the current intolerances selected
+  const initCheckBoxStates = () => {
+    initStates = [false, false, false, false, false, false, false, false, false, false, false, false];
+    foodRestrictions.forEach((restriction) => {
+      spoonacularIntolerances.forEach((intolerance) => {
+        if(Object.values(intolerance)[1] === restriction){
+          initStates[Object.values(intolerance)[0]] = true;
+        }
+      });
+    })
+    return initStates;
+  }
+  const [checkBoxStates, setCheckBoxStates] = useState(initCheckBoxStates());
 
-  const updateCookingLevel = (cookingLevel) => {
-    // if (cookingLevel && cookingLevel !== "") {
-    //   cookingLevel = parseFloat(cookingLevel);
-    // } else {
-    //   cookingLevel = 0;
-    // }
-    console.log("updating cooking level: ", cookingLevel);
-    setCookingLevel(cookingLevel);
-  };
+  //Called when the checkbox is selected
+  const toggleCheckBox = (id) => {
+    updatedCheckBoxStates = [];
+    checkBoxStates.map((item, index) => {
+      if (index === id) {
+        if (checkBoxStates[index] == false) {
+          updatedCheckBoxStates[index] = true;
+        } else {
+          updatedCheckBoxStates[index] = false;
+        }
+      } else {
+        updatedCheckBoxStates[index] = item;
+      }
+    });
+    setCheckBoxStates(updatedCheckBoxStates);
+  }
 
-  const updateFoodRestrictions = (foodRestrictions) => {
-    // if (goalsCompleted && goalsCompleted !== "") {
-    //   goalsCompleted = parseFloat(goalsCompleted);
-    // } else {
-    //   goalsCompleted = 0;
-    // }
-    console.log("updating food restrictions completed: ", foodRestrictions);
-    setFoodRestrictions(foodRestrictions);
-    navigate("Profile");
+  const updateProfile = () => {
+    newFoodRestrictions = []
+    checkBoxStates.forEach((checkBoxState, index) => {
+      if(checkBoxState) {
+        newFoodRestrictions.push(spoonacularIntolerances[index].value);
+      }
+    })
+    onSubmit({
+      userId: dietaryProfile.userId,
+      cookingLevel: cookingLevel,
+      totalGoalsCompleted: dietaryProfile.totalGoalsCompleted,
+      foodRestrictions: newFoodRestrictions
+    }).then(() => navigation.replace('Profile'))
+      .catch(() => setErrorState(true));
   };
 
   return (
@@ -117,25 +142,26 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
         {
           !loading ?
           <View>
+            <Text style={styles.heading}>Cooking Level:</Text>
             <Picker
               iosIcon={<Icon style={{color: "black"}} name="arrow-down" />}
               mode="dropdown"
-              selectedValue={cookingLevel}
+              selectedValue={cookingLevel.toString()}
               placeholderIconColor="white"
-              onValueChange={(itemValue) => updateCookingLevel(itemValue)}
+              onValueChange={(itemValue) => setCookingLevel(itemValue)}
             >
-            <Picker.Item label="1 -Beginner" value="1" />
+              <Picker.Item label="1 -Beginner" value="1" />
               <Picker.Item label="2 - Intermediate" value="2" />
               <Picker.Item label="3 - Advanced" value="3" />
             </Picker>
-            <Text>
-              I have an intolorance for the following:
+            <Text style={styles.heading}>
+              Select any intolerance(s):
             </Text>
             {
-              Object.entries(spoonacularIntolerances).map(([key, value]) => {
+              spoonacularIntolerances.map(({id, value}) => {
                 return (
-                  <ListItem key={key}>
-                    <CheckBox checked={false} />
+                  <ListItem key={id}>
+                    <CheckBox checked={checkBoxStates[id]} onPress={() => toggleCheckBox(id)} color={"#5DA60A"} />
                     <Body>
                       <Text>{value}</Text>
                     </Body>
@@ -143,32 +169,12 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
                 );
               })
             }
-            {
-              Object.entries(foodRestrictions).sort(([keyA], [keyB]) => {
-                if (keyA > keyB) return -1;
-                if (keyB > keyA) return 1;
-                return 0;
-              }).map(([key, value]) => {
-                return (
-                  <Card style={styles.card} key={key}>
-                    <CardItem style={styles.card}>
-                      <Body style={styles.cardItems}>
-                        <Item style={{flex: 4}} underline>
-                          <Input
-                            onChangeText={(newText) => updateCookingLevel(newText)}
-                            value={foodRestrictions}
-                          />
-                        </Item>
-                      </Body>
-                    </CardItem>
-                  </Card>
-                );
-              })
-            }
-            <Button onPress={() => updateFoodRestrictions()} style={{height: "90%"}}>
-                  <Text adjustsFontSizeToFit>Confirm</Text>
-            </Button>
-          </View> : <Text adjustsFontSizeToFit style={styles.heading}>Unable to find profile data associated with this user.</Text>
+            <View style={styles.padding}>
+              <Button onPress={() => updateProfile()} style={styles.button}>
+                <Text adjustsFontSizeToFit>Confirm</Text>
+              </Button>
+            </View>
+          </View> : <Text adjustsFontSizeToFit style={styles.heading}>Loading...</Text>
         }
         {
           isErrorState &&
@@ -184,6 +190,10 @@ const ManageProfile = ({ onSubmit, dietaryProfile, loading, errors, navigation }
 }
 
 const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: StyleVars.background,
@@ -197,6 +207,11 @@ const styles = StyleSheet.create({
     paddingLeft: "5%",
     paddingRight: "5%",
   },
+  heading: {
+    fontFamily: "SF Pro Display Heavy",
+    fontSize: 20,
+    color: StyleVars.headingColor,
+  },
   text: {
     color: "rgb(0,0,0)",
     fontSize: 20,
@@ -205,6 +220,10 @@ const styles = StyleSheet.create({
   profile: {
     padding: 20,
   },
+  padding: {
+    paddingBottom: "10%",
+    paddingTop: "5%"
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageProfile);
