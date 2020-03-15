@@ -75,7 +75,7 @@ const Profile = ({ onSubmit, dietaryProfile, loading, errors, navigation }) => {
                     <List style={{padding: 0, margin: 0}}>
                       {
                         foodRestrictions.map(restriction =>
-                          <ListItem button style={styles.restrictions}>
+                          <ListItem key={restriction} button style={styles.restrictions}>
                             <Body>
                               <Text>{restriction}</Text>
                             </Body>

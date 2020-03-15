@@ -45,7 +45,7 @@ const Search = ({navigation, onSubmit, recipes, recipesAreLoading, errors}) => {
           <List>
            {
              recipes.results.map(({id, title, image, readyInMinutes, diets, analyzedInstructions, summary, missedIngredients}) =>
-               <ListItem avatar key={{id}}>
+               <ListItem avatar key={id}>
                  <Left>
                    <Thumbnail source={{uri:image}}/>
                  </Left>

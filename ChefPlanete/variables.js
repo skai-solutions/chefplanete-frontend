@@ -6,6 +6,7 @@ const ENV = {
     apiUrl: `http://${manifest.debuggerHost.split(':').shift()}:8081`,
     recipeApiKey: 'your-api-key-here',
     imageUrlBase: 'https://spoonacular.com/recipeImages',
+    ingredientUrlBase: 'https://spoonacular.com/cdn/ingredients_100x100',
   },
 };
 

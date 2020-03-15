@@ -1,16 +1,16 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, TouchableHighlight, Modal} from "react-native";
-import {Container, Body, Card, CardItem, Icon, Content, Button, Item, Input, Picker, Text} from 'native-base';
+import React, { Component, useState } from 'react';
+import { StyleSheet, View, TouchableHighlight, Modal } from "react-native";
+import { Container, Body, Card, CardItem, Icon, Content, Button, Item, Input, Picker, Text } from 'native-base';
 import NavigationBar from '../components/NavigationBar';
-import {cameraIsLoading, getIngredients, getIngredientsErrors, getPantry} from "../reducers";
-import {updateUserPantry} from "../actions/pantryActions";
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { cameraIsLoading, getIngredients, getIngredientsErrors, getPantry } from "../reducers";
+import { updateUserPantry } from "../actions/pantryActions";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import * as Font from 'expo-font';
 import PageHeader from "../components/PageHeader";
 import StyleVars from "../styles/variables";
 import setValueForStyles from "react-native-web/dist/vendor/react-dom/setValueForStyles";
-import RNPickerSelect,  { defaultStyles } from 'react-native-picker-select';
+import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
 import convert from 'convert-units';
 
 
@@ -51,7 +51,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
 
   const addItem = (name, unit, quantity) => {
     onSubmit({
-      [name.toUpperCase()]: {
+      [name.toLowerCase()]: {
         name: name,
         unitName: unit,
         quantity: quantity,
@@ -59,18 +59,17 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
     }).catch(error => console.log(error));
   };
 
-  const units = convert().possibilities('mass','volume')
+  const units = convert().possibilities('mass', 'volume')
 
   const map1 = units.map(unit => {
-    return(
+    return (
       {
-      label: unit,
-      value: unit}
-  )
+        label: unit,
+        value: unit
+      }
+    )
   });
 
-
-  const {navigate} = navigation;
   return (
     <Container style={styles.container}>
 
@@ -90,8 +89,8 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                             onPress={() => setEditKey(key) || setEditName(value.name) || setEditUnit(value.unitName) || setEditQuantity(value.quantity) || setEditModalVisible(true)}>
                       <Icon name="settings"/>
                     </Button>
-                    <View style={{flex: 0.1}} />
-                    <Button style={{...styles.button, width: 100}}  onPress={() => removeItem(key)}>
+                    <View style={{flex: 0.1}}/>
+                    <Button style={{...styles.button, width: 100}} onPress={() => removeItem(key)}>
                       <Icon name="close"/>
                     </Button>
                   </Body>
@@ -122,7 +121,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                   onChangeText={(newText) => setNewQuantity(newText)}
                 />
               </Item>
-              <Item  style={{paddingVertical: 15}}>
+              <Item style={{paddingVertical: 15}}>
                 <Text>Unit:</Text>
                 <RNPickerSelect
                   placeholder={{
@@ -148,7 +147,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                 }}>
                   <Text adjustsFontSizeToFit>Add</Text>
                 </Button>
-                <View style={{flex: 0.2}} />
+                <View style={{flex: 0.2}}/>
                 <Button style={{...styles.button, width: 100}} onPress={() => navigation.replace("MyFridge")}>
                   <Text adjustsFontSizeToFit>Back</Text>
                 </Button>
@@ -183,7 +182,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                   onChangeText={(newText) => setEditQuantity(newText)}
                 />
               </Item>
-              <Item  style={{paddingVertical: 15}}>
+              <Item style={{paddingVertical: 15}}>
                 <Text>Unit:</Text>
                 <RNPickerSelect
                   placeholder={{
@@ -209,7 +208,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                 }}>
                   <Text adjustsFontSizeToFit>Confirm</Text>
                 </Button>
-                <View style={{flex: 0.2}} />
+                <View style={{flex: 0.2}}/>
                 <Button style={{...styles.button, width: 100}} onPress={() => navigation.replace("MyFridge")}>
                   <Text adjustsFontSizeToFit>Back</Text>
                 </Button>

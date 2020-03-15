@@ -64,9 +64,8 @@ const EditGoal = ({navigation, pantry, dietaryProfile}) => {
   const getRecommendations = () => {
     setRecommendationsLoading(true);
     const pantryItems = Object.entries(pantry).map(([, value]) => value.name.toLowerCase());
-    searchRecipesByTextIngredientsAndRestrictions(
-      pantryItems.join(","),
-      [],
+    getRecipesByIngredientUsageAndRestrictions(
+      pantryItems,
       dietaryProfile.foodRestrictions,
     ).then(response => {
       setRecommendations(response.results);
@@ -129,7 +128,18 @@ const EditGoal = ({navigation, pantry, dietaryProfile}) => {
               {
                 recommendationsLoading ? <Spinner color="green"/> :
                   recommendations.map(result =>
-                    <ListItem style={styles.goalItems} key={result.id} avatar>
+                    <ListItem button onPress={() => {
+                      const {id, title, image, diets, analyzedInstructions, summary, missedIngredients, usedIngredients} = result;
+                      navigation.navigate("RecipeDisplay", {
+                        recipeId: id,
+                        recipeTitle: title,
+                        recipeImage: image,
+                        diets: diets,
+                        instructions: analyzedInstructions,
+                        summary: summary,
+                        ingredients: missedIngredients.concat(usedIngredients),
+                      });
+                    }} style={styles.goalItems} key={result.id} avatar>
                       <Left>
                         <Thumbnail source={{uri: result.image}}/>
                       </Left>
@@ -179,7 +189,18 @@ const EditGoal = ({navigation, pantry, dietaryProfile}) => {
               {
                 searchLoading ? <Spinner color="green"/> :
                   searchResults.map(result =>
-                    <ListItem key={result.id} style={styles.goalItems} avatar>
+                    <ListItem button onPress={() => {
+                      const {id, title, image, diets, analyzedInstructions, summary, missedIngredients} = result;
+                      navigation.navigate("RecipeDisplay", {
+                        recipeId: id,
+                        recipeTitle: title,
+                        recipeImage: image,
+                        diets: diets,
+                        instructions: analyzedInstructions,
+                        summary: summary,
+                        ingredients: missedIngredients,
+                      });
+                    }} key={result.id} style={styles.goalItems} avatar>
                       <Left>
                         <Thumbnail source={{uri: result.image}}/>
                       </Left>

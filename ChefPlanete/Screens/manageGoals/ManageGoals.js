@@ -42,6 +42,7 @@ import {
   updateWeeklyGoalById
 } from "../../actions/weeklyGoalsActions";
 import { updateUserPantry } from "../../actions/pantryActions";
+import { getSingleRecipeById } from "../../services/spoonacular";
 
 const ManageGoals = ({goals, navigation, onAdd, onEdit, onDelete, onComplete, onResetAll, pantry, updatePantry}) => {
   const [segment, setSegment] = useState("TODO");
@@ -335,7 +336,17 @@ const ManageGoals = ({goals, navigation, onAdd, onEdit, onDelete, onComplete, on
                 </View>
               </View>
               <View style={styles.rowFront}>
-                <ListItem button avatar>
+                <ListItem onPress={() => {
+                  getSingleRecipeById(goal.recipe.recipeId).then(({id, title, image, diets, analyzedInstructions, summary, extendedIngredients}) => navigation.navigate("RecipeDisplay", {
+                    recipeId: id,
+                    recipeTitle: title,
+                    recipeImage: image,
+                    diets: diets,
+                    instructions: analyzedInstructions,
+                    summary: summary,
+                    ingredients: extendedIngredients,
+                  }));
+                }} button avatar>
                   {
                     segment === "TODO" ?
                       <Left style={{padding: 0, margin: 0}}>

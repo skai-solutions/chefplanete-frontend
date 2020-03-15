@@ -37,3 +37,5 @@ export const pullOutJson = (response) => {
 };
 
 export const getRecipeImageUrl = (image) => `${ENV.imageUrlBase}/${image}`;
+
+export const getIngredientImageUrl = (image) => `${ENV.ingredientUrlBase}/${image}`;
