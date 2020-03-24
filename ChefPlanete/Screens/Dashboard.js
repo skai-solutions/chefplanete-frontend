@@ -79,15 +79,15 @@ const Dashboard = ({navigation, user, pantry, goals, goalsAreLoading}) => {
             </Content>
           </CardItem>
         </Card>
-        <Card transparent style={styles.card}>
-          <CardItem style={styles.card} header>
-            <Text style={styles.heading}>Pantry</Text>
-          </CardItem>
-          <CardItem style={styles.card}>
-            <Body>
-            </Body>
-          </CardItem>
-        </Card>
+        {/*<Card transparent style={styles.card}>*/}
+        {/*  <CardItem style={styles.card} header>*/}
+        {/*    <Text style={styles.heading}>Pantry</Text>*/}
+        {/*  </CardItem>*/}
+        {/*  <CardItem style={styles.card}>*/}
+        {/*    <Body>*/}
+        {/*    </Body>*/}
+        {/*  </CardItem>*/}
+        {/*</Card>*/}
       </Content>
       <NavigationBar currentScreen="DASH"/>
     </Container>

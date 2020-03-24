@@ -157,7 +157,7 @@ const EditGoal = ({navigation, pantry, dietaryProfile}) => {
                               recipeCookTime: result.readyInMinutes,
                               ingredients: Object.fromEntries(result.usedIngredients.concat(result.missedIngredients).map(ingredient => [ingredient.name, {
                                 name: ingredient.name,
-                                unitName: ingredient.unitShort,
+                                unitName: ingredient.unitShort.toLowerCase(),
                                 quantity: ingredient.amount,
                               }])),
                             },

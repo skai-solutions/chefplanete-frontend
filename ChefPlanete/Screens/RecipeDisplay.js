@@ -63,7 +63,7 @@ const RecipeDisplay = ({navigation, onSubmit}) => {
                   ingredients.map(({amount, unit, name, image}) =>
                     <ListItem avatar key={name}>
                       <Left>
-                        <Thumbnail source={{uri: image.includes("spoonacular") ? image : getIngredientImageUrl(image)}}/>
+                        <Thumbnail source={{uri: image && image.includes("spoonacular") ? image : getIngredientImageUrl(image)}}/>
                       </Left>
                       <Body style={{height: "100%"}}>
                         <Text>{name}</Text>

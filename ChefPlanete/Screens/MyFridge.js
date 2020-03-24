@@ -54,12 +54,14 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
       [name.toLowerCase()]: {
         name: name,
         unitName: unit,
-        quantity: quantity,
+        quantity: parseFloat(quantity),
       },
     }).catch(error => console.log(error));
   };
 
-  const units = convert().possibilities('mass', 'volume')
+  const units = convert().possibilities('mass').concat(
+    convert().possibilities('volume')
+  );
 
   const map1 = units.map(unit => {
     return (
@@ -84,7 +86,10 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
               <Card style={styles.card} key={key}>
                 <CardItem style={styles.card}>
                   <Body style={styles.itemView}>
-                    <Text adjustsFontSizeToFit style={styles.item}>{value.name} {value.quantity} {value.unitName}</Text>
+                    <View style={{flexDirection: "column", flex: 2}}>
+                      <Text adjustsFontSizeToFit style={styles.item}>{value.name}</Text>
+                      <Text adjustsFontSizeToFit note>{value.quantity.toFixed(2)} {value.unitName}</Text>
+                    </View>
                     <Button style={{...styles.button, width: 50}}
                             onPress={() => setEditKey(key) || setEditName(value.name) || setEditUnit(value.unitName) || setEditQuantity(value.quantity) || setEditModalVisible(true)}>
                       <Icon name="settings"/>
@@ -148,7 +153,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                   <Text adjustsFontSizeToFit>Add</Text>
                 </Button>
                 <View style={{flex: 0.2}}/>
-                <Button style={{...styles.button, width: 100}} onPress={() => navigation.replace("MyFridge")}>
+                <Button danger style={{...styles.button, width: 100}} onPress={() => navigation.replace("MyFridge")}>
                   <Text adjustsFontSizeToFit>Back</Text>
                 </Button>
               </View>
@@ -209,7 +214,7 @@ const MyFridge = ({onSubmit, navigation, pantry}) => {
                   <Text adjustsFontSizeToFit>Confirm</Text>
                 </Button>
                 <View style={{flex: 0.2}}/>
-                <Button style={{...styles.button, width: 100}} onPress={() => navigation.replace("MyFridge")}>
+                <Button danger style={{...styles.button, width: 100}} onPress={() => navigation.replace("MyFridge")}>
                   <Text adjustsFontSizeToFit>Back</Text>
                 </Button>
               </View>
@@ -234,7 +239,6 @@ const styles = StyleSheet.create({
   },
   item: {
     fontFamily: 'SF Pro Display Bold',
-    flex: 2,
     fontSize: 18,
     color: "black",
   },

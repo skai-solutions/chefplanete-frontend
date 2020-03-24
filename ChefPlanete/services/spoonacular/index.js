@@ -33,7 +33,7 @@ export const getRecipesByIngredientUsageAndRestrictions = (ingredients, restrict
       .then(pullOutJson);
   }
   else {
-    return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&intolerances=${restrictionList}&addRecipeInformation=true&includeIngredients=${ingredientNames}&sort=min-missing-ingredients&ignorePantry=true`), {
+    return fetch(encodeURI(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${getRecipeApiKey()}&fillIngredients=true&intolerances=${restrictionList}&addRecipeInformation=true&includeIngredients=${ingredientNames}&sort=min-missing-ingredients&ignorePantry=true&instructionsRequired=true`), {
       method: "GET",
     })
       .then(handleError)
