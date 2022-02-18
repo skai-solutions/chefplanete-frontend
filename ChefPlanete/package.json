@@ -19,7 +19,7 @@
     "expo-font": "latest",
     "expo-google-app-auth": "^8.0.0",
     "native-base": "^2.13.8",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-dates": "^20.2.4",
